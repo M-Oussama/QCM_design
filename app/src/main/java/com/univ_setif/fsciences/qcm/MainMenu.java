@@ -1,9 +1,11 @@
 package com.univ_setif.fsciences.qcm;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -33,6 +35,14 @@ public class MainMenu extends AppCompatActivity {
                 });
 
         AlertDialog exit = confirm.create();
+        exit.setCanceledOnTouchOutside(true);
+        exit.setOnKeyListener(new Dialog.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
+                dialogInterface.cancel();
+                return true;
+            }
+        });
         exit.setTitle("Exit");
         exit.show();
     }
