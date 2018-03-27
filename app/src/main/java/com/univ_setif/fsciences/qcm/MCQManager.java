@@ -49,7 +49,8 @@ public class MCQManager extends AppCompatActivity {
         ArrayList<QCM> qcm = (ArrayList<QCM>) controleur.getAllQCM();
         qcmArrayAdapter = new QCMArrayAdapter(this, R.layout.activity_mcqeditor_create, qcm);
 
-        list = this.findViewById(R.id.listMCQ);
+        list = findViewById(R.id.listMCQ);
+
         list.setAdapter(qcmArrayAdapter);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {

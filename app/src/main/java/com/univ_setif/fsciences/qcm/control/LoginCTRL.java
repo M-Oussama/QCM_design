@@ -30,6 +30,7 @@ public class LoginCTRL {
 
     protected static void getSession(Context context){
         Intent t = new Intent(context, MCQManager.class);
+        t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(t);
     }
 }

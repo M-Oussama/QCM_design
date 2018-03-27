@@ -79,8 +79,8 @@ public class MainMenu extends AppCompatActivity {
         });
 
         //Retrieving Components
-        final EditText password = mLoginView.findViewById(R.id.password);
-        final Button mSubmit    = mLoginView.findViewById(R.id.login);
+        final EditText password = (EditText) mLoginView.findViewById(R.id.password);
+        final Button mSubmit    = (Button) mLoginView.findViewById(R.id.login);
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override

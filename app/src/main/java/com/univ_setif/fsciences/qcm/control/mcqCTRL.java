@@ -740,7 +740,7 @@ public class mcqCTRL {
         if (cursor == null)
             return null;
 
-        List<QCM> qcm = new ArrayList<>();
+        List<QCM> qcm = new ArrayList<QCM>();
 
         Question qst;
         Answer a1, a2, a3, a4;

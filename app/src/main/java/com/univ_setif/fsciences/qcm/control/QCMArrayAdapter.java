@@ -43,11 +43,11 @@ public class QCMArrayAdapter extends ArrayAdapter<QCM> {
 
         View listItem = inflater.inflate(R.layout.listview_line, parent, false);
 
-        TextView questionText = listItem.findViewById(R.id.questionText);
-        TextView answerText1  = listItem.findViewById(R.id.answerText1);
-        TextView answerText2  = listItem.findViewById(R.id.answerText2);
-        TextView answerText3  = listItem.findViewById(R.id.answerText3);
-        TextView answerText4  = listItem.findViewById(R.id.answerText4);
+        TextView questionText = (TextView) listItem.findViewById(R.id.questionText);
+        TextView answerText1  = (TextView) listItem.findViewById(R.id.answerText1);
+        TextView answerText2  = (TextView) listItem.findViewById(R.id.answerText2);
+        TextView answerText3  = (TextView) listItem.findViewById(R.id.answerText3);
+        TextView answerText4  = (TextView) listItem.findViewById(R.id.answerText4);
     if(mQCM.get(position) != null) {
         questionText.setText(mQCM.get(position).getQuestion().getText());
         answerText1.setText(mQCM.get(position).getAns1().getText());

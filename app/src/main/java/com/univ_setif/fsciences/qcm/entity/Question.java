@@ -10,11 +10,6 @@ public class Question {
     private String text;
     private Answer correctAnswer;
 
-    public Question(int questionID, String text, Answer correctAnswer){
-        this.text = text;
-        this.correctAnswer = correctAnswer;
-    }
-
     public Question(String text, Answer correctAnswer){
         this.text = text;
         this.correctAnswer = correctAnswer;

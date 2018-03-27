@@ -166,7 +166,6 @@ public class MCQEditor extends AppCompatActivity {
 
     }
 
-/*
     public void onDeleteButtonClick(View v){
         final String text = i.getStringExtra("oldQuestionText");
 
@@ -176,10 +175,11 @@ public class MCQEditor extends AppCompatActivity {
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        initComponents();
+                      initComponents();
                         mcqCTRL controleur = new mcqCTRL(MCQEditor.this);
                         controleur.openWritable();
                         controleur.deleteQCM(new Question(text));
+                        controleur.close();
 
                         Toast t = Toast.makeText(MCQEditor.this, "Success", Toast.LENGTH_SHORT);
                         t.show();
@@ -205,24 +205,6 @@ public class MCQEditor extends AppCompatActivity {
         });
         deleteDialog.setTitle("Supprimer");
         deleteDialog.show();
-    }
-
-*/
-
-
-
-    public void onDeleteButtonClick(View v){
-        final String text = i.getStringExtra("oldQuestionText");
-                        initComponents();
-                        mcqCTRL controleur = new mcqCTRL(MCQEditor.this);
-                        controleur.openWritable();
-                        controleur.deleteQCM(new Question(text));
-                        controleur.close();
-
-                        Toast t = Toast.makeText(MCQEditor.this, "Success", Toast.LENGTH_SHORT);
-                        t.show();
-
-                        MCQEditor.this.finish();
     }
 
 
