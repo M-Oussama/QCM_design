@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.univ_setif.fsciences.qcm.MCQManager">
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addFloat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="14dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="onAddFloatingButtonClick"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="14dp" />
+
+    <ListView
+        android:id="@+id/listMCQ"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/addFloat"
+        android:layout_marginTop="24dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:layout_marginBottom="50dp"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/listMCQ"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+        android:text="Content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+</RelativeLayout>
