@@ -16,4 +16,5 @@
     <string name="answer_2">Answer 2</string>
     <string name="add">Add</string>
     <string name="update">Update</string>
+    <string name="question_n"><![CDATA[Question <n>]]></string>
 </resources>

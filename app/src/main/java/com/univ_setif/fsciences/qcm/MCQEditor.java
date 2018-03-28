@@ -72,7 +72,6 @@ public class MCQEditor extends AppCompatActivity {
 
         if(!checkInputValidity()) return;
 
-
         //Initializing Objects
         Answer ans1 = new Answer(answer1.getText().toString());
         Answer ans2 = new Answer(answer2.getText().toString());

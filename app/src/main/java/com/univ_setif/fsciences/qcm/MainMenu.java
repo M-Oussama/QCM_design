@@ -2,6 +2,7 @@ package com.univ_setif.fsciences.qcm;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,8 +26,13 @@ public class MainMenu extends AppCompatActivity {
 
        controleur = new mcqCTRL(this);
        controleur.openReadable();
-       controleur.close();
     }
+
+    public void onStartClickListener(View v){
+        Intent t = new Intent(MainMenu.this, Session.class);
+        startActivity(t);
+    }
+
 
     public void onExitClickListener(View V){
         AlertDialog.Builder confirm = new AlertDialog.Builder(MainMenu.this);
