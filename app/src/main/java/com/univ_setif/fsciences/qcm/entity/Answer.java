@@ -28,4 +28,8 @@ public class Answer {
         return "Answer[" + text + "].";
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return this.getText().equals(((Answer)obj).getText());
+    }
 }

@@ -43,7 +43,6 @@ public class MCQEditor extends AppCompatActivity {
 
          if(i.getStringExtra("invoker").equals("mcqmanager")) {
              setContentView(R.layout.activity_mcqeditor_update);
-
              question = findViewById(R.id.question);
              question.setText(i.getStringExtra("oldQuestionText"));
 
@@ -61,7 +60,23 @@ public class MCQEditor extends AppCompatActivity {
 
              answer4 = findViewById(R.id.answer4);
              answer4.setText(i.getStringExtra("oldAnswerText4"));
-         }else
+
+             isCorrect1 = findViewById(R.id.isCorrect1);
+             isCorrect2 = findViewById(R.id.isCorrect2);
+             isCorrect3 = findViewById(R.id.isCorrect3);
+             isCorrect4 = findViewById(R.id.isCorrect4);
+
+             String correctAnswer = i.getStringExtra("correctAnswer");
+             if(correctAnswer.equals(answer1.getText().toString()))
+                 isCorrect1.setChecked(true);
+             else if(correctAnswer.equals(answer2.getText().toString()))
+                 isCorrect2.setChecked(true);
+             else if(correctAnswer.equals(answer3.getText().toString()))
+                 isCorrect3.setChecked(true);
+             else
+                 isCorrect4.setChecked(true);
+         }
+         else
              setContentView(R.layout.activity_mcqeditor_create);
 
     }

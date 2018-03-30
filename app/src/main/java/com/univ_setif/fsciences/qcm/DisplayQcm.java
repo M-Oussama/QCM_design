@@ -14,14 +14,19 @@ import android.widget.TextView;
 
 public class DisplayQcm extends Fragment {
 
-    private OnSwipeInListener swipe;
+    private SwipeListener swipe;
     private int position;
+
+    TextView qstText;
+    Button ans1;
+    Button ans2;
+    Button ans3;
+    Button ans4;
 
     public DisplayQcm() {
         // Required empty public constructor
+
     }
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,15 +37,15 @@ public class DisplayQcm extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        position = getArguments().getInt("position");
+        position = getArguments().getInt("number");
 
         View view = inflater.inflate(R.layout.fragment_display_qcm, container, false);
 
-        final TextView qstText = view.findViewById(R.id.questionContent);
-        final Button ans1      = view.findViewById(R.id.answerContent1);
-        final Button ans2      = view.findViewById(R.id.answerContent2);
-        final Button ans3      = view.findViewById(R.id.answerContent3);
-        final Button ans4      = view.findViewById(R.id.answerContent4);
+        qstText = view.findViewById(R.id.questionContent);
+        ans1      = view.findViewById(R.id.answerContent1);
+        ans2      = view.findViewById(R.id.answerContent2);
+        ans3      = view.findViewById(R.id.answerContent3);
+        ans4      = view.findViewById(R.id.answerContent4);
 
 
         ans1.setOnClickListener(new View.OnClickListener() {
@@ -93,26 +98,28 @@ public class DisplayQcm extends Fragment {
         return view;
     }
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if(!hidden){
 
-            swipe.onSwipeIn(position);
-        }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if(isVisibleToUser && getView() != null)
+                swipe.onSwipeIn(position);
     }
 
     @Override
     public void onAttach(Context context) {
-
         super.onAttach(context);
 
         Activity activity = (Activity) context;
-
-        swipe = (OnSwipeInListener) activity;
+        swipe = (SwipeListener) activity;
     }
 
-    public interface OnSwipeInListener{
-        public void onSwipeIn(int position);
+    public interface SwipeListener {
+        void onSwipeIn(int position);
+    }
+
+    public interface AnsweringListener {
+        void onAnswer();
     }
 }

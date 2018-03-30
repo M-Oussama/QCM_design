@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,41 +11,45 @@
         android:id="@+id/addFloat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/listMCQ"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="14dp"
-        android:layout_marginTop="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:onClick="onAddFloatingButtonClick"
-        android:padding="0dp"
-        android:scaleType="fitCenter"
-        app:srcCompat="@android:drawable/ic_input_add"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="14dp" />
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:onClick="onAddFloatingButtonClick"
+        app:backgroundTint="@color/colorAccent"
+        app:elevation="@dimen/appbar_padding_top"
+        app:layout_constraintBottom_toTopOf="@+id/listMCQ"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/listMCQ"
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:layout_marginRight="16dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintBottom_toTopOf="@+id/listMCQ"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="16dp" />
 
     <ListView
         android:id="@+id/listMCQ"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="469dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/addFloat"
-        android:layout_marginTop="24dp"
+        android:layout_marginBottom="32dp"
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
-        android:layout_marginBottom="50dp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/listMCQ"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="18dp"
-        android:layout_marginStart="18dp"
-        android:text="Content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

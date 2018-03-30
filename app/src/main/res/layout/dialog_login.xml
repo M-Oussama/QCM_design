@@ -29,6 +29,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="17dp"
         android:ems="10"
+        android:imeOptions="actionSend"
         android:hint="@string/password"
         android:inputType="textPassword" />
 

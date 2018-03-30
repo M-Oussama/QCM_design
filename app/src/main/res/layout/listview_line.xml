@@ -6,8 +6,6 @@
     android:padding="6dip">
 
 
-
-
     <TextView
         android:id="@+id/questionText"
         android:layout_width="match_parent"
@@ -16,7 +14,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:text="@string/question"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/answerText1"

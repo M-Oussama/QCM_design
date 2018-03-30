@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.univ_setif.fsciences.qcm.control.QCMArrayAdapter;
@@ -18,8 +17,6 @@ public class MCQManager extends AppCompatActivity {
     mcqCTRL controleur;
     QCMArrayAdapter qcmArrayAdapter;
     ListView list;
-    Button edit;
-    Button delete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +64,7 @@ public class MCQManager extends AppCompatActivity {
                 i.putExtra("oldAnswerText2", qcm.getAns2().getText());
                 i.putExtra("oldAnswerText3", qcm.getAns3().getText());
                 i.putExtra("oldAnswerText4", qcm.getAns4().getText());
+                i.putExtra("correctAnswer", qcm.getQuestion().getAnswer().getText());
 
                 startActivity(i);
             }

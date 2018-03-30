@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.univ_setif.fsciences.qcm.control.LoginCTRL;
 import com.univ_setif.fsciences.qcm.control.mcqCTRL;
@@ -76,16 +77,14 @@ public class MainMenu extends AppCompatActivity {
 
         //Creating Dialog Popup
         final AlertDialog login = mLogin.create();
-        login.setOnKeyListener(new Dialog.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
-                dialogInterface.cancel();
-                return true;
-            }
-        });
+        login.setCancelable(false);
+        login.setCanceledOnTouchOutside(true);
+
+
 
         //Retrieving Components
         final EditText password = (EditText) mLoginView.findViewById(R.id.password);
+
         final Button mSubmit    = (Button) mLoginView.findViewById(R.id.login);
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +93,27 @@ public class MainMenu extends AppCompatActivity {
                 final String pass = password.getText().toString();
                 LoginCTRL.verify(getApplicationContext(), pass);
                 login.cancel();
+            }
+        });
+
+        mSubmit.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+
+                if(keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
+                    switch (keyCode) {
+                        case KeyEvent.KEYCODE_DPAD_CENTER:
+                        case KeyEvent.KEYCODE_ENTER:
+                            final String pass = password.getText().toString();
+                            LoginCTRL.verify(getApplicationContext(), pass);
+                            login.cancel();
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+
+                return false;
             }
         });
 

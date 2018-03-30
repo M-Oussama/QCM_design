@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.univ_setif.fsciences.qcm.MCQManager;
-import com.univ_setif.fsciences.qcm.MainMenu;
-import com.univ_setif.fsciences.qcm.R;
 
 /**
  * Created by hzerrad on 18-Mar-18.
@@ -14,7 +12,7 @@ import com.univ_setif.fsciences.qcm.R;
 
 public class LoginCTRL {
     private static final String PASSWORD = "admin";
-    private static Context context;
+    private Context context;
 
 
     public static void verify(Context context, String password){
@@ -28,7 +26,7 @@ public class LoginCTRL {
         }
     }
 
-    protected static void getSession(Context context){
+    private static void getSession(Context context){
         Intent t = new Intent(context, MCQManager.class);
         t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(t);

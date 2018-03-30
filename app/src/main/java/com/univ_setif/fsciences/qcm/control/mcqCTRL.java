@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.univ_setif.fsciences.qcm.entity.QCM;
@@ -50,8 +51,12 @@ public class mcqCTRL {
 
         private void initDatabase(SQLiteDatabase db) {
             Answer noAns = new Answer("La réponse juste n'est pas donnée");
+            Answer allAns = new Answer("Tout les réponses sont juste");
 
-            Answer a1, a2, a3;
+            addAnswer(noAns);
+            addAnswer(allAns);
+
+            Answer a1, a2, a3, a4;
 
             Question qst;
 
@@ -75,14 +80,14 @@ public class mcqCTRL {
             a3 = new Answer("Un langage d'expression des contraintes utilisé par le langage UML");
             qst = new Question("Le langage OCL est :", a3);
 
-            createQCM(qst, a1, a2, a3, noAns);
+            createQCM(qst, a1, a2, a3, allAns);
 
             a1 = new Answer("Les attributs et les méthodes des différentes classes concernées par l'IHM");
             a2 = new Answer("Les données, la présentation et les traitements de l'IHM concernée");
             a3 = new Answer("Les différents paquetages manipulant l'IHM concernée");
             qst = new Question("Le modèle MVC a pour rôle la conception d'IHM en imposant une séparation entre :", a2);
 
-            createQCM(qst, a1, a2, a3, noAns);
+            createQCM(qst, a1, a2, a3, allAns);
 
             a1 = new Answer("Construction de véritables applications métier");
             a2 = new Answer("Visibilité des services offerts par l'interface de l'extérieur");
@@ -103,23 +108,24 @@ public class mcqCTRL {
             a3 = new Answer("Une nouvelle méthode pour le développement des systèmes multi‐agents");
             qst = new Question("La démarche MDA est :\n", a3);
 
-            createQCM(qst, a1, a2, a3, noAns);
+            createQCM(qst, a1, a2, a3, allAns);
 
             a1 = new Answer("Entité");
             a2 = new Answer("Nœud");
             a3 = new Answer("Objet");
+            a4 = new Answer("Paquetage");
             qst = new Question("Quel terme ne se rapporte pas à la modélisation d'un diagramme UML ?", a1);
 
-            createQCM(qst, a1, a2, a3, noAns);
+            createQCM(qst, a1, a2, a3, a4);
 
             a1 = new Answer("PUMA");
             a2 = new Answer("RAD");
             a3 = new Answer("XP");
-            qst = new Question("Lequel n'est pas une méthode agile ?", noAns);
+            a4 = new Answer("AXIAL");
+            qst = new Question("Lequel n'est pas une méthode agile ?", a4);
 
-            createQCM(qst, a1, a2, a3, noAns);
+            createQCM(qst, a1, a2, a3, a4);
 
-//10
             a1 = new Answer("C'est une méthode itérative et incrémentale");
             a2 = new Answer("C'est une méthode pilotée par les risques");
             a3 = new Answer("C'est une méthode conduite par les cas d'utilisation");
@@ -128,218 +134,369 @@ public class mcqCTRL {
             createQCM(qst, a1, a2, a3, noAns);
 
 
-        /*
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
+        a1 = new Answer("Modèle en Y");
+        a2 = new Answer("Modèle en W");
+        a3 = new Answer("Modèle en V");
+        qst = new Question("Lequel n'est pas un modèle de développement d'un projet ?", noAns);
 
         createQCM(qst, a1, a2, a3, noAns);
 
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question(qstID, "", );
+        a1 = new Answer("Définir des mesures quantitatives de qualité des produits");
+        a2 = new Answer("Vérifier que tous les produits sont conformes à des critères de qualité");
+        a3 = new Answer("Établir des procédures formelles que doivent respecter les cycles de production et contrôler le respect");
+        qst = new Question("En quoi consiste un plan d'assurance qualité ?", a3);
+
+        createQCM(qst, a1, a2, a3, allAns);
+
+        a1 = new Answer("Lorsqu'un objet réagit à un événement, il déclenche en réponse à cet événement une et une seule opération");
+        a2 = new Answer("Contrairement aux événements qui durent, un état est par nature une information instantanée qui doit être traitée sans plus attendre");
+        a3 = new Answer("Tout message est un événement impliqué dans l'interaction de deux objets");
+        qst = new Question("Dans le diagramme État‐transition du langage UML :", noAns);
 
         createQCM(qst, a1, a2, a3, noAns);
 
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
+        a1 = new Answer("Séquences");
+        a2 = new Answer("Paquages");
+        a3 = new Answer("Composants");
+        a4 = new Answer("Déploiement");
+        qst = new Question("Un concepteur souhaite décrire l'architecture des codes source, des bibliothèques, des différents fichiers exécutables ainsi que les liens entre eux, lors du développement d'un logiciel, alors il doit utiliser un diagramme de :", a3);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("Diagramme d'activités");
+        a2 = new Answer("Diagramme de communication");
+        a3 = new Answer("Diagramme de composants");
+        a4 = new Answer("Diagramme de structure composite");
+        qst = new Question("Lequel de ces diagrammes n'est ni structurel ni statique ?", a1);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("Entité est transformée en classe");
+        a2 = new Answer("Association est transformée en classe");
+        a3 = new Answer("Entité est transformée en composition");
+        qst = new Question("Lors du passage du MCD Merise au diagramme de classes UML 2, toute :", a1);
 
         createQCM(qst, a1, a2, a3, noAns);
 
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
+        a1 = new Answer("Représente une association symétrique dans laquelle les deux extrémités jouent le même rôle");
+        a2 = new Answer("Implique une coïncidence des durées de vie des objets des deux extrémités : la destruction de l'un implique automatiquement la destruction de l'autre");
+        a3 = new Answer("Représente une association non symétrique dans laquelle une des extrémités joue un rôle prédominant par rapport à l'autre extrémité");
+        qst = new Question("Dans le diagramme de classes du langage UML, une agrégation :", a1);
 
         createQCM(qst, a1, a2, a3, noAns);
 
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
+        a1 = new Answer("Est une relation réflexive : une classe peut dériver d'elle‐même");
+        a2 = new Answer("Est une relation transitive : si C dérive d'une classe B qui dérive elle‐même d'une classe A, alors C dérive également de A");
+        a3 = new Answer("Est une relation symétrique : si une classe B dérive d'une classe A, alors la classe A peut dériver de la classe B");
+        a4 = new Answer("Représente une association non symétrique dans laquelle une des extrémités joue un rôle prédominant par rapport à l'autre extrémité");
+        qst = new Question("Dans un diagramme de classes en langage UML, la généralisation :", a2);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("Elle peut relier deux acteurs");
+        a2 = new Answer("Elle peut relier deux uses cases");
+        a3 = new Answer("Elle peut relier un use case et un acteur");
+        qst = new Question("Dans un diagramme de Use Case UML, qu'est‐ce qui n'est pas vrai pour la généralisation ?", a3);
 
         createQCM(qst, a1, a2, a3, noAns);
 
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
+        a1 = new Answer("Un élément non visible (private)");
+        a2 = new Answer("Un élément visible seulement par les sous‐classes (default)");
+        a3 = new Answer("Un élément visible seulement par les classes du même paquetage (protected)");
+        qst = new Question(" Le symbole « ~ » représente en UML ?", a3);
 
         createQCM(qst, a1, a2, a3, noAns);
 
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
+        a1 = new Answer("Facade");
+        a2 = new Answer("Iterator");
+        a3 = new Answer("Prototype");
+        qst = new Question("Quel design pattern fournit une interface unifiée facile à utiliser pour un ensemble d'interfaces dans un sous‐système ?", a1);
 
         createQCM(qst, a1, a2, a3, noAns);
 
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
+        a1 = new Answer("MLD");
+        a2 = new Answer("MCT");
+        a3 = new Answer("MPT");
+        qst = new Question("Dans la méthode Merise le concept de synchronisation est relatif au ?", a2);
 
         createQCM(qst, a1, a2, a3, noAns);
 
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
+        a1 = new Answer("Le diagramme de séquence rassemble les cas d'utilisation");
+        a2 = new Answer("La composition est un cas particulier de l'association");
+        a3 = new Answer("Un diagramme de cas d'utilisation est un scénario de tests");
+        a4 = new Answer("Dans l'agrégation, quand on détruit un composé A, tous les composants B sont détruits");
+        qst = new Question("Quel énoncé est vrai à propos des diagrammes UML ?", a2);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("AXIAL");
+        a2 = new Answer("MDA");
+        a3 = new Answer("MERISE");
+        a4 = new Answer("OCL");
+        qst = new Question("Laquelle n'est pas qualifiée comme une méthode de modélisation d'un système ?", a4);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("Il est invoqué dynamiquement par d'autres services");
+        a2 = new Answer("Il est encapsulé dans une couche de standards dérivés du langage XML");
+        a3 = new Answer("Il est déployé sur n'importe quelle plate‐forme");
+        a4 = new Answer("Il est un composant complexe implémenté dans un langage précis");
+        qst = new Question("Quel énoncé est faux à propos de Web Service ?", a4);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("Maintenance évolutive");
+        a2 = new Answer("Maintenance adaptative");
+        a3 = new Answer("Maintenance corrective");
+        a4 = new Answer("Maintenance préventive");
+        qst = new Question("Quel type de maintenance consiste à faire évoluer une application lorsque son environnement change pour assurer sa continuité ?", a2);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("MOE désigne l'entité retenue par le maître d'ouvrage afin de réaliser le projet dans les conditions de délais, de qualité");
+        a2 = new Answer("MOE est l'entité porteuse du besoin, définissant l'objectif du projet, son calendrier et le budget consacré à ce projet");
+        a3 = new Answer("MOA désigne l'entité retenue par le maître d'ouvrage afin de réaliser le projet dans les conditions de délais, de qualité");
+        qst = new Question("Quelle est la différence entre MOA et MOE ?", a1);
+
+        createQCM(qst, a1, a2, a3, allAns);
+
+        a1 = new Answer("Merise est une méthode d'analyse, de conception et de gestion de projet intégrée");
+        a2 = new Answer("UML est un langage permettant d'utiliser toute méthode orientée objet");
+        a3 = new Answer("Merise préconise d'analyser séparément données et traitements, à chaque niveau");
+        a4 = new Answer("Merise est beaucoup plus vaste et s'intéresse aux techniques de modélisation des données autant que des traitements dans le paradigme objet");
+        qst = new Question("Quel énoncé est faux concernant la différence entre MERISE et UML ?", a4);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("La gestion de la disponibilité (Availability Management)");
+        a2 = new Answer("La gestion de la continuité des services (IT Continuity Management)");
+        a3 = new Answer("La gestion financière des services (IT Financial Management)");
+        a4 = new Answer("La gestion des accords de service (Service Level Agreement)");
+        qst = new Question("Quel processus ITIL est responsable de l'affectation des coûts des contrats de sous‐traitance ?", a2);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("Une connexion directe entre deux ordinateurs");
+        a2 = new Answer("Une pratique Internet adoptée par des associations");
+        a3 = new Answer("Une pratique commerciale Internet s'adressant aux entreprises");
+        qst = new Question("Qu'est-ce que la B2B ?", a3);
+
+        createQCM(qst, a1, a2, a3, allAns);
+
+        a1 = new Answer("Le PCA permet d'éviter une interruption de service qui engendrerait un PRA (reprise)");
+        a2 = new Answer("Le PRA demande une surveillance pour fournir une continuité de service");
+        a3 = new Answer("Le PRA permet d'éviter une interruption de service qui engendrerait un PCA");
+        a4 = new Answer("Le PRA ne doit tolérer aucune interruption de service alors que le PCA est une procédure qui intervient suite à une interruption de service");
+        qst = new Question("Quelle est la différence entre les plans PRA et PCA dans le domaine de sécurité s'un SI ?", a1);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("Détecter les virus polymorpohes");
+        a2 = new Answer("Interdire l'accès extérieur à un ordinateur");
+        a3 = new Answer("Filtrer les pourriels et les scams");
+        a4 = new Answer("Détecter et bloquer les spams");
+        qst = new Question("Dans un intranet, un pare-feu permet de :", a2);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("ITIL est un moyen de production");
+        a2 = new Answer("ITIL comprend 7 modules principaux de gestion");
+        a3 = new Answer("ITIL est un référentiel de gestion et de management des systèmes d'information qui s'appuie sur un ensemble de bonnes pratiques");
+        a4 = new Answer("La double démarche en matière d'organisation d'une production de service IT est le fournisseur et producteur");
+        qst = new Question("Quelle affirmation est fausse concernant ITIL ?", a4);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("Infonet");
+        a2 = new Answer("Internet");
+        a3 = new Answer("Intranet");
+        a4 = new Answer("Extranet");
+        qst = new Question("Laquelle est qualifiée comme une extension d'un système d'information de l'entreprise à des partenaires distants ?", a4);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("2");
+        a2 = new Answer("3");
+        a3 = new Answer("4");
+        a4 = new Answer("5");
+        qst = new Question("Combien de niveaux existe‐t‐il dans le modèle de qualité CMMI ?", a4);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("Une classe abstraite");
+        a2 = new Answer("Un stéréotype de classe");
+        a3 = new Answer("Un composant graphique");
+        a4 = new Answer("Une agrégation composite");
+        qst = new Question("En UML, une interface est :", a2);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("Polymorphisme");
+        a2 = new Answer("Protection des variations");
+        a3 = new Answer("Expert");
+        a4 = new Answer("Proxy");
+        qst = new Question("Lequel n'est pas qualifié comme un design pattern GRASP ?", a4);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("Diagramme de timing");
+        a2 = new Answer("Diagramme de paquetage");
+        a3 = new Answer("Diagramme de profile");
+        a4 = new Answer("Diagramme de structure composite");
+        qst = new Question("Quel diagramme n'est ni structurel ni comportemental ?", a3);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("Oui, car les données sont toujours sauvegardées");
+        a2 = new Answer("Oui, car on a longtemps échangé des informations pour travailler sans disposer d'informatique");
+        a3 = new Answer("Non, car on ne peut pas échanger des informations sans informatique");
+        a4 = new Answer("Non, car une base de données est nécessaire pour stocker l'information");
+        qst = new Question("Peut‐il exister un système d'information sans équipement informatique ?", a2);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("L'atteinte des objectifs techniques");
+        a2 = new Answer("La détermination des conditions d'acceptation du produit par les utilisateurs de celui‐ci et les parties prenantes");
+        a3 = new Answer("La seule rentabilité financière");
+        qst = new Question("En matière de gestion de projet, qu'est‐ce que la viabilité ?", a2);
 
         createQCM(qst, a1, a2, a3, noAns);
 
-//20
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
+        a1 = new Answer("ISO 21500");
+        a2 = new Answer("ISO 25100");
+        a3 = new Answer("ISO 27100");
+        qst = new Question("Quelle norme est relative au gestion de projet ?", a1);
 
         createQCM(qst, a1, a2, a3, noAns);
 
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
+        a1 = new Answer("Le SSO est un service d'autorisation");
+        a2 = new Answer("Le SSO est un service d'authentification");
+        a3 = new Answer("Le SSO est un service d'identification");
+        qst = new Question("En informatique, qu'est-ce qu'un SSO ?", a2);
+
+        createQCM(qst, a1, a2, a3, allAns);
+
+        a1 = new Answer("Data Mining (fouille de données)");
+        a2 = new Answer("Workflow (flux de travail)");
+        a3 = new Answer("Database sharing (partage de base de données)");
+        a4 = new Answer("Tracking (suivi et traçabilité)");
+        qst = new Question("Quel procédé de gestion n'est pas utilisé par les ERP (Progiciel de Gestion Intégré) ?", a1);
 
         createQCM(qst, a1, a2, a3, noAns);
 
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
+        a1 = new Answer("Phishing");
+        a2 = new Answer("Spaming");
+        a3 = new Answer("Social Engineering");
+        a4 = new Answer("Scam");
+        qst = new Question("Une technique consistant à voler des informations de la part des utilisateurs par courrier électronique, téléphone, contact direct ou un site web falsifié s'appelle :", a2);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("La technologie est trés bénéfique, Il facilite les sauvegardes et offre un niveau élevé de performance.");
+        a2 = new Answer("On peut héberger des applications très gourmandes en ressources comme le SGBD.");
+        a3 = new Answer("La technologie est intéressante mais reste coûteuse en terme de temps et de licences");
+        qst = new Question("Quelle affirmation est fausse concernant la technologie de virtualisation ?", noAns);
 
         createQCM(qst, a1, a2, a3, noAns);
 
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
+        a1 = new Answer("Intelligence artificielle");
+        a2 = new Answer("Systèmes de gestion de la qualité");
+        a3 = new Answer("Gestion de la relation client (CRM)");
+        qst = new Question("Dans une stratégie de veille stratégique (Business Intelligence), lequel de ces éléments est indispensable ?", noAns);
 
         createQCM(qst, a1, a2, a3, noAns);
 
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
+        a1 = new Answer("Applets");
+        a2 = new Answer("Webservices");
+        a3 = new Answer("Composants java d'entreprise (EJBs)");
+        a4 = new Answer("Scripts utilisant des composants (CGI)");
+        qst = new Question("Pour vérifier un serveur Web, un administrateur SI devrait estimer le risque d'accès non autorisé à de l'information confidentielle au plus haut niveau, s'il y a utilisation de ?", a4);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("vulnerabilité");
+        a2 = new Answer("impact");
+        a3 = new Answer("menace");
+        a4 = new Answer("sinistre");
+        qst = new Question("Le choix de mot de passe faible dans un SI est un exemple de ?", a1);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("5 personnes / 2 ans");
+        a2 = new Answer("10 personnes / 12 mois");
+        a3 = new Answer("120 personnes / 2 semaines");
+        qst = new Question("Une charge de 60 mois/homme signifie ?", a3);
 
         createQCM(qst, a1, a2, a3, noAns);
 
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
+        a1 = new Answer("Exprime le besoin des utilisateurs");
+        a2 = new Answer("Exprime les fonctions de service et les contraintes attendues par les utilisateurs");
+        a3 = new Answer("Exprime le procédé de fabrication devant être utilisé pour fabriquer un objet technique");
+        a4 = new Answer("Exprime les solutions techniques retenues pour chaque fonction de service");
+        qst = new Question("Un cahier des charges :", a2);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("Modèle en spirale");
+        a2 = new Answer("Modèle en W");
+        a3 = new Answer("Modèle en cascade");
+        a4 = new Answer("Modèle récursif");
+        qst = new Question("Lequel n'est pas un modèle de développement des projets ?", a4);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("Élaboration de plan d'assurance qualité");
+        a2 = new Answer("Planification");
+        a3 = new Answer("Définition du plan de recette");
+        a4 = new Answer("Conception Merise/UML");
+        qst = new Question("Quelle fonction est réalisé par le MOA dans la phase d'expression de besoin ?", a4);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("Établir le diagramme de Gantt");
+        a2 = new Answer("Définir les jalons du projet");
+        a3 = new Answer("Établir l'organigramme des tâches");
+        a4 = new Answer("Tracer la logique d'enchaînement de tâches");
+        qst = new Question("La réalisation d'un projet commence par la planification. La première étape de la planification consiste à :", a3);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("Une décomposition hiérarchique des tâches à effectuer pour atteindre l'objectif du projet");
+        a2 = new Answer("La liste des tâches à exécuter chronologiquement selon le planning");
+        a3 = new Answer("Une méthodologie de résolution des problèmes techniques à utiliser par l'équipe projet");
+        a4 = new Answer("Une méthodologie d'ordonnancement sous la forme d'un réseau de tâches du projet");
+        qst = new Question("L'organigramme technique des tâches (WBS) d'un projet est :", a1);
+
+        createQCM(qst, a1, a2, a3, a4);
+
+        a1 = new Answer("L'objectif du projet");
+        a2 = new Answer("Au budget du projet");
+        a3 = new Answer("La nature du projet");
+        qst = new Question("Dans un projet, la succession des phases est liée à :", noAns);
 
         createQCM(qst, a1, a2, a3, noAns);
 
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
+        a1 = new Answer("Le chef de projet");
+        a2 = new Answer("La direction générale");
+        a3 = new Answer("La direction technique");
+        qst = new Question("Le plan directeur du projet est établi par ?", a1);
 
         createQCM(qst, a1, a2, a3, noAns);
 
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
+        a1 = new Answer("Vérifier que tous les produits sont conformes à des critères de qualité");
+        a2 = new Answer("Définir des mesures quantitatives de qualité des produits");
+        a3 = new Answer("Établir des procédures formelles que doivent respecter les cycles de production et contrôler le respect");
+        qst = new Question("L'assurance qualité consiste à :", a3);
 
         createQCM(qst, a1, a2, a3, noAns);
 
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
+        a1 = new Answer("L'étude d'opportunité");
+        a2 = new Answer("La recette technique");
+        a3 = new Answer("La recette fonctionnelle");
+        qst = new Question("Quelle phase consiste à contrôler la conformité d'un produit par rapport aux spécifications et critères souhaités ?", a3);
 
         createQCM(qst, a1, a2, a3, noAns);
 
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
-
-        createQCM(qst, a1, a2, a3, noAns);
-
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
-
-        createQCM(qst, a1, a2, a3, noAns);
-
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
-
-        createQCM(qst, a1, a2, a3, noAns);
-
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
-
-        createQCM(qst, a1, a2, a3, noAns);
-
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
-
-        createQCM(qst, a1, a2, a3, noAns);
-
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
-
-        createQCM(qst, a1, a2, a3, noAns);
-
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
-
-        createQCM(qst, a1, a2, a3, noAns);
-
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
-
-        createQCM(qst, a1, a2, a3, noAns);
-
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
-
-        createQCM(qst, a1, a2, a3, noAns);
-
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
-
-        createQCM(qst, a1, a2, a3, noAns);
-
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
-
-        createQCM(qst, a1, a2, a3, noAns);
-
-        a1 = new Answer("");
-        a2 = new Answer("");
-        a3 = new Answer("");
-        qst = new Question("", );
-
-        createQCM(qst, a1, a2, a3, noAns);
-        */
         }
     }
 
@@ -453,6 +610,7 @@ public class mcqCTRL {
 
         while(!c.isAfterLast()){
             if(c.getString(0).equals(question.getText())){
+                Log.w("mcqCTRL-Check(Question)", question.getText() + " already exists in the database.");
                 return true;
             }
 
@@ -473,6 +631,7 @@ public class mcqCTRL {
 
         while(!c.isAfterLast()){
             if(c.getString(0).equals(answer.getText())){
+                Log.w("mcqCTRL-Check(Answer)", answer.getText() + " already exists in the database.");
                 c.close();
                 return true;
             }
@@ -573,11 +732,10 @@ public class mcqCTRL {
 
         updateCorrectAnswer(qcm.getQuestion(), qstID);
 
-
-            updateRelationship = updateAnswer(qcm.getAns1(), ansID1);
-            updateRelationship = updateAnswer(qcm.getAns2(), ansID2);
-            updateRelationship = updateAnswer(qcm.getAns3(), ansID3);
-            updateRelationship = updateAnswer(qcm.getAns4(), ansID4);
+            if(updateAnswer(qcm.getAns1(), ansID1)) updateRelationship = true;
+            if(updateAnswer(qcm.getAns2(), ansID2)) updateRelationship = true;
+            if(updateAnswer(qcm.getAns3(), ansID3)) updateRelationship = true;
+            if(updateAnswer(qcm.getAns4(), ansID4)) updateRelationship = true;
 
         if(updateRelationship)
             updateMapping(qcm.getQuestion(), qcm.getAns1(), qcm.getAns2(), qcm.getAns3(), qcm.getAns4());
