@@ -6,131 +6,30 @@
     android:layout_height="match_parent"
     tools:context="com.univ_setif.fsciences.qcm.MCQEditor">
 
-    <EditText
-        android:id="@+id/question"
+    <include
+        android:id="@+id/include"
+        layout="@layout/fragment_qcmedit"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="37dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="31dp"
-        android:ems="10"
-        android:hint="@string/question_goes_here"
-        android:inputType="textMultiLine"
-        android:isScrollContainer="false"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="34dp"
-        android:layout_height="295dp"
-        android:layout_marginBottom="45dp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginStart="17dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
-        app:layout_constraintHorizontal_bias="0.107"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/question"
-        app:layout_constraintVertical_bias="0.616">
-
-        <RadioButton
-            android:id="@+id/isCorrect1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <RadioButton
-            android:id="@+id/isCorrect2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <RadioButton
-            android:id="@+id/isCorrect3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <RadioButton
-            android:id="@+id/isCorrect4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-    </RadioGroup>
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="19dp"
-        android:layout_marginTop="203dp"
-        android:orientation="vertical"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toTopOf="@+id/update"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/radioGroup"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginRight="19dp">
-
-        <EditText
-            android:id="@+id/answer1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="6"
-            android:hint="@string/answer_1"
-            android:inputType="textMultiLine"
-            android:textSize="12sp" />
-
-        <EditText
-            android:id="@+id/answer2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="6"
-            android:hint="@string/answer_2"
-            android:inputType="textMultiLine"
-            android:textSize="12sp" />
-
-        <EditText
-            android:id="@+id/answer3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="6"
-            android:hint="@string/answer_3"
-            android:inputType="textMultiLine"
-            android:textSize="12sp" />
-
-        <EditText
-            android:id="@+id/answer4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="6"
-            android:hint="@string/answer_4"
-            android:inputType="textMultiLine"
-            android:textSize="12sp" />
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="1dp"
         android:onClick="onAddButtonClick"
         android:text="@string/add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        android:layout_marginRight="16dp" />
+        app:layout_constraintEnd_toEndOf="@+id/include"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
 
 </android.support.constraint.ConstraintLayout>
