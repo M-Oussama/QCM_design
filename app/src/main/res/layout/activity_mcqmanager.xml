@@ -22,8 +22,7 @@
         app:layout_constraintBottom_toTopOf="@+id/listMCQ"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/listMCQ"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:layout_marginRight="16dp" />
+        app:srcCompat="@android:drawable/ic_input_add" />
 
     <TextView
         android:id="@+id/textView3"
@@ -34,8 +33,7 @@
         android:text="@string/content"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintBottom_toTopOf="@+id/listMCQ"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="16dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ListView
         android:id="@+id/listMCQ"

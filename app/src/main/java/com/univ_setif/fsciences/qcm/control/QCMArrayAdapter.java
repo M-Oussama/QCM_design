@@ -14,14 +14,7 @@ import com.univ_setif.fsciences.qcm.R;
 import com.univ_setif.fsciences.qcm.entity.Answer;
 import com.univ_setif.fsciences.qcm.entity.QCM;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
-import java.util.Set;
 
 /**
  * Created by hzerrad on 24-Mar-18.
@@ -52,10 +45,10 @@ public class QCMArrayAdapter extends ArrayAdapter<QCM> {
 
         View listItem = inflater.inflate(R.layout.listview_line, parent, false);
 
-        TextView questionText = (TextView) listItem.findViewById(R.id.questionText);
-        TextView answerText1  = (TextView) listItem.findViewById(R.id.answerText1);
-        TextView answerText2  = (TextView) listItem.findViewById(R.id.answerText2);
-        TextView answerText3  = (TextView) listItem.findViewById(R.id.answerText3);
+        TextView questionText = (TextView) listItem.findViewById(R.id.qText);
+        TextView answerText1  = (TextView) listItem.findViewById(R.id.aText1);
+        TextView answerText2  = (TextView) listItem.findViewById(R.id.aText2);
+        TextView answerText3  = (TextView) listItem.findViewById(R.id.aText3);
         TextView answerText4  = (TextView) listItem.findViewById(R.id.answerText4);
 
     if(mQCM.get(position) != null) {

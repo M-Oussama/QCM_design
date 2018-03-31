@@ -1,61 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="6dip">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:elevation="14dp"
+    >
 
-
-    <TextView
-        android:id="@+id/questionText"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:text="@string/question"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:padding="6dip">
 
-    <TextView
-        android:id="@+id/answerText1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/questionText"
-        android:layout_below="@+id/questionText"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/answer_1"
-        android:layout_alignLeft="@+id/questionText"
-        android:layout_marginLeft="24dp" />
 
-    <TextView
-        android:id="@+id/answerText2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/answerText1"
-        android:layout_below="@+id/answerText1"
-        android:layout_marginTop="14dp"
-        android:text="@string/answer_2"
-        android:layout_alignLeft="@+id/answerText1" />
+        <TextView
+            android:id="@+id/qText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            android:text="@string/question"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/answerText3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/answerText2"
-        android:layout_below="@+id/answerText2"
-        android:layout_marginTop="14dp"
-        android:text="@string/answer_3"
-        android:layout_alignLeft="@+id/answerText2" />
+        <TextView
+            android:id="@+id/aText1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/qText"
+            android:layout_alignStart="@+id/qText"
+            android:layout_below="@+id/qText"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/answer_1" />
 
-    <TextView
-        android:id="@+id/answerText4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/answerText3"
-        android:layout_below="@+id/answerText3"
-        android:layout_marginTop="14dp"
-        android:text="@string/answer_4"
-        android:layout_alignLeft="@+id/answerText3" />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/aText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/aText1"
+            android:layout_alignStart="@+id/aText1"
+            android:layout_below="@+id/aText1"
+            android:layout_marginTop="14dp"
+            android:text="@string/answer_2" />
+
+        <TextView
+            android:id="@+id/aText3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/aText2"
+            android:layout_alignStart="@+id/aText2"
+            android:layout_below="@+id/aText2"
+            android:layout_marginTop="14dp"
+            android:text="@string/answer_3" />
+
+        <TextView
+            android:id="@+id/answerText4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/aText3"
+            android:layout_alignStart="@+id/aText3"
+            android:layout_below="@+id/aText3"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/answer_4" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
