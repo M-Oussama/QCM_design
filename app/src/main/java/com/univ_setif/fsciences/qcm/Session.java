@@ -3,6 +3,7 @@ package com.univ_setif.fsciences.qcm;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.widget.TextView;
 
 import com.univ_setif.fsciences.qcm.control.SwipeAdapter;
@@ -18,6 +19,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
         viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(new SwipeAdapter(getSupportFragmentManager(), Session.this));
+        viewPager.setPageMargin(40);
         viewPager.setOffscreenPageLimit(20);
 
 

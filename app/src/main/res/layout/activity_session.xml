@@ -12,43 +12,55 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
         android:text="Timer Placeholder"
         app:layout_constraintBottom_toTopOf="@+id/viewPager"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginRight="16dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/showQuestionNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/question_1"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         app:layout_constraintBottom_toTopOf="@+id/viewPager"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="16dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
-        android:layout_width="0dp"
-        android:layout_height="431dp"
-        android:layout_marginBottom="55dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="55dp"
-        android:elevation="@dimen/activity_vertical_margin"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="64dp"
+        android:layout_marginTop="64dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingBottom="10dp"
+        android:paddingEnd="@dimen/card_padding"
+        android:paddingLeft="@dimen/card_padding"
+        android:paddingRight="@dimen/card_padding"
+        android:paddingStart="@dimen/card_padding"
+        android:paddingTop="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="@dimen/card_padding"
+        android:layout_marginStart="@dimen/card_padding"
+        android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-    </android.support.v4.view.ViewPager>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
