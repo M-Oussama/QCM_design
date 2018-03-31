@@ -86,7 +86,7 @@
             android:ems="10"
             android:hint="@string/answer_1"
             android:textSize="12sp"
-            android:inputType="textPersonName" />
+            android:inputType="textMultiLine" />
 
         <EditText
             android:id="@+id/answer2"
@@ -96,7 +96,7 @@
             android:ems="10"
             android:hint="@string/answer_2"
             android:textSize="12sp"
-            android:inputType="textPersonName" />
+            android:inputType="textMultiLine" />
 
         <EditText
             android:id="@+id/answer3"
@@ -106,7 +106,7 @@
             android:ems="10"
             android:hint="@string/answer_3"
             android:textSize="12sp"
-            android:inputType="textPersonName" />
+            android:inputType="textMultiLine" />
 
         <EditText
             android:id="@+id/answer4"
@@ -116,7 +116,7 @@
             android:ems="10"
             android:hint="@string/answer_4"
             android:textSize="12sp"
-            android:inputType="textPersonName" />
+            android:inputType="textMultiLine" />
     </LinearLayout>
 
     <Button
