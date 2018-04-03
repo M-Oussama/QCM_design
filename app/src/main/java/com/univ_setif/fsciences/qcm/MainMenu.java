@@ -3,6 +3,9 @@ package com.univ_setif.fsciences.qcm;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,10 +13,12 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.univ_setif.fsciences.qcm.control.LoginCTRL;
 import com.univ_setif.fsciences.qcm.control.mcqCTRL;
+import com.univ_setif.fsciences.qcm.fragments.AdminSpaceFragment;
+import com.univ_setif.fsciences.qcm.fragments.MainFragment;
+import com.univ_setif.fsciences.qcm.fragments.UserSpaceFragment;
 
 public class MainMenu extends AppCompatActivity {
 
@@ -25,15 +30,26 @@ public class MainMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-       controleur = new mcqCTRL(this);
-       controleur.openReadable();
+        /*
+        PageSelectAdapter adapter = new PageSelectAdapter(getSupportFragmentManager());
+        ViewPager viewPager = findViewById(R.id.mainSlider);
+        viewPager.setAdapter(adapter);
+
+        TabLayout tabLayout = findViewById(R.id.tab);
+        tabLayout.setupWithViewPager(viewPager);
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+        */
+
+        controleur = new mcqCTRL(this);
+        controleur.openReadable();
     }
 
     public void onStartClickListener(View v){
         Intent t = new Intent(MainMenu.this, Session.class);
         startActivity(t);
     }
-
 
     public void onExitClickListener(View V){
         AlertDialog.Builder confirm = new AlertDialog.Builder(MainMenu.this);
@@ -118,5 +134,32 @@ public class MainMenu extends AppCompatActivity {
         });
 
         login.show();
+    }
+
+    public class PageSelectAdapter extends FragmentStatePagerAdapter{
+
+        public PageSelectAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch(position){
+                case 0:
+                    return new AdminSpaceFragment();
+
+                case 1:
+                    return new MainFragment();
+
+                case 2:
+                    return new UserSpaceFragment();
+            }
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.univ_setif.fsciences.qcm;
+package com.univ_setif.fsciences.qcm.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.univ_setif.fsciences.qcm.R;
+import com.univ_setif.fsciences.qcm.entity.Answer;
 
 
 public class DisplayQcm extends Fragment {
@@ -22,6 +24,8 @@ public class DisplayQcm extends Fragment {
     Button ans2;
     Button ans3;
     Button ans4;
+
+    Answer answer;
 
     public DisplayQcm() {
         // Required empty public constructor
@@ -41,7 +45,7 @@ public class DisplayQcm extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_display_qcm, container, false);
 
-        qstText = view.findViewById(R.id.questionContent);
+        qstText   = view.findViewById(R.id.questionContent);
         ans1      = view.findViewById(R.id.answerContent1);
         ans2      = view.findViewById(R.id.answerContent2);
         ans3      = view.findViewById(R.id.answerContent3);
@@ -55,6 +59,8 @@ public class DisplayQcm extends Fragment {
                 ans3.setBackgroundResource(android.R.drawable.btn_default);
                 ans4.setBackgroundResource(android.R.drawable.btn_default);
                 ans1.setBackgroundResource(R.color.selectedButton);
+                answer = new Answer(ans1.getText().toString());
+                swipe.onAnswer(position, answer);
             }
         });
 
@@ -65,6 +71,8 @@ public class DisplayQcm extends Fragment {
                 ans3.setBackgroundResource(android.R.drawable.btn_default);
                 ans4.setBackgroundResource(android.R.drawable.btn_default);
                 ans2.setBackgroundResource(R.color.selectedButton);
+                answer = new Answer(ans2.getText().toString());
+                swipe.onAnswer(position, answer);
             }
         });
 
@@ -75,6 +83,8 @@ public class DisplayQcm extends Fragment {
                 ans1.setBackgroundResource(android.R.drawable.btn_default);
                 ans4.setBackgroundResource(android.R.drawable.btn_default);
                 ans3.setBackgroundResource(R.color.selectedButton);
+                answer = new Answer(ans3.getText().toString());
+                swipe.onAnswer(position, answer);
             }
         });
 
@@ -85,6 +95,8 @@ public class DisplayQcm extends Fragment {
                 ans3.setBackgroundResource(android.R.drawable.btn_default);
                 ans1.setBackgroundResource(android.R.drawable.btn_default);
                 ans4.setBackgroundResource(R.color.selectedButton);
+                answer = new Answer(ans4.getText().toString());
+                swipe.onAnswer(position, answer);
             }
         });
 
@@ -117,9 +129,7 @@ public class DisplayQcm extends Fragment {
 
     public interface SwipeListener {
         void onSwipeIn(int position);
+        void onAnswer(int position, Answer answer);
     }
 
-    public interface AnsweringListener {
-        void onAnswer();
-    }
 }

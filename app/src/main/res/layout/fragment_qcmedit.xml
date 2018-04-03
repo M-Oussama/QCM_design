@@ -9,7 +9,6 @@
     android:layout_marginRight="10dp"
     android:layout_marginTop="10dp"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/colorPrimary"
     app:cardElevation="@dimen/appbar_padding_top">
 
 

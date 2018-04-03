@@ -1,17 +1,14 @@
 package com.univ_setif.fsciences.qcm;
 
 import android.content.Intent;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.univ_setif.fsciences.qcm.control.QCMArrayAdapter;
-import com.univ_setif.fsciences.qcm.control.RecyclerAdapter;
 import com.univ_setif.fsciences.qcm.control.mcqCTRL;
 import com.univ_setif.fsciences.qcm.entity.QCM;
 
@@ -24,10 +21,6 @@ public class MCQManager extends AppCompatActivity {
     QCMArrayAdapter qcmArrayAdapter;
     ListView list;
 
-    //+API 21
-    RecyclerAdapter recyclerAdapter;
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
 
 
     @Override
@@ -83,23 +76,6 @@ public class MCQManager extends AppCompatActivity {
             }
         });
     }
-
-
-    /*
-    private void displayQuestionList() {
-        NestedScrollView scrollView;
-        ArrayList<QCM> qcm = (ArrayList<QCM>) controleur.getAllQCM();
-        recyclerAdapter = new RecyclerAdapter(this, qcm);
-
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setNestedScrollingEnabled(true);
-        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(recyclerAdapter);
-    }
-*/
 
     public void onAddFloatingButtonClick(View v){
         Intent t = new Intent(MCQManager.this, MCQEditor.class);

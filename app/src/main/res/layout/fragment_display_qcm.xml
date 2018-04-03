@@ -8,7 +8,6 @@
     android:layout_marginRight="10dp"
     android:layout_marginTop="10dp"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/colorPrimary"
     app:cardElevation="@dimen/appbar_padding_top">
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,7 +15,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.univ_setif.fsciences.qcm.DisplayQcm">
+    tools:context="com.univ_setif.fsciences.qcm.fragments.DisplayQcm">
 
 
     <TextView

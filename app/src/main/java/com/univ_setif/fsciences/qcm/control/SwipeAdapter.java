@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.univ_setif.fsciences.qcm.DisplayQcm;
+import com.univ_setif.fsciences.qcm.fragments.DisplayQcm;
 import com.univ_setif.fsciences.qcm.entity.QCM;
 
 import java.util.ArrayList;
@@ -23,6 +23,10 @@ import java.util.Set;
 public class SwipeAdapter extends FragmentPagerAdapter {
 
     private ArrayList<QCM> qcmList;
+
+    public ArrayList<QCM> getQcmList() {
+        return qcmList;
+    }
 
     public SwipeAdapter(FragmentManager fm, Context context) {
         super(fm);

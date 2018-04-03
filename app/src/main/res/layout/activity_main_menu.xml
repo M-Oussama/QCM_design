@@ -1,41 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.univ_setif.fsciences.qcm.MainMenu"
-    tools:layout_editor_absoluteY="81dp">
+    android:background="@drawable/white_background_images">
 
-    <ImageButton
-        android:id="@+id/admin"
-        style="@android:style/Widget.DeviceDefault.ImageButton"
-        android:layout_width="50sp"
-        android:layout_height="50sp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:adjustViewBounds="true"
-        android:background="@color/colorPrimaryDark"
-        android:contentDescription="@string/opens_admin_login_dialog"
-        android:onClick="onAdminClickListener"
-        android:padding="0dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_admin_white"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="16dp" />
 
     <Button
         android:id="@+id/start"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="160sp"
-        android:layout_height="55sp"
-        android:onClick="onStartClickListener"
+        android:layout_width="308dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="336dp"
         android:text="@string/start"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:onClick="onStartClickListener"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,15 +23,30 @@
     <Button
         android:id="@+id/exit"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="88sp"
-        android:layout_height="48sp"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="45dp"
-        android:background="@color/colorPrimary"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:onClick="onExitClickListener"
         android:text="@string/exit"
-        app:layout_constraintStart_toStartOf="@+id/start"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/start"
-        android:layout_marginLeft="35dp" />
+        app:layout_constraintVertical_bias="0.173" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="28dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="onAdminClickListener"
+        app:elevation="@dimen/activity_vertical_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_admin_white"
+        android:scaleType="center"/>
 
 </android.support.constraint.ConstraintLayout>

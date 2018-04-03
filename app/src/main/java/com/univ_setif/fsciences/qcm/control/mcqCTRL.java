@@ -518,7 +518,7 @@ public class mcqCTRL {
    ========================================*/
     //Question Columns
     public static final String QUESTION_TABLE = "Question";
-    public static final String questionID = "questionID";
+    private static final String questionID = "questionID";
     public static final String questionText = "questionText";
     public static final String CorrectAnswerID = "CorrectAnswerID";
     //Answer Columns
