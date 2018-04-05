@@ -31,31 +31,16 @@ public class QCM {
         return ans1;
     }
 
-    public void setAns1(Answer ans1) {
-        this.ans1 = ans1;
-    }
-
     public Answer getAns2() {
         return ans2;
-    }
-
-    public void setAns2(Answer ans2) {
-        this.ans2 = ans2;
     }
 
     public Answer getAns3() {
         return ans3;
     }
 
-    public void setAns3(Answer ans3) {
-        this.ans3 = ans3;
-    }
-
     public Answer getAns4() {
         return ans4;
     }
 
-    public void setAns4(Answer ans4) {
-        this.ans4 = ans4;
-    }
 }

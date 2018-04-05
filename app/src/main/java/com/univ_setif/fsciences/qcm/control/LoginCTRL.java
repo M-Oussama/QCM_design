@@ -12,8 +12,6 @@ import com.univ_setif.fsciences.qcm.MCQManager;
 
 public class LoginCTRL {
     private static final String PASSWORD = "admin";
-    private Context context;
-
 
     public static void verify(Context context, String password){
         if(password.equals(PASSWORD)) {

@@ -25,6 +25,7 @@ public class AnswerCTRL {
 
     public int checkAnswers(Answer[] answers) {
         for (int i=0; i<qcm.size(); i++) {
+            if(answers[i] != null)
             if(qcm.get(i).getQuestion().getAnswer().getText().equals(answers[i].getText()))
                 note++;
 

@@ -19,54 +19,53 @@ import com.univ_setif.fsciences.qcm.entity.QCM;
 import com.univ_setif.fsciences.qcm.entity.Question;
 
 public class MCQEditor extends AppCompatActivity {
-    EditText question;
+    private EditText question;
 
-    RadioGroup grp;
-    RadioButton isCorrect1;
-    RadioButton isCorrect2;
-    RadioButton isCorrect3;
-    RadioButton isCorrect4;
+    private RadioButton isCorrect1;
+    private RadioButton isCorrect2;
+    private RadioButton isCorrect3;
+    private RadioButton isCorrect4;
 
-    EditText answer1;
-    EditText answer2;
-    EditText answer3;
-    EditText answer4;
+    private EditText answer1;
+    private EditText answer2;
+    private EditText answer3;
+    private EditText answer4;
 
+    private Intent intent;
 
-    Intent i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-         i= getIntent();
+         intent= getIntent();
 
-         if(i.getStringExtra("invoker").equals("mcqmanager")) {
+         if(intent.getStringExtra("invoker").equals("mcqmanager")) {
              setContentView(R.layout.activity_mcqeditor_update);
              question = findViewById(R.id.question);
-             question.setText(i.getStringExtra("oldQuestionText"));
+             question.setText(intent.getStringExtra("oldQuestionText"));
 
              answer1 = findViewById(R.id.answer1);
-             answer1.setText(i.getStringExtra("oldAnswerText1"));
+             answer1.setText(intent.getStringExtra("oldAnswerText1"));
 
 
              answer2 = findViewById(R.id.answer2);
-             answer2.setText(i.getStringExtra("oldAnswerText2"));
+             answer2.setText(intent.getStringExtra("oldAnswerText2"));
 
 
              answer3 = findViewById(R.id.answer3);
-             answer3.setText(i.getStringExtra("oldAnswerText3"));
+             answer3.setText(intent.getStringExtra("oldAnswerText3"));
 
 
              answer4 = findViewById(R.id.answer4);
-             answer4.setText(i.getStringExtra("oldAnswerText4"));
+             answer4.setText(intent.getStringExtra("oldAnswerText4"));
 
              isCorrect1 = findViewById(R.id.isCorrect1);
              isCorrect2 = findViewById(R.id.isCorrect2);
              isCorrect3 = findViewById(R.id.isCorrect3);
              isCorrect4 = findViewById(R.id.isCorrect4);
 
-             String correctAnswer = i.getStringExtra("correctAnswer");
+             String correctAnswer = intent.getStringExtra("correctAnswer");
              if(correctAnswer.equals(answer1.getText().toString()))
                  isCorrect1.setChecked(true);
              else if(correctAnswer.equals(answer2.getText().toString()))
@@ -109,6 +108,7 @@ public class MCQEditor extends AppCompatActivity {
 
         QCM qcm = new QCM(qst, ans1, ans2, ans3, ans4);
         controleur.createQCM(qcm);
+        controleur.close();
 
         Toast t = Toast.makeText(this, "Success", Toast.LENGTH_SHORT);
         t.show();
@@ -116,17 +116,16 @@ public class MCQEditor extends AppCompatActivity {
         finish();
     }
 
-
     public void onUpdateButtonClick(View v){
         initComponents();
         if(!checkInputValidity()) return;
 
         QCM oldQCM = new QCM(
-            new Question(i.getStringExtra("oldQuestionText")),
-                new Answer(i.getStringExtra("oldAnswerText1")),
-                new Answer(i.getStringExtra("oldAnswerText2")),
-                new Answer(i.getStringExtra("oldAnswerText3")),
-                new Answer(i.getStringExtra("oldAnswerText4"))
+            new Question(intent.getStringExtra("oldQuestionText")),
+                new Answer(intent.getStringExtra("oldAnswerText1")),
+                new Answer(intent.getStringExtra("oldAnswerText2")),
+                new Answer(intent.getStringExtra("oldAnswerText3")),
+                new Answer(intent.getStringExtra("oldAnswerText4"))
         );
 
 
@@ -181,7 +180,7 @@ public class MCQEditor extends AppCompatActivity {
     }
 
     public void onDeleteButtonClick(View v){
-        final String text = i.getStringExtra("oldQuestionText");
+        final String text = intent.getStringExtra("oldQuestionText");
 
         AlertDialog.Builder confirm = new AlertDialog.Builder(MCQEditor.this);
         confirm.setMessage("Voulez-vous vraiment supprimer ce QCM? Cette opération est irréversible")
@@ -221,12 +220,9 @@ public class MCQEditor extends AppCompatActivity {
         deleteDialog.show();
     }
 
-
-
     private void initComponents(){
         question      = findViewById(R.id.question);
 
-        grp         = findViewById(R.id.radioGroup);
         isCorrect1 = findViewById(R.id.isCorrect1);
         isCorrect2 = findViewById(R.id.isCorrect2);
         isCorrect3 = findViewById(R.id.isCorrect3);

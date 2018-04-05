@@ -16,10 +16,9 @@ import java.util.ArrayList;
 
 public class Session extends FragmentActivity implements DisplayQcm.SwipeListener {
 
-    Answer answers[];
-    ViewPager viewPager;
-    ArrayList<QCM> qcmList;
-    TextView note;
+    private Answer answers[];
+    private ArrayList<QCM> qcmList;
+    private TextView noteDisplay;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,21 +26,15 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         setContentView(R.layout.activity_session);
 
         answers = new Answer[20];
-        note = findViewById(R.id.note);
-        viewPager = findViewById(R.id.viewPager);
+        noteDisplay = findViewById(R.id.note);
+        ViewPager viewPager = findViewById(R.id.viewPager);
         SwipeAdapter swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), Session.this);
         qcmList = swipeAdapter.getQcmList();
         viewPager.setAdapter(swipeAdapter);
         viewPager.setPageMargin(40);
         viewPager.setOffscreenPageLimit(20);
 
-        /*
-            Button subit = findViewBy
-         */
-
-
     }
-
 
     @Override
     public void onSwipeIn(int position) {
@@ -58,6 +51,6 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
     public void onSubmitClickListener(View view) {
         AnswerCTRL answerCTRL = new AnswerCTRL(qcmList);
         int mynote =answerCTRL.checkAnswers(answers);
-        note.setText("note: "+mynote);
+        noteDisplay.setText("noteDisplay: "+mynote);
     }
 }

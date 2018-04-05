@@ -19,10 +19,6 @@ public class Question {
         this.text = text;
     }
 
-    public Question(int questionID, String text){
-        this.text = text;
-    }
-
     public String getText() {
         return text;
     }
@@ -38,8 +34,6 @@ public class Question {
     public void setAnswer(Answer answer) {
         this.correctAnswer = answer;
     }
-
-
 
 
     @Override

@@ -28,6 +28,33 @@ public class mcqCTRL {
      * SQLite Database Helper class used to create and update database
      */
     private class DatabaseHelper extends SQLiteOpenHelper {
+
+        /*=========================================
+        //  S Q L    D D L     S T A T E M E N T S
+        ===========================================*/
+        static final String CREATE_QUESTION =
+                "CREATE TABLE Question(\n" +
+                        questionID      + " INTEGER PRIMARY KEY autoincrement,\n" +
+                        questionText    + " VARCHAR(100) NOT NULL,\n" +
+                        CorrectAnswerID + " INTEGER NOT NULL,\n" +
+                        "    FOREIGN KEY("+ CorrectAnswerID + ") REFERENCES Answer("+answerID+")\n" +
+                        ");\n";
+
+        static final String CREATE_ANSWER =
+                "CREATE TABLE Answer(\n" +
+                        answerID +" INTEGER PRIMARY KEY autoincrement,\n" +
+                        answerText + " VARCHAR(50)\n" +
+                        ");\n";
+
+        static final String CREATE_QUESTIONANSWER=
+                "CREATE TABLE QuestionAnswer(\n" +
+                        questionID +" INTEGER,\n" +
+                        answerID +" INTEGER, \n" +
+                        "PRIMARY KEY("+questionID+", "+answerID+"), \n"+
+                        "FOREIGN KEY("+questionID+") REFERENCES Question("+questionID+"), \n" +
+                        "FOREIGN KEY("+answerID+") REFERENCES Answer("+answerID+")\n" +
+                        ");\n";
+
         DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, 1);
         }
@@ -505,62 +532,23 @@ public class mcqCTRL {
     //  P R I V A T E     M E M B E R S
     ========================================*/
     //Database Members
-    private static DatabaseHelper mDbHelper;
-    private static SQLiteDatabase mDb;
-    private final Context mContext;
+    private DatabaseHelper mDbHelper;
+    private SQLiteDatabase mDb;
+    private Context mContext;
     private static final String DATABASE_NAME = "qcm.db";
 
-
-
-
-    /*======================================
-   //  P U B L I C    M E M B E R S
-   ========================================*/
     //Question Columns
-    public static final String QUESTION_TABLE = "Question";
+    private static final String QUESTION_TABLE = "Question";
     private static final String questionID = "questionID";
-    public static final String questionText = "questionText";
-    public static final String CorrectAnswerID = "CorrectAnswerID";
+    private static final String questionText = "questionText";
+    private static final String CorrectAnswerID = "CorrectAnswerID";
+
     //Answer Columns
-    public static final String ANSWER_TABLE = "Answer";
-    public static final String answerID = "answerID";
-    public static final String answerText = "answerText";
+    private static final String ANSWER_TABLE = "Answer";
+    private static final String answerID = "answerID";
+    private static final String answerText = "answerText";
 
-    public static final String QUESTION_ANSWER = "QuestionAnswer";
-
-
-    /*=========================================
-    //  S Q L    D D L     S T A T E M E N T S
-    ===========================================*/
-    private static final String CREATE_QUESTION =
-            "CREATE TABLE Question(\n" +
-                    questionID      + " INTEGER PRIMARY KEY autoincrement,\n" +
-                    questionText    + " VARCHAR(100) NOT NULL,\n" +
-                    CorrectAnswerID + " INTEGER NOT NULL,\n" +
-                    "    FOREIGN KEY("+ CorrectAnswerID + ") REFERENCES Answer("+answerID+")\n" +
-                    ");\n";
-
-    private static final String CREATE_ANSWER =
-            "CREATE TABLE Answer(\n" +
-                    answerID +" INTEGER PRIMARY KEY autoincrement,\n" +
-                    answerText + " VARCHAR(50)\n" +
-                    ");\n";
-
-    private static final String CREATE_QUESTIONANSWER=
-            "CREATE TABLE QuestionAnswer(\n" +
-                    questionID +" INTEGER,\n" +
-                    answerID +" INTEGER, \n" +
-                    "PRIMARY KEY("+questionID+", "+answerID+"), \n"+
-                    "FOREIGN KEY("+questionID+") REFERENCES Question("+questionID+"), \n" +
-                    "FOREIGN KEY("+answerID+") REFERENCES Answer("+answerID+")\n" +
-                    ");\n";
-
-    private static final String RETRIEVE_ALL_QCM =
-            "SELECT Question.questionText, Question.CorrectAnswerID, Answer.answerText, Answer.answerID " +
-                    "FROM Question INNER JOIN QuestionAnswer ON Question.questionID = QuestionAnswer.questionID " +
-                                  "INNER JOIN Answer ON QuestionAnswer.answerID = Answer.answerID";
-
-
+    private static final String QUESTION_ANSWER = "QuestionAnswer";
 
     /*======================================
    //        C O N S T R U C T O R S
@@ -574,6 +562,7 @@ public class mcqCTRL {
     /*======================================
    //  P R I V A T E   M E T H O D S
    ========================================*/
+
 
     private int getAnswerID(String text) {
         Cursor cursor = mDb.query(ANSWER_TABLE, new String[]{answerID}, answerText + "=?", new String[]{text},
@@ -598,6 +587,17 @@ public class mcqCTRL {
             return c.getInt(0);
         else
             return -1;
+    }
+
+    private Cursor getRowsByRawQuery(String sqlQuery){
+        openReadable();
+
+        Cursor cursor = mDb.rawQuery(sqlQuery, null);
+        if(cursor.moveToFirst())
+            return cursor;
+
+        else
+            return null;
     }
 
     private boolean checkExistence(Question question){
@@ -747,7 +747,6 @@ public class mcqCTRL {
         mDb.update(QUESTION_TABLE, values, questionID + "=?", new String[]{String.valueOf(qstID)});
     }
 
-
     private boolean updateQuestion(Question qst, int ID) {
         if(checkExistence(qst))
             return false;
@@ -763,7 +762,7 @@ public class mcqCTRL {
         return true;
     }
 
-        private boolean updateAnswer(Answer a, int ID) {
+    private boolean updateAnswer(Answer a, int ID) {
             if(getAnswerID(a.getText()) == ID)
                 return false;
 
@@ -871,27 +870,17 @@ public class mcqCTRL {
         mDb.delete(QUESTION_TABLE, questionID + "=?", new String[]{String.valueOf(qstID)});
     }
 
-    /**
-     * Interrogates the database using an SQL Query
-     * @param sqlQuery query
-     * @return cursor of the query result
-     */
-    private Cursor getRowsByRawQuery(String sqlQuery){
-        openReadable();
-
-        Cursor cursor = mDb.rawQuery(sqlQuery, null);
-        if(cursor.moveToFirst())
-            return cursor;
-
-        else
-            return null;
-    }
 
     /**
      * Generates a list of all QCMs presemt in the database
      * @return Collection of QCM Object
      */
     public List<QCM> getAllQCM() {
+
+        String RETRIEVE_ALL_QCM =
+                "SELECT Question.questionText, Question.CorrectAnswerID, Answer.answerText, Answer.answerID " +
+                        "FROM Question INNER JOIN QuestionAnswer ON Question.questionID = QuestionAnswer.questionID " +
+                        "INNER JOIN Answer ON QuestionAnswer.answerID = Answer.answerID";
 
         Cursor cursor = getRowsByRawQuery(RETRIEVE_ALL_QCM);
 

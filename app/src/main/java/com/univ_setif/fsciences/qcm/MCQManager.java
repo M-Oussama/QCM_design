@@ -15,42 +15,25 @@ import com.univ_setif.fsciences.qcm.entity.QCM;
 import java.util.ArrayList;
 
 public class MCQManager extends AppCompatActivity {
-    mcqCTRL controleur;
 
-    //bellow API 21 (Lollipop)
-    QCMArrayAdapter qcmArrayAdapter;
-    ListView list;
-
-
+    private ListView list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mcqmanager);
 
-        controleur     = new mcqCTRL(this);
-
         displayQuestionList();
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        displayQuestionList();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        displayQuestionList();
-    }
-
 
     private void displayQuestionList() {
+        mcqCTRL controleur = new mcqCTRL(this);
+
+        controleur.openReadable();
         ArrayList<QCM> qcm = (ArrayList<QCM>) controleur.getAllQCM();
-        qcmArrayAdapter = new QCMArrayAdapter(this, R.layout.activity_mcqeditor_create, qcm);
+        controleur.close();
+
+        QCMArrayAdapter qcmArrayAdapter = new QCMArrayAdapter(this, R.layout.activity_mcqeditor_create, qcm);
 
         list = findViewById(R.id.listMCQ);
 
