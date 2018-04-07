@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ public class DisplayQcm extends Fragment {
 
     TextView qstText;
     Button [] ans;
+    CardView card;
 
     Answer answer;
     Answer correctAnswer;
@@ -43,6 +45,8 @@ public class DisplayQcm extends Fragment {
         questionNumber = getArguments().getInt("number");
 
         View view = inflater.inflate(R.layout.fragment_display_qcm, container, false);
+
+        card = view.findViewById(R.id.card);
 
         qstText   = view.findViewById(R.id.questionContent);
         ans = new Button[4];
@@ -141,21 +145,39 @@ public class DisplayQcm extends Fragment {
         ans[2].setClickable(false);
         ans[3].setClickable(false);
 
-        if(correctAnswer.equals(answer)){
+        if(answer != null)
+            if(correctAnswer.equals(answer)){
+                ans[0].setBackgroundResource(android.R.drawable.btn_default);
+                ans[1].setBackgroundResource(android.R.drawable.btn_default);
+                ans[2].setBackgroundResource(android.R.drawable.btn_default);
+                ans[3].setBackgroundResource(android.R.drawable.btn_default);
+
+                ans[answerPosition].setBackgroundResource(R.color.correctAnswer);
+
+            }else{
+                ans[0].setBackgroundResource(android.R.drawable.btn_default);
+                ans[1].setBackgroundResource(android.R.drawable.btn_default);
+                ans[2].setBackgroundResource(android.R.drawable.btn_default);
+                ans[3].setBackgroundResource(android.R.drawable.btn_default);
+
+                ans[answerPosition].setBackgroundResource(R.color.wrongAnswer);
+
+                if(ans[0].getText().toString().equals(correctAnswer.getText()))
+                    ans[0].setBackgroundResource(R.color.correctAnswer);
+                else if(ans[1].getText().toString().equals(correctAnswer.getText()))
+                    ans[1].setBackgroundResource(R.color.correctAnswer);
+                else if(ans[2].getText().toString().equals(correctAnswer.getText()))
+                    ans[2].setBackgroundResource(R.color.correctAnswer);
+                else
+                    ans[3].setBackgroundResource(R.color.correctAnswer);
+            }
+            else{
             ans[0].setBackgroundResource(android.R.drawable.btn_default);
             ans[1].setBackgroundResource(android.R.drawable.btn_default);
             ans[2].setBackgroundResource(android.R.drawable.btn_default);
             ans[3].setBackgroundResource(android.R.drawable.btn_default);
 
-            ans[answerPosition].setBackgroundResource(R.color.correctAnswer);
-
-        }else{
-            ans[0].setBackgroundResource(android.R.drawable.btn_default);
-            ans[1].setBackgroundResource(android.R.drawable.btn_default);
-            ans[2].setBackgroundResource(android.R.drawable.btn_default);
-            ans[3].setBackgroundResource(android.R.drawable.btn_default);
-
-            ans[answerPosition].setBackgroundResource(R.color.wrongAnswer);
+            card.setBackgroundResource(R.color.wrongAnswer);
 
             if(ans[0].getText().toString().equals(correctAnswer.getText()))
                 ans[0].setBackgroundResource(R.color.correctAnswer);
@@ -165,6 +187,7 @@ public class DisplayQcm extends Fragment {
                 ans[2].setBackgroundResource(R.color.correctAnswer);
             else
                 ans[3].setBackgroundResource(R.color.correctAnswer);
+
         }
     }
 

@@ -23,6 +23,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
     private Answer answers[];
     private ArrayList<QCM> qcmList;
     private SwipeAdapter swipeAdapter;
+    private ViewPager viewPager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         setContentView(R.layout.activity_session);
 
         answers = new Answer[20];
-        ViewPager viewPager = findViewById(R.id.viewPager);
+        viewPager = findViewById(R.id.viewPager);
         swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), Session.this);
         qcmList = swipeAdapter.getQcmList();
         viewPager.setAdapter(swipeAdapter);
@@ -53,9 +54,9 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
             fragment.updateView();
         }
+
+        viewPager.setCurrentItem(0);
     }
-
-
 
     @Override
     public void onSwipeIn(int position) {

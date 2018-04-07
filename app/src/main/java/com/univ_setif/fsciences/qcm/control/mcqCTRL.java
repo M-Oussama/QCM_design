@@ -747,7 +747,7 @@ public class mcqCTRL {
         mDb.update(QUESTION_TABLE, values, questionID + "=?", new String[]{String.valueOf(qstID)});
     }
 
-    private boolean updateQuestion(Question qst, int ID) {
+        private boolean updateQuestion(Question qst, int ID) {
         if(checkExistence(qst))
             return false;
 
@@ -762,7 +762,7 @@ public class mcqCTRL {
         return true;
     }
 
-    private boolean updateAnswer(Answer a, int ID) {
+        private boolean updateAnswer(Answer a, int ID) {
             if(getAnswerID(a.getText()) == ID)
                 return false;
 

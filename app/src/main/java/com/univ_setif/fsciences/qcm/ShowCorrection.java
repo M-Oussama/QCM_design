@@ -15,9 +15,7 @@ public class ShowCorrection extends AppCompatActivity {
     TextView showNote;
     int note = 0;
 
-    public static void isAdded(){
-        addQuestion.setVisibility(View.GONE);
-    }
+
 
 
     @Override
@@ -86,6 +84,10 @@ public class ShowCorrection extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         returnMain.performClick();
+    }
+
+    public static void isAdded(){
+        addQuestion.setVisibility(View.GONE);
     }
 
     public void onViewCorrectAnswerClick(View v){
