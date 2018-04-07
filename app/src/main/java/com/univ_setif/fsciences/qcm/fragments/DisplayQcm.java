@@ -145,21 +145,16 @@ public class DisplayQcm extends Fragment {
         ans[2].setClickable(false);
         ans[3].setClickable(false);
 
-        if(answer != null)
-            if(correctAnswer.equals(answer)){
-                ans[0].setBackgroundResource(android.R.drawable.btn_default);
-                ans[1].setBackgroundResource(android.R.drawable.btn_default);
-                ans[2].setBackgroundResource(android.R.drawable.btn_default);
-                ans[3].setBackgroundResource(android.R.drawable.btn_default);
+        ans[0].setBackgroundResource(android.R.drawable.btn_default);
+        ans[1].setBackgroundResource(android.R.drawable.btn_default);
+        ans[2].setBackgroundResource(android.R.drawable.btn_default);
+        ans[3].setBackgroundResource(android.R.drawable.btn_default);
 
+        if(answer != null)
+            if(correctAnswer.equals(answer))
                 ans[answerPosition].setBackgroundResource(R.color.correctAnswer);
 
-            }else{
-                ans[0].setBackgroundResource(android.R.drawable.btn_default);
-                ans[1].setBackgroundResource(android.R.drawable.btn_default);
-                ans[2].setBackgroundResource(android.R.drawable.btn_default);
-                ans[3].setBackgroundResource(android.R.drawable.btn_default);
-
+            else{
                 ans[answerPosition].setBackgroundResource(R.color.wrongAnswer);
 
                 if(ans[0].getText().toString().equals(correctAnswer.getText()))
@@ -172,23 +167,18 @@ public class DisplayQcm extends Fragment {
                     ans[3].setBackgroundResource(R.color.correctAnswer);
             }
             else{
-            ans[0].setBackgroundResource(android.R.drawable.btn_default);
-            ans[1].setBackgroundResource(android.R.drawable.btn_default);
-            ans[2].setBackgroundResource(android.R.drawable.btn_default);
-            ans[3].setBackgroundResource(android.R.drawable.btn_default);
+                card.setBackgroundResource(R.color.wrongAnswer);
 
-            card.setBackgroundResource(R.color.wrongAnswer);
+                if(ans[0].getText().toString().equals(correctAnswer.getText()))
+                    ans[0].setBackgroundResource(R.color.correctAnswer);
+                else if(ans[1].getText().toString().equals(correctAnswer.getText()))
+                    ans[1].setBackgroundResource(R.color.correctAnswer);
+                else if(ans[2].getText().toString().equals(correctAnswer.getText()))
+                    ans[2].setBackgroundResource(R.color.correctAnswer);
+                else
+                    ans[3].setBackgroundResource(R.color.correctAnswer);
 
-            if(ans[0].getText().toString().equals(correctAnswer.getText()))
-                ans[0].setBackgroundResource(R.color.correctAnswer);
-            else if(ans[1].getText().toString().equals(correctAnswer.getText()))
-                ans[1].setBackgroundResource(R.color.correctAnswer);
-            else if(ans[2].getText().toString().equals(correctAnswer.getText()))
-                ans[2].setBackgroundResource(R.color.correctAnswer);
-            else
-                ans[3].setBackgroundResource(R.color.correctAnswer);
-
-        }
+            }
     }
 
     public interface SwipeListener {
