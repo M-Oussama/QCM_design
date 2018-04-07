@@ -5,16 +5,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
 
 import com.univ_setif.fsciences.qcm.fragments.DisplayQcm;
 import com.univ_setif.fsciences.qcm.entity.QCM;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.Collections;
+import java.util.HashMap;
+
 
 /**
  * Created by hzerrad on 28-Mar-18.
@@ -23,6 +22,8 @@ import java.util.Set;
 public class SwipeAdapter extends FragmentPagerAdapter {
 
     private ArrayList<QCM> qcmList;
+    private HashMap<Integer, String> pageReferenceMap;
+    private FragmentManager fm;
 
     public ArrayList<QCM> getQcmList() {
         return qcmList;
@@ -30,37 +31,18 @@ public class SwipeAdapter extends FragmentPagerAdapter {
 
     public SwipeAdapter(FragmentManager fm, Context context) {
         super(fm);
+        this.fm = fm;
+        pageReferenceMap = new HashMap<>();
+
         mcqCTRL ctrl = new mcqCTRL(context);
-        qcmList = (ArrayList<QCM>) ctrl.getAllQCM();
-        qcmList = (ArrayList<QCM>) getRandomItems(qcmList);
+        ArrayList<QCM> allQCM = (ArrayList<QCM>) ctrl.getAllQCM();
         ctrl.close();
-    }
 
-    private int[] distinctRandom(int bound){
-        final Random random = new Random();
-        final Set<Integer> intSet = new HashSet<>();
-        while (intSet.size() < 20) {
-            intSet.add(random.nextInt(bound));
-        }
-        final int[] ints = new int[intSet.size()];
-        final Iterator<Integer> iter = intSet.iterator();
-        for (int i = 0; iter.hasNext(); ++i) {
-            ints[i] = iter.next();
-        }
+        Collections.shuffle(allQCM);
+        qcmList = new ArrayList<>();
+        for(int i=0; i<20; i++)
+            qcmList.add(allQCM.get(i));
 
-        return ints;
-    }
-
-
-    private List<QCM> getRandomItems(List<QCM> listOfObjects) {
-        final int[] rand = distinctRandom(listOfObjects.size()-1);
-
-        List<QCM> qcm = new ArrayList<>();
-
-        for (int index: rand)
-            qcm.add(listOfObjects.get(index));
-
-        return qcm;
     }
 
     @Override
@@ -77,10 +59,45 @@ public class SwipeAdapter extends FragmentPagerAdapter {
         bundle.putString("answer4", qcmList.get(position).getAns4().getText());
         bundle.putString("correctAnswer", qcmList.get(position).getQuestion().getAnswer().getText());
 
-        frag.setArguments(bundle);
+        pageReferenceMap.put(position, frag.getTag());
 
+        frag.setArguments(bundle);
         return frag;
     }
+
+    @Override
+    public int getItemPosition(Object object) {
+        DisplayQcm fragment = (DisplayQcm) object;
+
+        if(fragment != null){
+            fragment.updateView();
+        }
+        return super.getItemPosition(object);
+    }
+
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        Object object = super.instantiateItem(container, position);
+
+        if (object instanceof Fragment) {
+            Fragment fragment = (Fragment) object;
+            String tag = fragment.getTag();
+            pageReferenceMap.put(position, tag);
+        }
+
+        return object;
+    }
+
+    public Fragment getFragment(int position) {
+        Fragment fragment = null;
+
+        String tag = pageReferenceMap.get(position);
+
+        if (tag != null)
+            fragment = this.fm.findFragmentByTag(tag);
+        return fragment;
+    }
+
 
     @Override
     public int getCount() {

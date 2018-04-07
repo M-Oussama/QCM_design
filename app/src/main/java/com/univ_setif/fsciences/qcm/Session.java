@@ -1,14 +1,13 @@
 package com.univ_setif.fsciences.qcm;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.univ_setif.fsciences.qcm.control.AnswerCTRL;
@@ -23,6 +22,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
     private Answer answers[];
     private ArrayList<QCM> qcmList;
+    private SwipeAdapter swipeAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,13 +31,31 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
         answers = new Answer[20];
         ViewPager viewPager = findViewById(R.id.viewPager);
-        SwipeAdapter swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), Session.this);
+        swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), Session.this);
         qcmList = swipeAdapter.getQcmList();
         viewPager.setAdapter(swipeAdapter);
         viewPager.setPageMargin(40);
         viewPager.setOffscreenPageLimit(20);
 
     }
+
+    public void finalizeSession(){
+
+        Button submit = findViewById(R.id.submit);
+        submit.setVisibility(View.GONE);
+
+        for (int i=0; i<20; i++) {
+            DisplayQcm fragment = (DisplayQcm) swipeAdapter.getFragment(i);
+
+            Answer correctAnswer = qcmList.get(i).getQuestion().getAnswer();
+
+            fragment.setCorrectAnswer(correctAnswer);
+
+            fragment.updateView();
+        }
+    }
+
+
 
     @Override
     public void onSwipeIn(int position) {
@@ -64,7 +82,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
     public void onSubmitClickListener(View view) {
 
         AnswerCTRL answerCTRL = new AnswerCTRL(qcmList);
-        final int mynote = answerCTRL.checkAnswers(answers);
+        final int myNote = answerCTRL.checkAnswers(answers);
 
         AlertDialog.Builder confirm = new AlertDialog.Builder(Session.this);
         confirm.setCancelable(false)
@@ -72,8 +90,9 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent t = new Intent(Session.this, ShowCorrection.class);
-                        t.putExtra("note", 20);
+                        t.putExtra("note", myNote);
                         startActivity(t);
+                        finalizeSession();
                     }
                 })
                 .setNegativeButton("Non", new DialogInterface.OnClickListener() {
