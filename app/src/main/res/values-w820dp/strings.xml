@@ -20,4 +20,7 @@
     <string name="submit">Submit</string>
     <string name="question_1">Question 1</string>
     <string name="main">Main</string>
+    <string name="ajouterUser">Ajouter une nouvelle question</string>
+    <string name="retour">Retour au Menu Principal</string>
+    <string name="voirCorrection">Voir la correction</string>
 </resources>

@@ -19,6 +19,7 @@
         <activity android:name=".MCQManager" />
         <activity android:name=".MCQEditor" />
         <activity android:name=".Session" />
+        <activity android:name=".ShowCorrection"/>
     </application>
 
 </manifest>

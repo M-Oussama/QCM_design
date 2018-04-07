@@ -122,4 +122,8 @@
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="tab_text_3">Tab 3</string>
+    <string name="ajouterUser">Ajouter une nouvelle question</string>
+    <string name="retour">Retour au Menu Principal</string>
+    <string name="voirCorrection">Voir la correction</string>
+    <string name="finale">Votre Note Finale est:</string>
 </resources>

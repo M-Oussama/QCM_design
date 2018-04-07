@@ -10,7 +10,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.univ_setif.fsciences.qcm.control.mcqCTRL;
@@ -32,6 +31,8 @@ public class MCQEditor extends AppCompatActivity {
     private EditText answer4;
 
     private Intent intent;
+
+    private boolean fromUser;
 
 
     @Override
@@ -75,8 +76,12 @@ public class MCQEditor extends AppCompatActivity {
              else
                  isCorrect4.setChecked(true);
          }
-         else
+         else {
              setContentView(R.layout.activity_mcqeditor_create);
+             if(intent.getStringExtra("invoker").equals("ShowCorrection"))
+                 fromUser = true;
+
+         }
 
     }
 
@@ -109,6 +114,9 @@ public class MCQEditor extends AppCompatActivity {
         QCM qcm = new QCM(qst, ans1, ans2, ans3, ans4);
         controleur.createQCM(qcm);
         controleur.close();
+
+        if(fromUser)
+            ShowCorrection.isAdded();
 
         Toast t = Toast.makeText(this, "Success", Toast.LENGTH_SHORT);
         t.show();

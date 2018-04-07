@@ -26,6 +26,13 @@ public class MCQManager extends AppCompatActivity {
         displayQuestionList();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        displayQuestionList();
+    }
+
     private void displayQuestionList() {
         mcqCTRL controleur = new mcqCTRL(this);
 
