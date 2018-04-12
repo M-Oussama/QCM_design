@@ -1,5 +1,6 @@
 package com.univ_setif.fsciences.qcm;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -63,6 +64,7 @@ public class MainMenu extends AppCompatActivity {
         //Building Dialog Popup
         AlertDialog.Builder mLogin = new AlertDialog.Builder(MainMenu.this);
 
+        @SuppressLint("InflateParams")
         final View mLoginView = getLayoutInflater().inflate(R.layout.dialog_login, null);
         mLogin.setView(mLoginView);
 
@@ -73,9 +75,9 @@ public class MainMenu extends AppCompatActivity {
 
 
         //Retrieving Components
-        final EditText password = (EditText) mLoginView.findViewById(R.id.password);
+        final EditText password = mLoginView.findViewById(R.id.password);
 
-        final Button mSubmit = (Button) mLoginView.findViewById(R.id.login);
+        final Button mSubmit = mLoginView.findViewById(R.id.login);
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -172,7 +172,6 @@ public class DisplayQcm extends Fragment {
     }
 
 
-    //TODO fix update logic
     public void updateView() {
 
         boolean skipped = true;

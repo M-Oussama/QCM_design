@@ -17,7 +17,6 @@ import com.univ_setif.fsciences.qcm.entity.QCM;
 import com.univ_setif.fsciences.qcm.fragments.DisplayQcm;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Session extends FragmentActivity implements DisplayQcm.SwipeListener {
 
@@ -77,7 +76,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
 
 
-    private boolean hasEmpty(ArrayList<Answer>[] answers){
+    private boolean hasEmpty(ArrayList[] answers){
         for (ArrayList ans:
              answers) {
             if(ans.size() == 0)
@@ -95,6 +94,8 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         AnswerCTRL answerCTRL = new AnswerCTRL(qcmList);
+
+                        @SuppressWarnings("unchecked")
                         final double myNote = answerCTRL.checkAnswers(answers);
 
                         Intent t = new Intent(Session.this, ShowCorrection.class);

@@ -10,7 +10,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.univ_setif.fsciences.qcm.control.mcqCTRL;
@@ -18,7 +17,6 @@ import com.univ_setif.fsciences.qcm.entity.Answer;
 import com.univ_setif.fsciences.qcm.entity.QCM;
 import com.univ_setif.fsciences.qcm.entity.Question;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MCQEditor extends AppCompatActivity {
@@ -70,7 +68,7 @@ public class MCQEditor extends AppCompatActivity {
              isCorrect3 = findViewById(R.id.isCorrect3);
              isCorrect4 = findViewById(R.id.isCorrect4);
 
-             //TODO Verify validity
+             @SuppressWarnings("unchecked")
              ArrayList<Answer> correctAnswer = (ArrayList<Answer>) intent.getSerializableExtra("correctAnswer");
 
              if(correctAnswer.contains(new Answer(answer1.getText().toString())))
@@ -107,7 +105,7 @@ public class MCQEditor extends AppCompatActivity {
         if(isCorrect1.isChecked())
             qst.setAnswers(ans1);
         if(isCorrect2.isChecked())
-            qst.setAnswers(ans2);;
+            qst.setAnswers(ans2);
         if(isCorrect3.isChecked())
             qst.setAnswers(ans3);
         if(isCorrect4.isChecked())

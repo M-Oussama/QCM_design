@@ -19,7 +19,7 @@ public class AnswerCTRL {
     }
 
 
-    public double checkAnswers(ArrayList<Answer>[] answers) {
+    public double checkAnswers(ArrayList[] answers) {
 
         for (int i=0; i<qcm.size(); i++) {
             if(!(answers[i].size() == 0)){
