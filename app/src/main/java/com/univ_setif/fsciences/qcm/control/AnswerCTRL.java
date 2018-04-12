@@ -12,23 +12,22 @@ import java.util.ArrayList;
 public class AnswerCTRL {
     private final ArrayList<QCM> qcm;
 
-    public int getNote() {
-        return note;
-    }
-
-    private int note=0;
+    private double note=0;
 
     public AnswerCTRL(ArrayList<QCM> qcm){
         this.qcm = qcm;
     }
 
 
-    public int checkAnswers(Answer[] answers) {
-        for (int i=0; i<qcm.size(); i++) {
-            if(answers[i] != null)
-            if(qcm.get(i).getQuestion().getAnswer().getText().equals(answers[i].getText()))
-                note++;
+    public double checkAnswers(ArrayList<Answer>[] answers) {
 
+        for (int i=0; i<qcm.size(); i++) {
+            if(!(answers[i].size() == 0)){
+                if(answers[i].equals(qcm.get(i).getQuestion().getAnswers()))
+                    note++;
+                else if(qcm.get(i).getQuestion().getAnswers().containsAll(answers[i]))
+                    note += 0.5;
+            }
         }
 
         return note;

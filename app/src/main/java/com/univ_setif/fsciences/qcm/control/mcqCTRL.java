@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -35,9 +36,7 @@ public class mcqCTRL {
         static final String CREATE_QUESTION =
                 "CREATE TABLE Question(\n" +
                         questionID      + " INTEGER PRIMARY KEY autoincrement,\n" +
-                        questionText    + " VARCHAR(100) NOT NULL,\n" +
-                        CorrectAnswerID + " INTEGER NOT NULL,\n" +
-                        "    FOREIGN KEY("+ CorrectAnswerID + ") REFERENCES Answer("+answerID+")\n" +
+                        questionText    + " VARCHAR(100) NOT NULL\n" +
                         ");\n";
 
         static final String CREATE_ANSWER =
@@ -50,6 +49,8 @@ public class mcqCTRL {
                 "CREATE TABLE QuestionAnswer(\n" +
                         questionID +" INTEGER,\n" +
                         answerID +" INTEGER, \n" +
+                        IS_CORRECT + " INTEGER NOT NULL DEFAULT 0, " +
+                        "CHECK ("+IS_CORRECT+" IN (0, 1)), " +
                         "PRIMARY KEY("+questionID+", "+answerID+"), \n"+
                         "FOREIGN KEY("+questionID+") REFERENCES Question("+questionID+"), \n" +
                         "FOREIGN KEY("+answerID+") REFERENCES Answer("+answerID+")\n" +
@@ -541,7 +542,6 @@ public class mcqCTRL {
     private static final String QUESTION_TABLE = "Question";
     private static final String questionID = "questionID";
     private static final String questionText = "questionText";
-    private static final String CorrectAnswerID = "CorrectAnswerID";
 
     //Answer Columns
     private static final String ANSWER_TABLE = "Answer";
@@ -549,6 +549,7 @@ public class mcqCTRL {
     private static final String answerText = "answerText";
 
     private static final String QUESTION_ANSWER = "QuestionAnswer";
+    private static final String IS_CORRECT = "IsCorrect";
 
     /*======================================
    //        C O N S T R U C T O R S
@@ -652,7 +653,7 @@ public class mcqCTRL {
             c.close();
             return count;
         }
-        c.close();
+
         return -1;
     }
 
@@ -678,7 +679,6 @@ public class mcqCTRL {
         private void addQuestion(Question qst){
             ContentValues values = new ContentValues();
             values.put(questionText, qst.getText());
-            values.put(CorrectAnswerID, getAnswerID(qst.getAnswer().getText()));
 
             mDb.insert(QUESTION_TABLE, null, values);
         }
@@ -694,22 +694,32 @@ public class mcqCTRL {
         }
 
         private void updateMapping(Question qst, Answer... answers) {
+            int qstID = getQuestionID(qst.getText());
 
-            String IDchar = String.valueOf(getQuestionID(qst.getText()));
-
-            mDb.delete(QUESTION_ANSWER, questionID + "=?", new String[]{IDchar});
+            mDb.delete(QUESTION_ANSWER, questionID +"=?", new String[]{String.valueOf(qstID)});
 
             ContentValues values = new ContentValues();
-            values.put(questionID, getQuestionID(qst.getText()));
+            values.put(questionID, qstID);
 
             for (Answer answer: answers) {
-                if(answer != null) {
-                    values.put(answerID, getAnswerID(answer.getText()));
-                    mDb.insert(QUESTION_ANSWER, null, values);
+                values.put(answerID, getAnswerID(answer.getText()));
 
-                    values.remove(answerID);
-                }
+                if(qst.getAnswers().contains(answer))   values.put(IS_CORRECT, 1);
+
+                mDb.insert(QUESTION_ANSWER, null, values);
+
+                values.remove(answerID);
+                values.remove(IS_CORRECT);
+            }
         }
+
+    private boolean isMapped(Question qst){
+        int id = getQuestionID(qst.getText());
+
+        String sql = "SELECT * FROM QuestionAnswer WHERE questionID=" + String.valueOf(id);
+
+        return mDb.rawQuery(sql, null).getCount() > 0;
+
     }
 
 
@@ -721,8 +731,6 @@ public class mcqCTRL {
                            int ansID4,
                            boolean flag){
 
-        boolean updateRelationship = false;
-
         if(!flag)
             if(!updateQuestion(qcm.getQuestion(), qstID)){
                 Toast t = Toast.makeText(mContext, "La Question existe déja. Veuillez la modifier", Toast.LENGTH_SHORT);
@@ -730,21 +738,13 @@ public class mcqCTRL {
                 return;
             }
 
-        updateCorrectAnswer(qcm.getQuestion(), qstID);
+            updateAnswer(qcm.getAns1(), ansID1);
+            updateAnswer(qcm.getAns2(), ansID2);
+            updateAnswer(qcm.getAns3(), ansID3);
+            updateAnswer(qcm.getAns4(), ansID4);
 
-            if(updateAnswer(qcm.getAns1(), ansID1)) updateRelationship = true;
-            if(updateAnswer(qcm.getAns2(), ansID2)) updateRelationship = true;
-            if(updateAnswer(qcm.getAns3(), ansID3)) updateRelationship = true;
-            if(updateAnswer(qcm.getAns4(), ansID4)) updateRelationship = true;
 
-        if(updateRelationship)
-            updateMapping(qcm.getQuestion(), qcm.getAns1(), qcm.getAns2(), qcm.getAns3(), qcm.getAns4());
-    }
-
-    private void updateCorrectAnswer(Question question, int qstID) {
-        ContentValues values = new ContentValues();
-        values.put(CorrectAnswerID, getAnswerID(question.getAnswer().getText()));
-        mDb.update(QUESTION_TABLE, values, questionID + "=?", new String[]{String.valueOf(qstID)});
+        updateMapping(qcm.getQuestion(), qcm.getAns1(), qcm.getAns2(), qcm.getAns3(), qcm.getAns4());
     }
 
         private boolean updateQuestion(Question qst, int ID) {
@@ -753,25 +753,23 @@ public class mcqCTRL {
 
         ContentValues values = new ContentValues();
         values.put(questionText, qst.getText());
-        values.put(CorrectAnswerID, getAnswerID(qst.getAnswer().getText()));
 
         mDb.update(QUESTION_TABLE, values, questionID + " =?",
                 new String[]{String.valueOf(ID)});
-        updateCorrectAnswer(qst, ID);
 
         return true;
     }
 
-        private boolean updateAnswer(Answer a, int ID) {
+        private void updateAnswer(Answer a, int ID) {
             if(getAnswerID(a.getText()) == ID)
-                return false;
+                return;
 
 
             if(checkExistence(a)) {
                 if(countAnswerExistence(ID) <= 1)
                     mDb.delete(ANSWER_TABLE, answerID + "= ?", new String[]{String.valueOf(ID)});
 
-                    return true;
+                return;
             }
 
 
@@ -781,8 +779,7 @@ public class mcqCTRL {
             mDb.update(ANSWER_TABLE, values, answerID + " =?",
                     new String[]{String.valueOf(ID)});
 
-            return false;
-    }
+        }
 
 
     /*======================================
@@ -845,6 +842,7 @@ public class mcqCTRL {
 
     public void deleteQCM(Question qst){
         int qstID = getQuestionID(qst.getText());
+
         String query  = "SELECT answerID FROM QuestionAnswer WHERE questionID = " + String.valueOf(qstID);
         //Gets the list of all answers related to the passed question
         Cursor cursor = mDb.rawQuery(query, null);
@@ -878,60 +876,58 @@ public class mcqCTRL {
     public List<QCM> getAllQCM() {
 
         String RETRIEVE_ALL_QCM =
-                "SELECT Question.questionText, Question.CorrectAnswerID, Answer.answerText, Answer.answerID " +
+                "SELECT Question.questionText, Answer.answerText, Answer.answerID, QuestionAnswer.isCorrect " +
                         "FROM Question INNER JOIN QuestionAnswer ON Question.questionID = QuestionAnswer.questionID " +
-                        "INNER JOIN Answer ON QuestionAnswer.answerID = Answer.answerID";
+                        "INNER JOIN Answer ON QuestionAnswer.answerID = Answer.answerID " +
+                        "ORDER BY Question.questionID";
 
         Cursor cursor = getRowsByRawQuery(RETRIEVE_ALL_QCM);
 
         if (cursor == null)
             return null;
 
-        List<QCM> qcm = new ArrayList<QCM>();
+        List<QCM> qcm = new ArrayList<>();
 
         Question qst;
         Answer a1, a2, a3, a4;
 
-        int counter = 0;
-
         while (!cursor.isAfterLast()) {
             qst = new Question(cursor.getString(0));
 
-            a1 = new Answer(cursor.getString(2));
-            if (cursor.getInt(1) == cursor.getInt(3))
-                qst.setAnswer(a1);
+            a1 = new Answer(cursor.getString(1));
+            if (cursor.getInt(3) == 1)
+                qst.setAnswers(a1);
 
 
             cursor.moveToNext();
 
             if (!cursor.isAfterLast()) {
-                a2 = new Answer(cursor.getString(2));
-                if (cursor.getInt(1) == cursor.getInt(3))
-                    qst.setAnswer(a2);
+                a2 = new Answer(cursor.getString(1));
+                if (cursor.getInt(3) == 1)
+                    qst.setAnswers(a2);
             } else
                 a2 = null;
 
             cursor.moveToNext();
 
             if (!cursor.isAfterLast()) {
-                a3 = new Answer(cursor.getString(2));
-                if (cursor.getInt(1) == cursor.getInt(3))
-                    qst.setAnswer(a3);
+                a3 = new Answer(cursor.getString(1));
+                if (cursor.getInt(3) == 1)
+                    qst.setAnswers(a3);
             } else
                 a3 = null;
 
             cursor.moveToNext();
 
             if (!cursor.isAfterLast()) {
-                a4 = new Answer(cursor.getString(2));
-                if (cursor.getInt(1) == cursor.getInt(3))
-                    qst.setAnswer(a4);
+                a4 = new Answer(cursor.getString(1));
+                if (cursor.getInt(3) == 1)
+                    qst.setAnswers(a4);
             } else
                 a4 = null;
 
 
             qcm.add(new QCM(qst, a1, a2, a3, a4));
-            counter++;
             cursor.moveToNext();
         }
 

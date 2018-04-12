@@ -1,6 +1,7 @@
 package com.univ_setif.fsciences.qcm.entity;
 
-import com.univ_setif.fsciences.qcm.control.mcqCTRL;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by hzerrad on 17-Mar-18.
@@ -8,14 +9,16 @@ import com.univ_setif.fsciences.qcm.control.mcqCTRL;
 
 public class Question {
     private String text;
-    private Answer correctAnswer;
+    private ArrayList<Answer> correctAnswer;
 
-    public Question(String text, Answer correctAnswer){
+    public Question(String text, Answer... correctAnswer){
+        this.correctAnswer = new ArrayList<>();
         this.text = text;
-        this.correctAnswer = correctAnswer;
+        this.correctAnswer.addAll(Arrays.asList(correctAnswer));
     }
 
     public Question(String text){
+        this.correctAnswer = new ArrayList<>();
         this.text = text;
     }
 
@@ -27,12 +30,16 @@ public class Question {
         this.text = text;
     }
 
-    public Answer getAnswer() {
+    public ArrayList<Answer> getAnswers() {
         return correctAnswer;
     }
 
-    public void setAnswer(Answer answer) {
+    public void setAnswers(ArrayList<Answer> answer) {
         this.correctAnswer = answer;
+    }
+
+    public void setAnswers(Answer...answers){
+        this.correctAnswer.addAll(Arrays.asList(answers));
     }
 
 

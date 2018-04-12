@@ -17,10 +17,11 @@ import com.univ_setif.fsciences.qcm.entity.QCM;
 import com.univ_setif.fsciences.qcm.fragments.DisplayQcm;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Session extends FragmentActivity implements DisplayQcm.SwipeListener {
 
-    private Answer answers[];
+    private ArrayList[] answers;
     private ArrayList<QCM> qcmList;
     private SwipeAdapter swipeAdapter;
     private ViewPager viewPager;
@@ -30,7 +31,10 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
 
-        answers = new Answer[20];
+        answers = new ArrayList[20];
+        for (int i=0; i<20; i++)
+            answers[i] = new ArrayList<Answer>();
+
         viewPager = findViewById(R.id.viewPager);
         swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), Session.this);
         qcmList = swipeAdapter.getQcmList();
@@ -40,6 +44,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
     }
 
+
     public void finalizeSession(){
 
         Button submit = findViewById(R.id.submit);
@@ -48,9 +53,9 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         for (int i=0; i<20; i++) {
             DisplayQcm fragment = (DisplayQcm) swipeAdapter.getFragment(i);
 
-            Answer correctAnswer = qcmList.get(i).getQuestion().getAnswer();
+            ArrayList<Answer> correctAnswer = qcmList.get(i).getQuestion().getAnswers();
 
-            fragment.setCorrectAnswer(correctAnswer);
+            fragment.setCorrectAnswers(correctAnswer);
 
             fragment.updateView();
         }
@@ -66,14 +71,16 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
     }
 
     @Override
-    public void onAnswer(int position, Answer answer){
-        answers[position-1] = answer;
+    public void onAnswer(int position, ArrayList<Answer> answer){
+                answers[position-1] = answer;
     }
 
-    private boolean hasEmpty(Answer[] answers){
-        for (Answer ans:
+
+
+    private boolean hasEmpty(ArrayList<Answer>[] answers){
+        for (ArrayList ans:
              answers) {
-            if(ans == null)
+            if(ans.size() == 0)
                 return true;
         }
 
@@ -82,14 +89,14 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
     public void onSubmitClickListener(View view) {
 
-        AnswerCTRL answerCTRL = new AnswerCTRL(qcmList);
-        final int myNote = answerCTRL.checkAnswers(answers);
-
         AlertDialog.Builder confirm = new AlertDialog.Builder(Session.this);
         confirm.setCancelable(false)
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        AnswerCTRL answerCTRL = new AnswerCTRL(qcmList);
+                        final double myNote = answerCTRL.checkAnswers(answers);
+
                         Intent t = new Intent(Session.this, ShowCorrection.class);
                         t.putExtra("note", myNote);
                         startActivity(t);
@@ -117,4 +124,5 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         exit.show();
 
     }
+
 }

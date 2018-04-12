@@ -1,5 +1,6 @@
 package com.univ_setif.fsciences.qcm.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -14,6 +15,10 @@ import android.widget.TextView;
 import com.univ_setif.fsciences.qcm.R;
 import com.univ_setif.fsciences.qcm.entity.Answer;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 
 public class DisplayQcm extends Fragment {
 
@@ -21,12 +26,13 @@ public class DisplayQcm extends Fragment {
     private int questionNumber;
 
     TextView qstText;
+
     Button [] ans;
+    boolean [] pressed;
     CardView card;
 
-    Answer answer;
-    Answer correctAnswer;
-    int answerPosition;
+    ArrayList<Answer> userAnswer;
+    ArrayList<Answer> correctAnswers;
 
     public DisplayQcm() {
         // Required empty public constructor
@@ -38,18 +44,24 @@ public class DisplayQcm extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("UseSparseArrays")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         questionNumber = getArguments().getInt("number");
+        userAnswer = new ArrayList<>();
 
         View view = inflater.inflate(R.layout.fragment_display_qcm, container, false);
 
         card = view.findViewById(R.id.card);
 
-        qstText   = view.findViewById(R.id.questionContent);
-        ans = new Button[4];
+        qstText     = view.findViewById(R.id.questionContent);
+        ans         = new Button[4];
+        pressed     = new boolean[4];
+
+        for (boolean b: pressed) b = false;
+
         ans[0]      = view.findViewById(R.id.answerContent1);
         ans[1]      = view.findViewById(R.id.answerContent2);
         ans[2]      = view.findViewById(R.id.answerContent3);
@@ -59,52 +71,73 @@ public class DisplayQcm extends Fragment {
         ans[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ans[1].setBackgroundResource(android.R.drawable.btn_default);
-                ans[2].setBackgroundResource(android.R.drawable.btn_default);
-                ans[3].setBackgroundResource(android.R.drawable.btn_default);
-                ans[0].setBackgroundResource(R.color.selectedButton);
-                answer = new Answer(ans[0].getText().toString());
-                answerPosition = 0;
-                swipe.onAnswer(questionNumber, answer);
+                if(!pressed[0]) {
+                    pressed[0] = true;
+                    ans[0].setBackgroundResource(R.color.selectedButton);
+                    userAnswer.add(new Answer(ans[0].getText().toString()));
+                    swipe.onAnswer(questionNumber, userAnswer);
+                }else{
+                    pressed[0] = false;
+                    ans[0].setBackgroundResource(android.R.drawable.btn_default);
+                    swipe.onAnswer(questionNumber, userAnswer);
+                    userAnswer.remove(new Answer(ans[0].getText().toString()));
+
+                }
             }
         });
 
         ans[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ans[0].setBackgroundResource(android.R.drawable.btn_default);
-                ans[2].setBackgroundResource(android.R.drawable.btn_default);
-                ans[3].setBackgroundResource(android.R.drawable.btn_default);
-                ans[1].setBackgroundResource(R.color.selectedButton);
-                answer = new Answer(ans[1].getText().toString());
-                answerPosition = 1;
-                swipe.onAnswer(questionNumber, answer);
+                if(!pressed[1]) {
+                    pressed[1] = true;
+                    ans[1].setBackgroundResource(R.color.selectedButton);
+                    userAnswer.add(new Answer(ans[1].getText().toString()));
+                    swipe.onAnswer(questionNumber, userAnswer);
+                }else{
+                    pressed[1] = false;
+                    ans[1].setBackgroundResource(android.R.drawable.btn_default);
+                    swipe.onAnswer(questionNumber, userAnswer);
+                    userAnswer.remove(new Answer(ans[1].getText().toString()));
+
+                }
             }
         });
 
         ans[2].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ans[1].setBackgroundResource(android.R.drawable.btn_default);
-                ans[0].setBackgroundResource(android.R.drawable.btn_default);
-                ans[3].setBackgroundResource(android.R.drawable.btn_default);
-                ans[2].setBackgroundResource(R.color.selectedButton);
-                answer = new Answer(ans[2].getText().toString());
-                answerPosition = 2;
-                swipe.onAnswer(questionNumber, answer);
+                if(!pressed[2]) {
+                    pressed[2] = true;
+                    ans[2].setBackgroundResource(R.color.selectedButton);
+                    userAnswer.add(new Answer(ans[2].getText().toString()));
+                    swipe.onAnswer(questionNumber, userAnswer);
+                }else{
+                    pressed[2] = false;
+                    ans[2].setBackgroundResource(android.R.drawable.btn_default);
+                    swipe.onAnswer(questionNumber, userAnswer);
+                    userAnswer.remove(new Answer(ans[2].getText().toString()));
+
+                }
             }
         });
 
         ans[3].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ans[1].setBackgroundResource(android.R.drawable.btn_default);
-                ans[2].setBackgroundResource(android.R.drawable.btn_default);
-                ans[0].setBackgroundResource(android.R.drawable.btn_default);
-                ans[3].setBackgroundResource(R.color.selectedButton);
-                answer = new Answer(ans[3].getText().toString());
-                answerPosition = 3;
-                swipe.onAnswer(questionNumber, answer);
+                if(!pressed[3]) {
+                    pressed[3] = true;
+                    ans[3].setBackgroundResource(R.color.selectedButton);
+                    userAnswer.add(new Answer(ans[3].getText().toString()));
+                    swipe.onAnswer(questionNumber, userAnswer);
+
+                }else{
+                    pressed[3] = false;
+                    ans[3].setBackgroundResource(android.R.drawable.btn_default);
+                    swipe.onAnswer(questionNumber, userAnswer);
+                    userAnswer.remove(new Answer(ans[3].getText().toString()));
+
+                }
             }
         });
 
@@ -134,11 +167,15 @@ public class DisplayQcm extends Fragment {
         swipe = (SwipeListener) activity;
     }
 
-    public void setCorrectAnswer(Answer correctAnswer) {
-        this.correctAnswer = correctAnswer;
+    public void setCorrectAnswers(ArrayList<Answer> correctAnswers) {
+        this.correctAnswers = correctAnswers;
     }
 
+
+    //TODO fix update logic
     public void updateView() {
+
+        boolean skipped = true;
 
         ans[0].setClickable(false);
         ans[1].setClickable(false);
@@ -150,40 +187,48 @@ public class DisplayQcm extends Fragment {
         ans[2].setBackgroundResource(android.R.drawable.btn_default);
         ans[3].setBackgroundResource(android.R.drawable.btn_default);
 
-        if(answer != null)
-            if(correctAnswer.equals(answer))
-                ans[answerPosition].setBackgroundResource(R.color.correctAnswer);
+        if(pressed[0]){
+            skipped = false;
+            if(!correctAnswers.contains(new Answer(ans[0].getText().toString())))
+                ans[0].setBackgroundResource(R.color.wrongAnswer);
+        }
 
-            else{
-                ans[answerPosition].setBackgroundResource(R.color.wrongAnswer);
+        if(pressed[1]){
+            skipped = false;
+            if(!correctAnswers.contains(new Answer(ans[1].getText().toString())))
+                ans[1].setBackgroundResource(R.color.wrongAnswer);
+        }
 
-                if(ans[0].getText().toString().equals(correctAnswer.getText()))
-                    ans[0].setBackgroundResource(R.color.correctAnswer);
-                else if(ans[1].getText().toString().equals(correctAnswer.getText()))
-                    ans[1].setBackgroundResource(R.color.correctAnswer);
-                else if(ans[2].getText().toString().equals(correctAnswer.getText()))
-                    ans[2].setBackgroundResource(R.color.correctAnswer);
-                else
-                    ans[3].setBackgroundResource(R.color.correctAnswer);
-            }
-            else{
-                card.setBackgroundResource(R.color.wrongAnswer);
+        if(pressed[2]) {
+            skipped = false;
+            if (!correctAnswers.contains(new Answer(ans[2].getText().toString())))
+                ans[2].setBackgroundResource(R.color.wrongAnswer);
+        }
 
-                if(ans[0].getText().toString().equals(correctAnswer.getText()))
-                    ans[0].setBackgroundResource(R.color.correctAnswer);
-                else if(ans[1].getText().toString().equals(correctAnswer.getText()))
-                    ans[1].setBackgroundResource(R.color.correctAnswer);
-                else if(ans[2].getText().toString().equals(correctAnswer.getText()))
-                    ans[2].setBackgroundResource(R.color.correctAnswer);
-                else
-                    ans[3].setBackgroundResource(R.color.correctAnswer);
+        if(pressed[3]){
+            skipped = false;
+            if(!correctAnswers.contains(new Answer(ans[3].getText().toString())))
+                ans[3].setBackgroundResource(R.color.wrongAnswer);
+        }
 
-            }
+        if(skipped)
+            card.setBackgroundResource(R.color.wrongAnswer);
+
+        for (Answer a: correctAnswers) {
+                if(a.getText().equals(ans[0].getText().toString()))
+                ans[0].setBackgroundResource(R.color.correctAnswer);
+            else if(a.getText().equals(ans[1].getText().toString()))
+                ans[1].setBackgroundResource(R.color.correctAnswer);
+            else if(a.getText().equals(ans[2].getText().toString()))
+                ans[2].setBackgroundResource(R.color.correctAnswer);
+            else
+                ans[3].setBackgroundResource(R.color.correctAnswer);
+        }
     }
 
     public interface SwipeListener {
         void onSwipeIn(int position);
-        void onAnswer(int position, Answer answer);
+        void onAnswer(int position, ArrayList<Answer> answer);
     }
 
 }

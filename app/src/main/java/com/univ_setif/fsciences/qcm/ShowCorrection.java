@@ -13,7 +13,7 @@ public class ShowCorrection extends AppCompatActivity {
     Button returnMain;
     static Button addQuestion;
     TextView showNote;
-    int note = 0;
+    double note = 0;
 
 
 
@@ -25,7 +25,7 @@ public class ShowCorrection extends AppCompatActivity {
 
         //Note Display
         showNote = findViewById(R.id.note);
-        note        = getIntent().getExtras().getInt("note");
+        note        = getIntent().getExtras().getDouble("note");
         String noteString = note + "/20";
         showNote.setText(noteString);
 
@@ -96,5 +96,4 @@ public class ShowCorrection extends AppCompatActivity {
         t.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(t);
     }
-
 }

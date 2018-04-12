@@ -57,7 +57,6 @@ public class SwipeAdapter extends FragmentPagerAdapter {
         bundle.putString("answer2", qcmList.get(position).getAns2().getText());
         bundle.putString("answer3", qcmList.get(position).getAns3().getText());
         bundle.putString("answer4", qcmList.get(position).getAns4().getText());
-        bundle.putString("correctAnswer", qcmList.get(position).getQuestion().getAnswer().getText());
 
         pageReferenceMap.put(position, frag.getTag());
 

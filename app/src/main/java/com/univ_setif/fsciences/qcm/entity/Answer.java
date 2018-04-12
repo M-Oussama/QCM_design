@@ -1,12 +1,15 @@
 package com.univ_setif.fsciences.qcm.entity;
 
-import java.util.concurrent.atomic.AtomicInteger;
+
+import android.os.Parcelable;
+
+import java.io.Serializable;
 
 /**
  * Created by hzerrad on 17-Mar-18.
  */
 
-public class Answer {
+public class Answer implements Serializable{
 
     private String text;
 

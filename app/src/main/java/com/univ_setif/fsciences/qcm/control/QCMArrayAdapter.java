@@ -52,30 +52,28 @@ public class QCMArrayAdapter extends ArrayAdapter<QCM> {
         TextView answerText4  = (TextView) listItem.findViewById(R.id.answerText4);
 
     if(mQCM.get(position) != null) {
-        Answer correctAnswer = mQCM.get(position).getQuestion().getAnswer();
-
         questionText.setText(mQCM.get(position).getQuestion().getText());
 
         answerText1.setText(mQCM.get(position).getAns1().getText());
-        if(correctAnswer.equals(mQCM.get(position).getAns1())) {
+        if(mQCM.get(position).getQuestion().getAnswers().contains(mQCM.get(position).getAns1())) {
             answerText1.setTextColor(listItem.getResources().getColor(R.color.colorPrimaryDark));
             answerText1.setTypeface(null, Typeface.BOLD);
         }
 
         answerText2.setText(mQCM.get(position).getAns2().getText());
-        if(correctAnswer.equals(mQCM.get(position).getAns2())) {
+        if(mQCM.get(position).getQuestion().getAnswers().contains(mQCM.get(position).getAns2())) {
             answerText2.setTextColor(listItem.getResources().getColor(R.color.colorPrimaryDark));
             answerText2.setTypeface(null, Typeface.BOLD);
         }
 
         answerText3.setText(mQCM.get(position).getAns3().getText());
-        if(correctAnswer.equals(mQCM.get(position).getAns3())) {
+        if(mQCM.get(position).getQuestion().getAnswers().contains(mQCM.get(position).getAns3())) {
             answerText3.setTextColor(listItem.getResources().getColor(R.color.colorPrimaryDark));
             answerText3.setTypeface(null, Typeface.BOLD);
         }
 
         answerText4.setText(mQCM.get(position).getAns4().getText());
-        if(correctAnswer.equals(mQCM.get(position).getAns4())) {
+        if(mQCM.get(position).getQuestion().getAnswers().contains(mQCM.get(position).getAns4())) {
             answerText4.setTextColor(listItem.getResources().getColor(R.color.colorPrimaryDark));
             answerText4.setTypeface(null, Typeface.BOLD);
         }

@@ -3,7 +3,6 @@ package com.univ_setif.fsciences.qcm;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -60,7 +59,7 @@ public class MCQManager extends AppCompatActivity {
                 i.putExtra("oldAnswerText2", qcm.getAns2().getText());
                 i.putExtra("oldAnswerText3", qcm.getAns3().getText());
                 i.putExtra("oldAnswerText4", qcm.getAns4().getText());
-                i.putExtra("correctAnswer", qcm.getQuestion().getAnswer().getText());
+                i.putExtra("correctAnswer", qcm.getQuestion().getAnswers());
 
                 startActivity(i);
             }

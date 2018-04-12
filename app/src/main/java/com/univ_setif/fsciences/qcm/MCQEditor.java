@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -17,13 +18,16 @@ import com.univ_setif.fsciences.qcm.entity.Answer;
 import com.univ_setif.fsciences.qcm.entity.QCM;
 import com.univ_setif.fsciences.qcm.entity.Question;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class MCQEditor extends AppCompatActivity {
     private EditText question;
 
-    private RadioButton isCorrect1;
-    private RadioButton isCorrect2;
-    private RadioButton isCorrect3;
-    private RadioButton isCorrect4;
+    private CheckBox isCorrect1;
+    private CheckBox isCorrect2;
+    private CheckBox isCorrect3;
+    private CheckBox isCorrect4;
 
     private EditText answer1;
     private EditText answer2;
@@ -66,14 +70,16 @@ public class MCQEditor extends AppCompatActivity {
              isCorrect3 = findViewById(R.id.isCorrect3);
              isCorrect4 = findViewById(R.id.isCorrect4);
 
-             String correctAnswer = intent.getStringExtra("correctAnswer");
-             if(correctAnswer.equals(answer1.getText().toString()))
+             //TODO Verify validity
+             ArrayList<Answer> correctAnswer = (ArrayList<Answer>) intent.getSerializableExtra("correctAnswer");
+
+             if(correctAnswer.contains(new Answer(answer1.getText().toString())))
                  isCorrect1.setChecked(true);
-             else if(correctAnswer.equals(answer2.getText().toString()))
+             if(correctAnswer.contains(new Answer(answer2.getText().toString())))
                  isCorrect2.setChecked(true);
-             else if(correctAnswer.equals(answer3.getText().toString()))
+             if(correctAnswer.contains(new Answer(answer3.getText().toString())))
                  isCorrect3.setChecked(true);
-             else
+             if(correctAnswer.contains(new Answer(answer4.getText().toString())))
                  isCorrect4.setChecked(true);
          }
          else {
@@ -96,16 +102,16 @@ public class MCQEditor extends AppCompatActivity {
         Answer ans2 = new Answer(answer2.getText().toString());
         Answer ans3 = new Answer(answer3.getText().toString());
         Answer ans4 = new Answer(answer4.getText().toString());
-        Question qst;
+        Question qst = new Question(question.getText().toString());
 
         if(isCorrect1.isChecked())
-            qst = new Question(question.getText().toString(), ans1);
-        else if(isCorrect2.isChecked())
-            qst = new Question(question.getText().toString(), ans2);
-        else if(isCorrect3.isChecked())
-            qst = new Question(question.getText().toString(), ans3);
-        else
-            qst = new Question(question.getText().toString(), ans4);
+            qst.setAnswers(ans1);
+        if(isCorrect2.isChecked())
+            qst.setAnswers(ans2);;
+        if(isCorrect3.isChecked())
+            qst.setAnswers(ans3);
+        if(isCorrect4.isChecked())
+            qst.setAnswers(ans4);
 
         //Creating new Database Entry
         mcqCTRL controleur = new mcqCTRL(this);
@@ -166,13 +172,13 @@ public class MCQEditor extends AppCompatActivity {
             flag = true;
 
         if(isCorrect1.isChecked())
-            qst.setAnswer(ans1);
-        else if(isCorrect2.isChecked())
-            qst.setAnswer(ans2);
-        else if(isCorrect3.isChecked())
-            qst.setAnswer(ans3);
-        else
-            qst.setAnswer(ans4);
+            qst.setAnswers(ans1);
+        if(isCorrect2.isChecked())
+            qst.setAnswers(ans2);
+        if(isCorrect3.isChecked())
+            qst.setAnswers(ans3);
+        if(isCorrect4.isChecked())
+            qst.setAnswers(ans4);
 
 
 
@@ -182,6 +188,8 @@ public class MCQEditor extends AppCompatActivity {
         controleur.openWritable();
         controleur.updateQCM(oldQCM, newQcm, flag);
         controleur.close();
+
+        Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
 
         finish();
 
@@ -202,7 +210,7 @@ public class MCQEditor extends AppCompatActivity {
                         controleur.deleteQCM(new Question(text));
                         controleur.close();
 
-                        Toast t = Toast.makeText(MCQEditor.this, "Success", Toast.LENGTH_SHORT);
+                        Toast t = Toast.makeText(MCQEditor.this, "Deleted Successfully", Toast.LENGTH_SHORT);
                         t.show();
 
                         MCQEditor.this.finish();
