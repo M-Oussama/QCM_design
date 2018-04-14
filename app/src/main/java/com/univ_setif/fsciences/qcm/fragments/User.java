@@ -1,4 +1,4 @@
-package com.univ_setif.fsciences.qcm.entity;
+package com.univ_setif.fsciences.qcm.fragments;
 
 /**
  * Singleton
