@@ -1,8 +1,5 @@
 package com.univ_setif.fsciences.qcm.entity;
 
-
-import android.os.Parcelable;
-
 import java.io.Serializable;
 
 /**

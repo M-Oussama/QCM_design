@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/user_image"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="35dp"
+                app:srcCompat="@drawable/user" />
+
+            <Button
+                android:id="@+id/user_image_upload"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_image"
+                android:layout_centerHorizontal="true"
+                android:text="Upload Picture"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textColor="@color/lightgrey" />
+
+            <EditText
+                android:id="@+id/user_lastname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_image_upload"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="14dp"
+                android:ems="10"
+                android:hint="Surname..."
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/user_firstname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/user_lastname"
+                android:layout_below="@+id/user_lastname"
+                android:layout_marginTop="15dp"
+                android:ems="10"
+                android:hint="First name..."
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/user_spec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/user_firstname"
+                android:layout_below="@+id/user_firstname"
+                android:layout_marginTop="18dp"
+                android:ems="10"
+                android:hint="Specialty..."
+                android:inputType="textPersonName" />
+
+            <Button
+                android:id="@+id/user_update"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="12dp"
+                android:layout_marginEnd="13dp"
+                android:text="@string/update" />
+
+            <TextView
+                android:id="@+id/user_birthdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/user_image_upload"
+                android:layout_alignTop="@+id/user_update"
+                android:text="DD-MM-YYYY"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

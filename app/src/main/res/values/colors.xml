@@ -6,6 +6,6 @@
     <color name="selectedButton">#6FC6E3</color>
     <color name="correctAnswer"> #00cc00</color>
     <color name="wrongAnswer">#ff8080</color>
-    <color name="lightgrey">#ededed</color>
+    <color name="lightgrey">#676767</color>
     <color name="text_color_primary">#ffffff</color>
 </resources>
