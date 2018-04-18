@@ -1,11 +1,16 @@
 package com.univ_setif.fsciences.qcm;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.SearchView;
 
 import com.univ_setif.fsciences.qcm.control.QCMArrayAdapter;
@@ -19,6 +24,7 @@ public class MCQManager extends AppCompatActivity {
 
     private ListView list;
     private SearchView search;
+    private ArrayList<QCM> qcm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +42,10 @@ public class MCQManager extends AppCompatActivity {
     }
 
     private void displayQuestionList() {
-        mcqCTRL controleur = new mcqCTRL(this, "SE.db");
+        mcqCTRL controleur = new mcqCTRL(this, "GL.db");
 
         controleur.openReadable();
-        final ArrayList<QCM> qcm = (ArrayList<QCM>) controleur.getAllQCM();
+        qcm = (ArrayList<QCM>) controleur.getAllQCM();
         controleur.close();
 
         QCMArrayAdapter qcmArrayAdapter = new QCMArrayAdapter(this, R.layout.activity_mcqeditor_create, qcm);
@@ -145,6 +151,47 @@ public class MCQManager extends AppCompatActivity {
         Intent t = new Intent(MCQManager.this, MCQEditor.class);
         t.putExtra("invoker", "addFloat");
         this.startActivity(t);
+    }
+
+    public void onAdvancedOptionsClick(View v){
+        AlertDialog.Builder advBuilder = new AlertDialog.Builder(MCQManager.this);
+
+        //inflating layout on view
+        @SuppressLint("InflateParams")
+        final View editorView = getLayoutInflater().inflate(R.layout.dialog_advanced_options, null);
+        advBuilder.setView(editorView);
+
+        //Creating Dialog Popup
+        final AlertDialog advancedOptions = advBuilder.create();
+        advancedOptions.setCancelable(false);
+        advancedOptions.setCanceledOnTouchOutside(true);
+        advancedOptions.show();
+
+        final NumberPicker minutes  = editorView.findViewById(R.id.minutes);
+        final NumberPicker secondes = editorView.findViewById(R.id.secondes);
+        final NumberPicker nbrQCM   = editorView.findViewById(R.id.nbrQCM);
+
+        Button save = editorView.findViewById(R.id.param_save);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor adminSettings = getSharedPreferences("adminSettings", MODE_PRIVATE).edit();
+                adminSettings.putLong("minutes", minutes.getValue());
+                adminSettings.putLong("secondes", secondes.getValue());
+                adminSettings.putInt("nbrQCM", nbrQCM.getValue());
+                adminSettings.apply();
+                advancedOptions.cancel();
+            }
+        });
+
+        minutes.setMaxValue(90);
+        minutes.setMinValue(0);
+
+        secondes.setMaxValue(59);
+        secondes.setMinValue(0);
+
+        nbrQCM.setMinValue(10);
+        nbrQCM.setMaxValue(qcm.size());
     }
 
     @Override

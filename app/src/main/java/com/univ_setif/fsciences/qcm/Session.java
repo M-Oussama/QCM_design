@@ -3,6 +3,7 @@ package com.univ_setif.fsciences.qcm;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.CountDownTimer;
 import android.support.v4.app.FragmentActivity;
@@ -28,25 +29,37 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
     private ViewPager viewPager;
     private TextView timerView;
     private SessionTimer timer;
+    private int nbrQCM;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        long minutes, secondes;
+
+        SharedPreferences sp = getSharedPreferences("adminSettings", MODE_PRIVATE);
+        minutes  = sp.getLong("minutes", 0);
+        secondes = sp.getLong("secondes", 0);
+        nbrQCM   = sp.getInt("nbrQCM", 10);
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
 
-        answers = new ArrayList[20];
-        for (int i=0; i<20; i++)
+        answers = new ArrayList[nbrQCM];
+
+        for (int i=0; i<nbrQCM; i++)
             answers[i] = new ArrayList<Answer>();
 
         timerView = findViewById(R.id.session_timer);
         viewPager = findViewById(R.id.viewPager);
-        swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), Session.this);
+        swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), Session.this, nbrQCM);
         qcmList = swipeAdapter.getQcmList();
         viewPager.setAdapter(swipeAdapter);
         viewPager.setPageMargin(40);
-        viewPager.setOffscreenPageLimit(20);
+        viewPager.setOffscreenPageLimit(nbrQCM);
 
-        timer = new SessionTimer(10*60*1000, 1000);
+        timer = new SessionTimer(minutes*60*1000 + secondes*1000, 1000);
         timer.start();
     }
 
@@ -72,7 +85,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         Button submit = findViewById(R.id.submit);
         submit.setVisibility(View.GONE);
 
-        for (int i=0; i<20; i++) {
+        for (int i=0; i<nbrQCM; i++) {
             DisplayQcm fragment = (DisplayQcm) swipeAdapter.getFragment(i);
 
             ArrayList<Answer> correctAnswer = qcmList.get(i).getQuestion().getAnswers();
