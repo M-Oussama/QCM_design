@@ -3,6 +3,8 @@ package com.univ_setif.fsciences.qcm;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.os.CountDownTimer;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
@@ -24,6 +26,8 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
     private ArrayList<QCM> qcmList;
     private SwipeAdapter swipeAdapter;
     private ViewPager viewPager;
+    private TextView sessionTimer;
+    private SessionTimer timer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         for (int i=0; i<20; i++)
             answers[i] = new ArrayList<Answer>();
 
+        sessionTimer = findViewById(R.id.session_timer);
         viewPager = findViewById(R.id.viewPager);
         swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), Session.this);
         qcmList = swipeAdapter.getQcmList();
@@ -41,8 +46,26 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         viewPager.setPageMargin(40);
         viewPager.setOffscreenPageLimit(20);
 
+        timer = new SessionTimer(15*1000, 1000);
+        timer.start();
     }
 
+    public String toTime(long time){
+        long minutes = time / (60*1000);
+        long seconds = (time % 60000) / 1000;
+
+        String timeLeft;
+
+        if(minutes < 10) timeLeft = "0";
+
+        timeLeft = minutes + ":";
+
+        if(seconds < 10) timeLeft += "0";
+
+        timeLeft += seconds;
+
+        return timeLeft;
+    }
 
     public void finalizeSession(){
 
@@ -74,8 +97,6 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
                 answers[position-1] = answer;
     }
 
-
-
     private boolean hasEmpty(ArrayList[] answers){
         for (ArrayList ans:
              answers) {
@@ -88,25 +109,21 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
     public void onSubmitClickListener(View view) {
 
+        timer.cancel();
+
         AlertDialog.Builder confirm = new AlertDialog.Builder(Session.this);
         confirm.setCancelable(false)
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        AnswerCTRL answerCTRL = new AnswerCTRL(qcmList);
-
-                        @SuppressWarnings("unchecked")
-                        final double myNote = answerCTRL.checkAnswers(answers);
-
-                        Intent t = new Intent(Session.this, ShowCorrection.class);
-                        t.putExtra("note", myNote);
-                        startActivity(t);
-                        finalizeSession();
+                       dispatchForCorrection();
+                       finalizeSession();
                     }
                 })
                 .setNegativeButton("Non", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        timer = timer.resume();
                         dialogInterface.cancel();
                     }
                 });
@@ -126,4 +143,67 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
     }
 
+    public void dispatchForCorrection(){
+            AnswerCTRL answerCTRL = new AnswerCTRL(qcmList);
+
+            @SuppressWarnings("unchecked")
+            final double myNote = answerCTRL.checkAnswers(answers);
+
+            Intent t = new Intent(Session.this, ShowCorrection.class);
+            t.putExtra("note", myNote);
+            startActivity(t);
+    }
+
+    private class SessionTimer extends CountDownTimer{
+
+        private long initialTime;
+        private long timeLeft;
+
+        private long getInitialTime() {
+            return initialTime;
+        }
+
+        private void setInitialTime(long l){
+            initialTime = l;
+        }
+
+        SessionTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+            initialTime = millisInFuture;
+        }
+
+        SessionTimer resume(){
+            SessionTimer newTimer = new SessionTimer(timeLeft, 1000);
+            newTimer.setInitialTime(initialTime);
+            newTimer.start();
+            return newTimer;
+        }
+
+        long getElapsed() {
+            return initialTime - timeLeft;
+        }
+
+        @Override
+        public void onTick(long l) {
+            timeLeft = l;
+            sessionTimer.setText(toTime(l));
+        }
+
+        @Override
+        public void onFinish() {
+            sessionTimer.setText("Terminé!");
+            sessionTimer.setTypeface(null, Typeface.BOLD);
+            sessionTimer.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+
+            AnswerCTRL answerCTRL = new AnswerCTRL(qcmList);
+
+            @SuppressWarnings("unchecked")
+            final double myNote = answerCTRL.checkAnswers(answers);
+
+            Intent t = new Intent(Session.this, ShowCorrection.class);
+            t.putExtra("note", myNote);
+            startActivity(t);
+            finalizeSession();
+        }
+    }
 }

@@ -21,7 +21,8 @@
         </activity>
         <activity android:name=".MCQManager" />
         <activity android:name=".MCQEditor" />
-        <activity android:name=".Session" />
+        <activity android:name=".Session"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ShowCorrection" />
         <activity android:name=".UserSpace"/>
 
