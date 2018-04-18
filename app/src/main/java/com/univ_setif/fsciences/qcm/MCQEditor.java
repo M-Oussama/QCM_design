@@ -112,7 +112,7 @@ public class MCQEditor extends AppCompatActivity {
             qst.setAnswers(ans4);
 
         //Creating new Database Entry
-        mcqCTRL controleur = new mcqCTRL(this);
+        mcqCTRL controleur = new mcqCTRL(this, "GL.db");
         controleur.openWritable();
 
         QCM qcm = new QCM(qst, ans1, ans2, ans3, ans4);
@@ -182,7 +182,7 @@ public class MCQEditor extends AppCompatActivity {
 
         QCM newQcm = new QCM(qst, ans1, ans2, ans3, ans4);
 
-        mcqCTRL controleur = new mcqCTRL(this);
+        mcqCTRL controleur = new mcqCTRL(this, "GL.db");
         controleur.openWritable();
         controleur.updateQCM(oldQCM, newQcm, flag);
         controleur.close();
@@ -203,7 +203,7 @@ public class MCQEditor extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                       initComponents();
-                        mcqCTRL controleur = new mcqCTRL(MCQEditor.this);
+                        mcqCTRL controleur = new mcqCTRL(MCQEditor.this, "GL.db");
                         controleur.openWritable();
                         controleur.deleteQCM(new Question(text));
                         controleur.close();

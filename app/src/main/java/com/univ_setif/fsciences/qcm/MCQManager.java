@@ -3,7 +3,6 @@ package com.univ_setif.fsciences.qcm;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -37,7 +36,7 @@ public class MCQManager extends AppCompatActivity {
     }
 
     private void displayQuestionList() {
-        mcqCTRL controleur = new mcqCTRL(this);
+        mcqCTRL controleur = new mcqCTRL(this, "SE.db");
 
         controleur.openReadable();
         final ArrayList<QCM> qcm = (ArrayList<QCM>) controleur.getAllQCM();
