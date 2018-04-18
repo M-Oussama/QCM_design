@@ -72,10 +72,15 @@ public class MCQManager extends AppCompatActivity {
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
+                String query = s.toLowerCase();
                 ArrayList<QCM> queryQCM = new ArrayList<>();
 
                 for(QCM item: qcm){
-                    if(item.getQuestion().getText().toLowerCase().contains(s))
+                    if(item.getQuestion().getText().toLowerCase().contains(query)  ||
+                            item.getAns1().getText().toLowerCase().contains(query) ||
+                            item.getAns2().getText().toLowerCase().contains(query) ||
+                            item.getAns3().getText().toLowerCase().contains(query) ||
+                            item.getAns4().getText().toLowerCase().contains(query) )
                         queryQCM.add(item);
                 }
 
@@ -90,10 +95,15 @@ public class MCQManager extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
+                String query = s.toLowerCase();
                 ArrayList<QCM> queryQCM = new ArrayList<>();
 
                 for(QCM item: qcm){
-                    if(item.getQuestion().getText().toLowerCase().contains(s))
+                    if(item.getQuestion().getText().toLowerCase().contains(query)  ||
+                            item.getAns1().getText().toLowerCase().contains(query) ||
+                            item.getAns2().getText().toLowerCase().contains(query) ||
+                            item.getAns3().getText().toLowerCase().contains(query) ||
+                            item.getAns4().getText().toLowerCase().contains(query) )
                         queryQCM.add(item);
                 }
 
