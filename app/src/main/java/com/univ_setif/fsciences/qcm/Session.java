@@ -97,6 +97,33 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
                 answers[position-1] = answer;
     }
 
+    @Override
+    public void onBackPressed() {
+        timer.cancel();
+        AlertDialog.Builder builder = new AlertDialog.Builder(Session.this);
+        builder.setMessage("Voulez-vous vraiment retourner au menu principal? \n" +
+                "AVERTISSEMENT: Cette session sera perdue!")
+                .setCancelable(false)
+                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        timer = timer.resume();
+                        dialogInterface.cancel();
+                    }
+                });
+
+        AlertDialog retour = builder.create();
+        retour.setTitle("Retour au Menu Principale");
+        retour.setCanceledOnTouchOutside(true);
+        retour.show();
+    }
+
     private boolean hasEmpty(ArrayList[] answers){
         for (ArrayList ans:
              answers) {

@@ -3,6 +3,7 @@ package com.univ_setif.fsciences.qcm;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -12,6 +13,7 @@ import com.univ_setif.fsciences.qcm.control.QCMArrayAdapter;
 import com.univ_setif.fsciences.qcm.control.mcqCTRL;
 import com.univ_setif.fsciences.qcm.entity.QCM;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 
 public class MCQManager extends AppCompatActivity {
@@ -69,18 +71,36 @@ public class MCQManager extends AppCompatActivity {
 
         search = findViewById(R.id.searchView);
 
+        search.clearFocus();
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(search.isIconified()){
+                    search.setIconified(false);
+                }
+            }
+        });
+
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            private String stripAccents(String str){
+                String s = Normalizer.normalize(str, Normalizer.Form.NFD);
+                s = s.replaceAll("[\\p{InCOMBINING_DIACRITICAL_MARKS}]", "");
+                return s;
+            }
+
             @Override
             public boolean onQueryTextSubmit(String s) {
-                String query = s.toLowerCase();
+                String query = Normalizer.normalize(s.toLowerCase(), Normalizer.Form.NFD);
                 ArrayList<QCM> queryQCM = new ArrayList<>();
 
                 for(QCM item: qcm){
-                    if(item.getQuestion().getText().toLowerCase().contains(query)  ||
-                            item.getAns1().getText().toLowerCase().contains(query) ||
-                            item.getAns2().getText().toLowerCase().contains(query) ||
-                            item.getAns3().getText().toLowerCase().contains(query) ||
-                            item.getAns4().getText().toLowerCase().contains(query) )
+                    if(stripAccents(item.getQuestion().getText().toLowerCase()).contains(query)  ||
+                            stripAccents(item.getAns1().getText().toLowerCase()).contains(query) ||
+                            stripAccents(item.getAns2().getText().toLowerCase()).contains(query) ||
+                            stripAccents(item.getAns3().getText().toLowerCase()).contains(query) ||
+                            stripAccents(item.getAns4().getText().toLowerCase()).contains(query) )
                         queryQCM.add(item);
                 }
 
@@ -90,8 +110,11 @@ public class MCQManager extends AppCompatActivity {
 
                 list.setAdapter(qcmArrayAdapter);
 
+                search.clearFocus();
+
                 return true;
             }
+
 
             @Override
             public boolean onQueryTextChange(String s) {
@@ -99,11 +122,11 @@ public class MCQManager extends AppCompatActivity {
                 ArrayList<QCM> queryQCM = new ArrayList<>();
 
                 for(QCM item: qcm){
-                    if(item.getQuestion().getText().toLowerCase().contains(query)  ||
-                            item.getAns1().getText().toLowerCase().contains(query) ||
-                            item.getAns2().getText().toLowerCase().contains(query) ||
-                            item.getAns3().getText().toLowerCase().contains(query) ||
-                            item.getAns4().getText().toLowerCase().contains(query) )
+                    if(stripAccents(item.getQuestion().getText().toLowerCase()).contains(query)  ||
+                            stripAccents(item.getAns1().getText().toLowerCase()).contains(query) ||
+                            stripAccents(item.getAns2().getText().toLowerCase()).contains(query) ||
+                            stripAccents(item.getAns3().getText().toLowerCase()).contains(query) ||
+                            stripAccents(item.getAns4().getText().toLowerCase()).contains(query) )
                         queryQCM.add(item);
                 }
 
@@ -117,13 +140,18 @@ public class MCQManager extends AppCompatActivity {
             }
         });
 
-
     }
 
     public void onAddFloatingButtonClick(View v){
         Intent t = new Intent(MCQManager.this, MCQEditor.class);
         t.putExtra("invoker", "addFloat");
         this.startActivity(t);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!search.isFocused())
+            super.onBackPressed();
     }
 
 }
