@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.univ_setif.fsciences.qcm.control.QCMArrayAdapter;
 import com.univ_setif.fsciences.qcm.control.mcqCTRL;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class MCQManager extends AppCompatActivity {
 
     private ListView list;
+    private SearchView search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,7 @@ public class MCQManager extends AppCompatActivity {
         mcqCTRL controleur = new mcqCTRL(this);
 
         controleur.openReadable();
-        ArrayList<QCM> qcm = (ArrayList<QCM>) controleur.getAllQCM();
+        final ArrayList<QCM> qcm = (ArrayList<QCM>) controleur.getAllQCM();
         controleur.close();
 
         QCMArrayAdapter qcmArrayAdapter = new QCMArrayAdapter(this, R.layout.activity_mcqeditor_create, qcm);
@@ -64,6 +66,48 @@ public class MCQManager extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        search = findViewById(R.id.searchView);
+
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                ArrayList<QCM> queryQCM = new ArrayList<>();
+
+                for(QCM item: qcm){
+                    if(item.getQuestion().getText().toLowerCase().contains(s))
+                        queryQCM.add(item);
+                }
+
+                QCMArrayAdapter qcmArrayAdapter = new QCMArrayAdapter(getApplicationContext(),
+                        R.layout.activity_mcqeditor_create,
+                        queryQCM);
+
+                list.setAdapter(qcmArrayAdapter);
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                ArrayList<QCM> queryQCM = new ArrayList<>();
+
+                for(QCM item: qcm){
+                    if(item.getQuestion().getText().toLowerCase().contains(s))
+                        queryQCM.add(item);
+                }
+
+                QCMArrayAdapter qcmArrayAdapter = new QCMArrayAdapter(getApplicationContext(),
+                        R.layout.activity_mcqeditor_create,
+                        queryQCM);
+
+                list.setAdapter(qcmArrayAdapter);
+
+                return true;
+            }
+        });
+
+
     }
 
     public void onAddFloatingButtonClick(View v){

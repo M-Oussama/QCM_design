@@ -26,7 +26,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
     private ArrayList<QCM> qcmList;
     private SwipeAdapter swipeAdapter;
     private ViewPager viewPager;
-    private TextView sessionTimer;
+    private TextView timerView;
     private SessionTimer timer;
 
     @Override
@@ -38,7 +38,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         for (int i=0; i<20; i++)
             answers[i] = new ArrayList<Answer>();
 
-        sessionTimer = findViewById(R.id.session_timer);
+        timerView = findViewById(R.id.session_timer);
         viewPager = findViewById(R.id.viewPager);
         swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), Session.this);
         qcmList = swipeAdapter.getQcmList();
@@ -46,7 +46,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         viewPager.setPageMargin(40);
         viewPager.setOffscreenPageLimit(20);
 
-        timer = new SessionTimer(15*1000, 1000);
+        timer = new SessionTimer(10*60*1000, 1000);
         timer.start();
     }
 
@@ -67,7 +67,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         return timeLeft;
     }
 
-    public void finalizeSession(){
+    private void finalizeSession(){
 
         Button submit = findViewById(R.id.submit);
         submit.setVisibility(View.GONE);
@@ -107,8 +107,8 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         return false;
     }
 
+    /*Submit Button*/
     public void onSubmitClickListener(View view) {
-
         timer.cancel();
 
         AlertDialog.Builder confirm = new AlertDialog.Builder(Session.this);
@@ -117,6 +117,11 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                        dispatchForCorrection();
+
+                       timerView.setText(toTime(timer.getElapsed()));
+                       timerView.setTypeface(null, Typeface.BOLD);
+                       timerView.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+
                        finalizeSession();
                     }
                 })
@@ -143,7 +148,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
     }
 
-    public void dispatchForCorrection(){
+    private void dispatchForCorrection(){
             AnswerCTRL answerCTRL = new AnswerCTRL(qcmList);
 
             @SuppressWarnings("unchecked")
@@ -186,14 +191,14 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         @Override
         public void onTick(long l) {
             timeLeft = l;
-            sessionTimer.setText(toTime(l));
+            timerView.setText(toTime(l));
         }
 
         @Override
         public void onFinish() {
-            sessionTimer.setText("Terminé!");
-            sessionTimer.setTypeface(null, Typeface.BOLD);
-            sessionTimer.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+            timerView.setText("Terminé!");
+            timerView.setTypeface(null, Typeface.BOLD);
+            timerView.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
 
             AnswerCTRL answerCTRL = new AnswerCTRL(qcmList);
 
