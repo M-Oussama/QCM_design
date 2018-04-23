@@ -6,4 +6,9 @@
     <string name="ajouterUser">Ajouter une nouvelle question</string>
     <string name="retour">Retour au Menu Principal</string>
     <string name="voirCorrection">Voir la correction</string>
+    <string name="tab">AdminSpace</string>
+    <string name="settingsdesc"> you can change settings from here</string>
+    <string name="startdesc">you want to learn start Click here</string>
+    <string name="helpdesc">Click to see how to use this app</string>
+    <string name="exitdesc">Are you sure you want to exit</string>
 </resources>

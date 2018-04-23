@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
-        <activity android:name=".MainMenu">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,6 +26,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ShowCorrection" />
         <activity android:name=".UserSpace" />
+        <activity android:name=".MainMenu" />
     </application>
 
 </manifest>
