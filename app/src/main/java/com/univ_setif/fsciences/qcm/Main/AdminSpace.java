@@ -43,12 +43,10 @@ public class AdminSpace extends Fragment {
             }
         });
 
-
         return  v;
     }
 
 
-
-    }
+}
 
 
