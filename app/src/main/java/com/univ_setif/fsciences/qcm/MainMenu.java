@@ -1,27 +1,70 @@
 package com.univ_setif.fsciences.qcm;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.univ_setif.fsciences.qcm.Main.UserSpace;
 import com.univ_setif.fsciences.qcm.control.LoginCTRL;
-
-import java.io.File;
-
+import com.univ_setif.fsciences.qcm.control.mcqCTRL;
 
 public class MainMenu extends AppCompatActivity {
+    TabLayout tabLayout;
+    private int[] tabIcons = {
+            R.drawable.adminico,
+            R.drawable.homeico,
+            R.drawable.userico};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_menu);
+        setContentView(R.layout.activity_main);
 
+        final ViewPager viewpager = findViewById(R.id.viewpage);
+
+        PagerAdapter pagerAdapter = new com.univ_setif.fsciences.qcm.control.PagerAdapter(getSupportFragmentManager(),this);
+        viewpager.setAdapter(pagerAdapter);
+
+        tabLayout = findViewById(R.id.tablayout);
+        tabLayout.setupWithViewPager(viewpager);
+
+        viewpager.setCurrentItem(1);
+        setupTabIcons();
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewpager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                viewpager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                viewpager.setCurrentItem(tab.getPosition());
+            }
+        });
+    }
+
+   private void setupTabIcons() {
+        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
     }
 
     public void onStartClick(View v) {
@@ -29,7 +72,13 @@ public class MainMenu extends AppCompatActivity {
         startActivity(t);
     }
 
-    public void onExitClick(View V) {
+    public void onUserClick(View V) {
+        Intent t = new Intent(MainMenu.this, UserSpace.class);
+        startActivity(t);
+    }
+
+    @Override
+    public void onBackPressed() {
         AlertDialog.Builder confirm = new AlertDialog.Builder(MainMenu.this);
         confirm.setMessage("Voulez-vous vraiment quitter l'application?")
                 .setCancelable(false)
@@ -50,46 +99,5 @@ public class MainMenu extends AppCompatActivity {
         exit.setCanceledOnTouchOutside(true);
         exit.setTitle("Exit");
         exit.show();
-    }
-
-    public void onUserClick(View V) {
-        Intent t = new Intent(MainMenu.this, UserSpace.class);
-        startActivity(t);
-    }
-
-    public void onAdminClick(View V) {
-        //Building Dialog Popup
-        AlertDialog.Builder mLogin = new AlertDialog.Builder(MainMenu.this);
-
-        @SuppressLint("InflateParams")
-        final View mLoginView = getLayoutInflater().inflate(R.layout.dialog_login, null);
-        mLogin.setView(mLoginView);
-
-        //Creating Dialog Popup
-        final AlertDialog login = mLogin.create();
-        login.setCancelable(false);
-        login.setCanceledOnTouchOutside(true);
-
-
-        //Retrieving Components
-        final EditText password = mLoginView.findViewById(R.id.password);
-
-        final Button mSubmit = mLoginView.findViewById(R.id.login);
-
-        mSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final String pass = password.getText().toString();
-                LoginCTRL.verify(getApplicationContext(), pass);
-                login.cancel();
-            }
-        });
-
-        login.show();
-    }
-
-    @Override
-    public void onBackPressed() {
-        onExitClick(getCurrentFocus());
     }
 }

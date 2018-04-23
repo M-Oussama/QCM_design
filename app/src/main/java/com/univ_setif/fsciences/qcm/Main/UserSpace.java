@@ -90,8 +90,9 @@ public class UserSpace extends Fragment {
         });
 
         //populating the card
-        SharedPreferences sharedPreferences =getActivity().getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
         HashMap<String, String> result = (HashMap<String, String>) sharedPreferences.getAll();
+
         if(result.size() == 4){
             mFirstname.setText(result.get("firstname"));
             mLastname.setText(result.get("surname"));
@@ -105,6 +106,7 @@ public class UserSpace extends Fragment {
 
         return v;
     }
+
     public void OnCardClick(View v) {
           /*========================================
             I N F L A T I N G       V I E W

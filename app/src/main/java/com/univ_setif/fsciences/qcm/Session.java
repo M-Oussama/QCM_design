@@ -37,9 +37,9 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         long minutes, secondes;
 
         SharedPreferences sp = getSharedPreferences("adminSettings", MODE_PRIVATE);
-        minutes  = sp.getLong("minutes", 0);
+        minutes  = sp.getLong("minutes", 10);
         secondes = sp.getLong("secondes", 0);
-        nbrQCM   = sp.getInt("nbrQCM", 10);
+        nbrQCM   = sp.getInt("nbrQCM", 20);
 
 
 

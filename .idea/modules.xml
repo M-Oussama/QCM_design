@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://F:\San Andreas (2015) [1080p]\QCM-master\QCM.iml" filepath="F:\San Andreas (2015) [1080p]\QCM-master\QCM.iml" />
-      <module fileurl="file://$PROJECT_DIR$/QCM-master.iml" filepath="$PROJECT_DIR$/QCM-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/QCM_design.iml" filepath="$PROJECT_DIR$/QCM_design.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://F:\San Andreas (2015) [1080p]\QCM-master\app\app.iml" filepath="F:\San Andreas (2015) [1080p]\QCM-master\app\app.iml" />
     </modules>
   </component>
 </project>
