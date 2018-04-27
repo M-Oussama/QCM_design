@@ -7,8 +7,13 @@
     <string name="retour">Retour au Menu Principal</string>
     <string name="voirCorrection">Voir la correction</string>
     <string name="tab">AdminSpace</string>
-    <string name="settingsdesc"> you can change settings from here</string>
-    <string name="startdesc">you want to learn start Click here</string>
-    <string name="helpdesc">Click to see how to use this app</string>
+    <string name="settingsdesc">customize your app to your flavor</string>
+    <string name="startdesc">dive right in the middle of action!</string>
+    <string name="helpdesc">need assistance? look no further.</string>
     <string name="exitdesc">Are you sure you want to exit</string>
+    <string name="welcome">Welcome</string>
+    <string name="no_user">John Doe</string>
+    <string name="start_maj">START</string>
+    <string name="settings_maj">SETTINGS</string>
+    <string name="help_maj">HELP</string>
 </resources>

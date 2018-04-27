@@ -1,11 +1,13 @@
-package com.univ_setif.fsciences.qcm.Main;
+package com.univ_setif.fsciences.qcm.control;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.univ_setif.fsciences.qcm.BlankFragment;
+import com.univ_setif.fsciences.qcm.Main.AdminSpace;
+import com.univ_setif.fsciences.qcm.Main.Home;
+import com.univ_setif.fsciences.qcm.Main.UserSpace;
 
 /**
  * Created by oussama on 06/04/2018.

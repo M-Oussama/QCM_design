@@ -12,21 +12,36 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainMenu"
+
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MCQManager" />
-        <activity android:name=".MCQEditor" />
+        <activity
+            android:name=".MCQManager"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MCQEditor"
+            android:screenOrientation="portrait" android:noHistory="true" />
         <activity
             android:name=".Session"
             android:screenOrientation="portrait" />
-        <activity android:name=".ShowCorrection" />
-        <activity android:name=".UserSpace" />
-        <activity android:name=".MainMenu" />
+        <activity
+            android:name=".ShowCorrection"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MCQmanage"
+            android:screenOrientation="portrait"  />
+        <activity
+            android:name=".ADDMCQ"
+            android:screenOrientation="portrait"
+            android:theme="@style/Dialogtheme" />
+        <activity android:name=".MCQEdito"></activity>
     </application>
 
 </manifest>

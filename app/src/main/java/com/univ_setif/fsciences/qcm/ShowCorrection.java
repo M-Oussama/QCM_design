@@ -72,7 +72,7 @@ public class ShowCorrection extends AppCompatActivity {
         returnMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent backMenu = new Intent(ShowCorrection.this,MainMenu.class);
+                Intent backMenu = new Intent(ShowCorrection.this, MainMenu.class);
                 backMenu.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 backMenu.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(backMenu);
