@@ -37,6 +37,7 @@
             android:background="@drawable/white_background_images">
 
             <android.support.design.widget.TabItem
+                android:transitionName="adminicon"
                 android:id="@+id/adminspace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

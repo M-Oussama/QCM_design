@@ -50,7 +50,7 @@ public class Home extends Fragment {
         return v;
     }
 
-    private void loadUserCard() {
+    public void loadUserCard() {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         HashMap<String, String> result = (HashMap<String, String>) sharedPreferences.getAll();
         if (result.size() == 4) {

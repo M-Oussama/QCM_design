@@ -36,7 +36,7 @@
         android:layout_margin="15dp">
 
         <LinearLayout
-            android:background="@drawable/white_background_images"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -82,7 +82,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/border"
-                        android:drawableLeft="@drawable/passwordicon"
+
                         android:drawablePadding="10dp"
                         android:hint="Password"
 

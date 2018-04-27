@@ -51,18 +51,21 @@
         android:layout_marginTop="8dp"
         app:cardBackgroundColor="@color/lightgrey"
         app:cardElevation="8dp"
+        app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <SearchView
+
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"
             android:focusable="true"
             android:gravity="top"
-            android:imeOptions="actionSearch" />
+            android:imeOptions="actionSearch"
+            />
     </android.support.v7.widget.CardView>
 
     <android.support.design.widget.FloatingActionButton

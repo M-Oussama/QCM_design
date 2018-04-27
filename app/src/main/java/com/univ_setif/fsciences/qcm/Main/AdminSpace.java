@@ -1,8 +1,10 @@
 package com.univ_setif.fsciences.qcm.Main;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,7 +22,7 @@ import com.univ_setif.fsciences.qcm.control.LoginCTRL;
  */
 public class AdminSpace extends Fragment {
 
-   Button login;
+
 
     public AdminSpace() {
         // Required empty public constructor
@@ -36,10 +38,20 @@ public class AdminSpace extends Fragment {
         Button submit = v.findViewById(R.id.sign_in);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 TextInputLayout password = v.findViewById(R.id.password);
                 final String pass = password.getEditText().getText().toString();
-                LoginCTRL.verify(view.getContext(), pass);
+                ProgressDialog pd = new ProgressDialog(getActivity());
+                pd.setMessage("loading");
+                pd.show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        LoginCTRL.verify(view.getContext(), pass);
+                    }
+                },1000);
+
+
             }
         });
 
