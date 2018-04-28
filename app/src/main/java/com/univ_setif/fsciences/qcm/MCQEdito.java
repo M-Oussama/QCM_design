@@ -81,14 +81,84 @@ public class MCQEdito extends AppCompatActivity {
            Answer2.setText(getIntent().getExtras().get("OldAnswer2").toString());
            Answer3.setText(getIntent().getExtras().get("OldAnswer3").toString());
            Answer4.setText(getIntent().getExtras().get("OldAnswer4").toString());
-           Toast.makeText(this, ""+getIntent().getExtras().get("OldAnswer1"), Toast.LENGTH_SHORT).show();
+           ArrayList<Answer> correctAnswer = (ArrayList<Answer>) getIntent().getSerializableExtra("CorrectAnswer");
+
+
+           if(correctAnswer.contains(new Answer(Answer1.getText().toString())))
+               isCorrect1.setChecked(true);
+           if(correctAnswer.contains(new Answer(Answer2.getText().toString())))
+               isCorrect2.setChecked(true);
+           if(correctAnswer.contains(new Answer(Answer3.getText().toString())))
+               isCorrect3.setChecked(true);
+           if(correctAnswer.contains(new Answer(Answer4.getText().toString())))
+               isCorrect4.setChecked(true);
 
        }
 
     }
 
     public void UPDATE(View view) {
-        finish();
+        if(!checkInputValidity()) return;
+
+        QCM oldQCM = new QCM(
+                new Question(getIntent().getStringExtra("OldQuestion")),
+                new Answer(getIntent().getStringExtra("OldAnswer1")),
+                new Answer(getIntent().getStringExtra("OldAnswer2")),
+                new Answer(getIntent().getStringExtra("OldAnswer3")),
+                new Answer(getIntent().getStringExtra("OldAnswer4"))
+        );
+
+
+        Answer ans1 = oldQCM.getAns1();
+        Answer ans2 = oldQCM.getAns2();
+        Answer ans3 = oldQCM.getAns3();
+        Answer ans4 = oldQCM.getAns4();
+        Question qst = oldQCM.getQuestion();
+        boolean flag = false;
+
+        if(!Answer1.getText().toString().equals(oldQCM.getAns1().getText())) {
+            ans1 = new Answer(Answer1.getText().toString());
+        }
+
+        if(!Answer2.getText().toString().equals(oldQCM.getAns2().getText())) {
+            ans2 = new Answer(Answer2.getText().toString());
+        }
+
+        if(!Answer3.getText().toString().equals(oldQCM.getAns3().getText())) {
+            ans3 = new Answer(Answer3.getText().toString());
+        }
+
+        if(!Answer4.getText().toString().equals(oldQCM.getAns4().getText())) {
+            ans4 = new Answer(Answer4.getText().toString());
+        }
+
+        if(!question.getText().toString().equals(oldQCM.getQuestion().getText())){
+            qst = new Question(question.getText().toString());
+        }else
+            flag = true;
+
+        if(isCorrect1.isChecked())
+            qst.setAnswers(ans1);
+        if(isCorrect2.isChecked())
+            qst.setAnswers(ans2);
+        if(isCorrect3.isChecked())
+            qst.setAnswers(ans3);
+        if(isCorrect4.isChecked())
+            qst.setAnswers(ans4);
+
+
+
+        QCM newQcm = new QCM(qst, ans1, ans2, ans3, ans4);
+
+        mcqCTRL controleur = new mcqCTRL(this, "GL.db");
+        controleur.openWritable();
+        controleur.updateQCM(oldQCM, newQcm, flag);
+        controleur.close();
+
+        Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+        Intent back = new Intent(this,MCQmanage.class);
+        startActivity(back);
+
 
 
     }
@@ -169,5 +239,11 @@ public class MCQEdito extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    private void setUpdate()
+    {
+
+
     }
 }

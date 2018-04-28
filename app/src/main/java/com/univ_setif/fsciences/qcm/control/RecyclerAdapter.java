@@ -1,7 +1,9 @@
 package com.univ_setif.fsciences.qcm.control;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,6 +26,7 @@ import com.ramotion.foldingcell.FoldingCell;
 import com.univ_setif.fsciences.qcm.MCQEditor;
 import com.univ_setif.fsciences.qcm.MCQmanage;
 import com.univ_setif.fsciences.qcm.R;
+import com.univ_setif.fsciences.qcm.entity.Answer;
 import com.univ_setif.fsciences.qcm.entity.QCM;
 import com.univ_setif.fsciences.qcm.entity.Question;
 
@@ -39,12 +43,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     int posit=0;
     int three=3,one=1,ten=10;
     public ArrayList<QCM> ALLitem;
+    Context context;
 
 
 
-    public RecyclerAdapter(int position, ArrayList<QCM> ALlitem){
+    public RecyclerAdapter(int position, ArrayList<QCM> ALlitem,Context context){
         this.Qcmposition = position;
         this.ALLitem = ALlitem;
+        this.context=context;
     }
 
     @Override
@@ -167,6 +173,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         public LinearLayout foreground;
 
 
+        public TextView isCorrect1,
+                        isCorrect2,
+                        isCorrect3,
+                        isCorrect4;
 
       public  TextView questioncontent,
                        questionnumber,
@@ -194,6 +204,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             Answer2= itemView.findViewById(R.id.answer2);
             Answer3= itemView.findViewById(R.id.answer3);
             Answer4= itemView.findViewById(R.id.answer4);
+
+            isCorrect1 = itemView.findViewById(R.id.isCorrect1);
+            isCorrect2 = itemView.findViewById(R.id.isCorrect2);
+            isCorrect3 = itemView.findViewById(R.id.isCorrect3);
+            isCorrect4 = itemView.findViewById(R.id.isCorrect4);
+
         }
     }
       public void delete(final int position, final ViewHolder viewHolder){
@@ -244,13 +260,42 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
 
     }
-      private void displayQuestion(ViewHolder holder,int position,ArrayList<QCM>ALLitem){
+      @SuppressLint({"ResourceAsColor", "WrongConstant"})
+      private void displayQuestion(ViewHolder holder, int position, ArrayList<QCM>ALLitem){
        QCM current =ALLitem.get(position);
+
+
+
+
+
         holder.questiontitle.setText(current.getQuestion().getText().toString());
         holder.Answer1.setText(current.getAns1().getText().toString());
         holder.Answer2.setText(current.getAns2().getText().toString());
         holder.Answer3.setText(current.getAns3().getText().toString());
         holder.Answer4.setText(current.getAns4().getText().toString());
+
+          ArrayList<Answer> correctAnswer = current.getQuestion().getAnswers();
+
+
+
+          if(correctAnswer.contains(new Answer(current.getAns1().getText()))) {
+               holder.isCorrect1.setTextColor(context.getResources().getColor(R.color.green));
+              holder.Answer1.setTextColor(context.getResources().getColor(R.color.green));
+          }
+          if(correctAnswer.contains(new Answer(current.getAns2().getText()))) {
+
+              holder.isCorrect2.setTextColor(context.getResources().getColor(R.color.green));
+              holder.Answer2.setTextColor(context.getResources().getColor(R.color.green));
+          }
+          if(correctAnswer.contains(new Answer(current.getAns3().getText()))) {
+              holder.isCorrect3.setTextColor(context.getResources().getColor(R.color.green));
+              holder.Answer3.setTextColor(context.getResources().getColor(R.color.green));
+          }
+          if(correctAnswer.contains(new Answer(current.getAns4().getText()))) {
+              holder.isCorrect4.setTextColor(context.getResources().getColor(R.color.green));
+              holder.Answer4.setTextColor(context.getResources().getColor(R.color.green));
+
+          }
 
     }
 

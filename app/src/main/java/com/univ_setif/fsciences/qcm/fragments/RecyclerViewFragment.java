@@ -29,6 +29,7 @@ import com.univ_setif.fsciences.qcm.MainMenu;
 import com.univ_setif.fsciences.qcm.R;
 import com.univ_setif.fsciences.qcm.control.RecyclerAdapter;
 import com.univ_setif.fsciences.qcm.control.mcqCTRL;
+import com.univ_setif.fsciences.qcm.entity.Answer;
 import com.univ_setif.fsciences.qcm.entity.QCM;
 
 import java.util.ArrayList;
@@ -78,7 +79,7 @@ public class RecyclerViewFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager= linearLayoutManager;
         recyclerView.setLayoutManager(layoutManager);
 
-        recyclerAdapter = new RecyclerAdapter(position,ALLitem);
+        recyclerAdapter = new RecyclerAdapter(position,ALLitem,getActivity());
 
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setHasFixedSize(false);
@@ -147,7 +148,7 @@ public class RecyclerViewFragment extends Fragment {
 
                } else{
                    //  Swipe RIGHT TO UPDATE QUESTION
-                   ArrayList<String> answers ;
+                   ArrayList<Answer> answers ;
                    // MAKE DELETE ICONS INVISIBLE
                    View delete = ((RecyclerAdapter.ViewHolder)viewHolder).delete;
                    delete.setVisibility(View.INVISIBLE);
@@ -158,14 +159,18 @@ public class RecyclerViewFragment extends Fragment {
 
                    answers =getAnswers(((RecyclerAdapter.ViewHolder) viewHolder).questioncontent.getText().toString(),ALLitem);
 
+
+
                    Intent update = new Intent(getActivity(),MCQEdito.class);
                    update.putExtra("MCQEdito",true);
                    Bundle Questioninfo =new Bundle();
                    Questioninfo.putString("OldQuestion",((RecyclerAdapter.ViewHolder) viewHolder).questioncontent.getText().toString());
-                   Questioninfo.putString("OldAnswer1",answers.get(0));
-                   Questioninfo.putString("OldAnswer2",answers.get(1));
-                   Questioninfo.putString("OldAnswer3",answers.get(2));
-                   Questioninfo.putString("OldAnswer4",answers.get(3));
+                   Questioninfo.putString("OldAnswer1",answers.get(0).getText());
+                   Questioninfo.putString("OldAnswer2",answers.get(1).getText());
+                   Questioninfo.putString("OldAnswer3",answers.get(2).getText());
+                   Questioninfo.putString("OldAnswer4",answers.get(3).getText());
+
+                   update.putExtra("CorrectAnswer",ALLitem.get(Integer.parseInt(answers.get(4).getText())).getQuestion().getAnswers());
                    update.putExtras(Questioninfo);
                    startActivity(update);
 
@@ -287,15 +292,18 @@ public class RecyclerViewFragment extends Fragment {
     }
 
 
-     public ArrayList<String> getAnswers(String Question,ArrayList<QCM> allitem){
-        ArrayList<String> Answers = new ArrayList<>();
+     public ArrayList<Answer> getAnswers(String Question, ArrayList<QCM> allitem){
+        ArrayList<Answer> Answers = new ArrayList<>();
         for (int i = 0; i <allitem.size() ; i++) {
             if(allitem.get(i).getQuestion().getText().toString().equals(Question)){
 
-                Answers.add(0,allitem.get(i).getAns1().getText().toString());
-                Answers.add(1,allitem.get(i).getAns2().getText().toString());
-                Answers.add(2,allitem.get(i).getAns3().getText().toString());
-                Answers.add(3,allitem.get(i).getAns4().getText().toString());
+
+                Answers.add(0,allitem.get(i).getAns1());
+                Answers.add(1,allitem.get(i).getAns2());
+                Answers.add(2,allitem.get(i).getAns3());
+                Answers.add(3,allitem.get(i).getAns4());
+                Answers.add(4,new Answer(String.valueOf(i)));
+
             }
 
         }

@@ -79,7 +79,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
          android:background="@android:color/white"
-          android:visibility="gone"
+            android:visibility="gone"
+
             >
             <RelativeLayout
                 android:id="@+id/card"
@@ -145,36 +146,30 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
-                        <TextView
-                            android:id="@+id/answer"
-                            style="@style/ContentMainBadgeTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_marginBottom="5dp"
-                            android:fontFamily="@font/gnyrwn971"
-                            android:text="Answer1"
-                            android:textColor="@android:color/black" />
 
-                        <CheckBox
-                            android:id="@+id/content_avatar"
+                        <TextView
+
+                            android:id="@+id/isCorrect1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/answer"
-                            android:text="" />
+                            android:layout_marginBottom="9sp"
+                            android:layout_marginTop="15sp"
+                            android:text="1 )"
+                            android:textSize="20sp"
+                            android:textColor="@android:color/black"
+                            android:fontFamily="@font/gnyrwn971"/>
 
 
                         <TextView
                             android:id="@+id/answer1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignTop="@id/content_avatar"
+                            android:layout_alignTop="@id/isCorrect1"
                             android:layout_marginBottom="2dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginStart="10dp"
-                            android:layout_toEndOf="@id/content_avatar"
-                            android:layout_toRightOf="@id/content_avatar"
+                            android:layout_toEndOf="@id/isCorrect1"
+                            android:layout_toRightOf="@id/isCorrect1"
                             android:fontFamily="@font/gnyrwn971"
                             android:text="answer1"
                             android:textColor="@android:color/black"
@@ -200,36 +195,31 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent">
 
-                            <TextView
-                                android:id="@+id/answer2title"
-                                style="@style/ContentMainBadgeTitle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentStart="true"
-                                android:layout_marginBottom="5dp"
-                                android:fontFamily="@font/gnyrwn971"
-                                android:text="Answer2"
-                                android:textColor="@android:color/black" />
 
-                            <CheckBox
-                                android:id="@+id/content_avatar2"
+
+                            <TextView
+
+                                android:id="@+id/isCorrect2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@id/answer2title"
-                                android:text="" />
+                                android:layout_marginBottom="9sp"
+                                android:layout_marginTop="15sp"
+                                android:text="2 )"
+                                android:textSize="20sp"
+                                android:textColor="@android:color/black"
+                                android:fontFamily="@font/gnyrwn971"/>
 
 
                             <TextView
                                 android:id="@+id/answer2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignTop="@id/content_avatar2"
+                                android:layout_alignTop="@id/isCorrect2"
                                 android:layout_marginBottom="2dp"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginStart="10dp"
-                                android:layout_toEndOf="@id/content_avatar2"
-                                android:layout_toRightOf="@id/content_avatar2"
+                                android:layout_toEndOf="@id/isCorrect2"
+                                android:layout_toRightOf="@id/isCorrect2"
                                 android:fontFamily="@font/gnyrwn971"
                                 android:text="answer2"
                                 android:textColor="@android:color/black"
@@ -257,35 +247,31 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent">
 
-                            <TextView
-                                android:id="@+id/answer3title"
-                                style="@style/ContentMainBadgeTitle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentStart="true"
-                                android:layout_alignParentTop="true"
-                                android:fontFamily="@font/gnyrwn971"
-                                android:text="Answer3"
-                                android:textColor="@android:color/black" />
 
-                            <CheckBox
-                                android:id="@+id/con"
+
+                            <TextView
+                                android:layout_marginTop="15sp"
+                                android:id="@+id/isCorrect3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/answer3title"
-                                android:text="" />
+                                android:text="3 )"
+                                android:textSize="20sp"
+                                android:layout_marginBottom="9sp"
+                                android:textColor="@android:color/black"
+                                android:fontFamily="@font/gnyrwn971"/>
 
 
                             <TextView
                                 android:id="@+id/answer3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignTop="@id/con"
+                                android:layout_alignTop="@id/isCorrect3"
                                 android:layout_marginBottom="2dp"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginStart="10dp"
-                                android:layout_toEndOf="@id/con"
-                                android:layout_toRightOf="@id/con"
+                                android:layout_toEndOf="@id/isCorrect3"
+                                android:layout_toRightOf="@id/isCorrect3"
                                 android:fontFamily="@font/gnyrwn971"
                                 android:text="answer3"
                                 android:textColor="@android:color/black"
@@ -314,36 +300,30 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent">
 
-                            <TextView
-                                android:id="@+id/answer4title"
-                                style="@style/ContentMainBadgeTitle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentStart="true"
-                                android:layout_marginBottom="5dp"
-                                android:fontFamily="@font/gnyrwn971"
-                                android:text="Answer4"
-                                android:textColor="@android:color/black" />
 
-                            <CheckBox
-                                android:id="@+id/conte"
+
+                            <TextView
+                                android:layout_marginTop="15sp"
+                                android:id="@+id/isCorrect4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/answer4title"
-                                android:text="" />
+                                android:text="4 )"
+                                android:textSize="20sp"
+                                android:textColor="@android:color/black"
+                                android:fontFamily="@font/gnyrwn971"/>
 
 
                             <TextView
                                 android:id="@+id/answer4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignTop="@id/conte"
+                                android:layout_alignTop="@id/isCorrect4"
                                 android:layout_marginBottom="2dp"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginStart="10dp"
-                                android:layout_toEndOf="@id/conte"
-                                android:layout_toRightOf="@id/conte"
+                                android:layout_toEndOf="@id/isCorrect4"
+                                android:layout_toRightOf="@id/isCorrect4"
                                 android:fontFamily="@font/gnyrwn971"
                                 android:text="answer4"
                                 android:textColor="@android:color/black"
@@ -363,6 +343,7 @@
             android:id="@+id/cell_title_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             >
 
 

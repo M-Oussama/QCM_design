@@ -41,7 +41,7 @@
             android:name=".ADDMCQ"
             android:screenOrientation="portrait"
             android:theme="@style/Dialogtheme" />
-        <activity android:name=".MCQEdito"></activity>
+        <activity android:name=".MCQEdito" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
