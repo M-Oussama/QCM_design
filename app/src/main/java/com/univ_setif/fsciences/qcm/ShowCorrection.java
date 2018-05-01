@@ -57,7 +57,7 @@ public class ShowCorrection extends AppCompatActivity {
             addQuestion.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent t = new Intent(ShowCorrection.this, MCQEditor.class);
+                    Intent t = new Intent(ShowCorrection.this, RetroMCQEditor.class);
                     t.putExtra("invoker", "ShowCorrection");
                     startActivity(t);
                 }

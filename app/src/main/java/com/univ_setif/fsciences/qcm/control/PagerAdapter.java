@@ -14,8 +14,8 @@ import com.univ_setif.fsciences.qcm.Main.UserSpace;
  */
 
 public class PagerAdapter extends FragmentPagerAdapter {
-   String frag[]={"AdminSpace","Home","UserSpace"};
-   Context context;
+   private String frag[]={"AdminSpace","Home","UserSpace"};
+   private Context context;
     public PagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context=context;

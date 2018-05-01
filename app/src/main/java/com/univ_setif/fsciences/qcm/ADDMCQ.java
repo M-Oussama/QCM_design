@@ -1,18 +1,19 @@
 package com.univ_setif.fsciences.qcm;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.univ_setif.fsciences.qcm.control.mcqCTRL;
+
 public class ADDMCQ extends AppCompatActivity {
 
     Button Addmcq;
-    EditText MCQ_name;
+    EditText dbNameEditText;
+    EditText fullNameEditText;
     String newmcq;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,26 +21,24 @@ public class ADDMCQ extends AppCompatActivity {
         setContentView(R.layout.activity_addmcq);
 
         //init component
-        Addmcq= findViewById(R.id.addmcq);
-        MCQ_name = findViewById(R.id.mcq_name);
+        Addmcq           = findViewById(R.id.addmcq);
+        dbNameEditText   = findViewById(R.id.mcq_name);
+        fullNameEditText = findViewById(R.id.mcq_desc);
 
 
         Addmcq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(MCQ_name.getText().toString().isEmpty())
-                    Toast.makeText(ADDMCQ.this, "You Should Enter Name to New MCQ", Toast.LENGTH_SHORT).show();
-                else{
-                    newmcq = MCQ_name.getText().toString();
-                    Toast.makeText(ADDMCQ.this, "Added Successfully", Toast.LENGTH_SHORT).show();
-
-                    finish();
-
+                String dbName = dbNameEditText.getText().toString();
+                String fullName = fullNameEditText.getText().toString();
+                if(dbName.isEmpty() || fullName.isEmpty()) {
+                    Toast.makeText(ADDMCQ.this, "Input cannot be left null", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
+                mcqCTRL ctrl = new mcqCTRL(getApplicationContext(), dbName, fullName);
+                ctrl.close();
             }
         });
-
-        
-
     }
 }

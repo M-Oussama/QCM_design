@@ -2,6 +2,7 @@ package com.univ_setif.fsciences.qcm.control;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,11 +10,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.univ_setif.fsciences.qcm.entity.QCM;
 import com.univ_setif.fsciences.qcm.entity.Question;
 import com.univ_setif.fsciences.qcm.entity.Answer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -71,8 +74,9 @@ public class mcqCTRL {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-            db.execSQL("DROP TABLE IF EXISTS Question;" + "DROP TABLE IF EXISTS Answer;"
-                    + "DROP TABLE IF EXISTS QuestionAnswer");
+            db.execSQL("DROP TABLE IF EXISTS Question;");
+            db.execSQL("DROP TABLE IF EXISTS Answer;");
+            db.execSQL("DROP TABLE IF EXISTS QuestionAnswer;");
             onCreate(db);
         }
 
@@ -539,7 +543,9 @@ public class mcqCTRL {
     private DatabaseHelper mDbHelper;
     private SQLiteDatabase mDb;
     private Context mContext;
-    private final String DATABASE_NAME;
+    private String DATABASE_NAME;
+    private HashMap<String, String> DATABASES;
+    private static final String METADATA = "db-metadata";
 
     //Question Columns
     private static final String QUESTION_TABLE = "Question";
@@ -561,6 +567,22 @@ public class mcqCTRL {
     public mcqCTRL(Context context, String dbName){
         mContext      = context;
         DATABASE_NAME = dbName;
+
+        SharedPreferences sp = context.getSharedPreferences("db-metadata", Context.MODE_PRIVATE);
+        DATABASES  = (HashMap<String, String>) sp.getAll();
+    }
+
+    public mcqCTRL(Context context, String dbName, String dbFullName){
+        mContext      = context;
+        DATABASE_NAME = dbName;
+
+        SharedPreferences meta = context.getSharedPreferences(METADATA, Context.MODE_PRIVATE);
+        DATABASES  = (HashMap<String, String>) meta.getAll();
+        DATABASES.put(dbName, dbFullName);
+
+        Gson gson = new Gson();
+        String databases = gson.toJson(DATABASES);
+        meta.edit().putString("databases", databases).apply();
     }
 
     /*======================================
@@ -936,6 +958,15 @@ public class mcqCTRL {
 
         return qcm;
     }
+
+    public void editDatabaseName(String fullName){
+        DATABASES.put(DATABASE_NAME, fullName);
+        Gson gson = new Gson();
+        String databases = gson.toJson(DATABASES);
+        SharedPreferences meta = mContext.getSharedPreferences(METADATA, Context.MODE_PRIVATE);
+        meta.edit().putString("databases", databases).apply();
+    }
+
 
 }
 

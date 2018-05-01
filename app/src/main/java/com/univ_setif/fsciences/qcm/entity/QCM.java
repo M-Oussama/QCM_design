@@ -1,10 +1,12 @@
 package com.univ_setif.fsciences.qcm.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by hzerrad on 24-Mar-18.
  */
 
-public class QCM {
+public class QCM implements Serializable{
     private Question question;
     private Answer ans1;
     private Answer ans2;

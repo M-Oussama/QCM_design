@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.univ_setif.fsciences.qcm.MCQManager;
-import com.univ_setif.fsciences.qcm.MCQmanage;
 
 /**
  * Created by hzerrad on 18-Mar-18.
@@ -26,8 +25,9 @@ public class LoginCTRL {
     }
 
     private static void getSession(Context context){
-        Intent t = new Intent(context, MCQmanage.class);
+        Intent t = new Intent(context, MCQManager.class);
         t.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        t.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         context.startActivity(t);
     }
 }

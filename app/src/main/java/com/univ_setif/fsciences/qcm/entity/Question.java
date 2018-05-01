@@ -1,5 +1,6 @@
 package com.univ_setif.fsciences.qcm.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -7,7 +8,7 @@ import java.util.Arrays;
  * Created by hzerrad on 17-Mar-18.
  */
 
-public class Question {
+public class Question implements Serializable{
     private String text;
     private ArrayList<Answer> correctAnswer;
 

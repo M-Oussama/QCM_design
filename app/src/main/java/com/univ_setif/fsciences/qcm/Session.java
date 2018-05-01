@@ -10,7 +10,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -105,24 +107,6 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         }
     }
 
-    private void finalizeSessionFromLog(){
-
-        Button submit = findViewById(R.id.submit);
-        submit.setVisibility(View.GONE);
-
-        for (int i=0; i<nbrQCM; i++) {
-            DisplayQcm fragment = (DisplayQcm) swipeAdapter.getItem(i);
-
-            ArrayList<Answer> correctAnswer = qcmList.get(i).getQuestion().getAnswers();
-
-            fragment.setCorrectAnswers(correctAnswer);
-
-            fragment.fromLog();
-        }
-
-        viewPager.setCurrentItem(0);
-        finalized = true;
-    }
 
     public String toTime(long time){
         long minutes = time / (60*1000);
@@ -183,6 +167,12 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             builder.setMessage("Voulez-vous vraiment retourner au menu principal? \n" +
                     "AVERTISSEMENT: Cette session sera perdue!")
                     .setCancelable(false)
+                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialogInterface) {
+                            timer = timer.resume();
+                        }
+                    })
                     .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -222,6 +212,12 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
         AlertDialog.Builder confirm = new AlertDialog.Builder(Session.this);
         confirm.setCancelable(false)
+                .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialogInterface) {
+                        timer = timer.resume();
+                    }
+                })
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -236,6 +232,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
                                     .logSession(date, myNote, toTime(timer.getElapsed()), nbrQCM, qcmList, answers);
                         } catch (IOException e) {
                             Log.w("Session", "An error occurred while logging the session");
+                            e.printStackTrace();
                         }
 
                         finalizeSession();
@@ -244,10 +241,11 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
                 .setNegativeButton("Non", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        timer = timer.resume();
                         dialogInterface.cancel();
                     }
                 });
+
+
         if(hasEmpty(answers))
             confirm.setMessage("Vous avez pas répondu au tout les questions proposées. Puisque le système " +
                     "d'évaluation n'est pas négative, nous vous conseillons de répondre comme mème.\n" +

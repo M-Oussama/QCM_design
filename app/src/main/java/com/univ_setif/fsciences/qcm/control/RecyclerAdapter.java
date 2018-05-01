@@ -2,10 +2,8 @@ package com.univ_setif.fsciences.qcm.control;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
@@ -15,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,8 +20,7 @@ import android.widget.Toast;
 
 
 import com.ramotion.foldingcell.FoldingCell;
-import com.univ_setif.fsciences.qcm.MCQEditor;
-import com.univ_setif.fsciences.qcm.MCQmanage;
+import com.univ_setif.fsciences.qcm.MCQManager;
 import com.univ_setif.fsciences.qcm.R;
 import com.univ_setif.fsciences.qcm.entity.Answer;
 import com.univ_setif.fsciences.qcm.entity.QCM;
@@ -215,21 +211,21 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
       public void delete(final int position, final ViewHolder viewHolder){
 
 
-       AlertDialog.Builder confirm = new AlertDialog.Builder(MCQmanage.context);
+       AlertDialog.Builder confirm = new AlertDialog.Builder(MCQManager.context);
        confirm.setMessage("Voulez-vous vraiment supprimer ce QCM? Cette opération est irréversible")
                .setCancelable(false)
                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                    @Override
                    public void onClick(DialogInterface dialogInterface, int i) {
-                       mcqCTRL controleur = new mcqCTRL(MCQmanage.context, "GL.db");
+                       mcqCTRL controleur = new mcqCTRL(MCQManager.context, "GL.db");
                        controleur.openWritable();
-                       Toast.makeText(MCQmanage.context, ""+viewHolder.questioncontent.getText(), Toast.LENGTH_SHORT).show();
+                       Toast.makeText(MCQManager.context, ""+viewHolder.questioncontent.getText(), Toast.LENGTH_SHORT).show();
                        controleur.deleteQCM(new Question(viewHolder.questioncontent.getText().toString()));
                        controleur.close();
                        ALLitem = (ArrayList<QCM>) controleur.getAllQCM();
                        notifyItemRemoved(position);
                        notifyItemRangeChanged(position,getItemCount());
-                       Toast t = Toast.makeText(MCQmanage.context, "Deleted Successfully", Toast.LENGTH_SHORT);
+                       Toast t = Toast.makeText(MCQManager.context, "Deleted Successfully", Toast.LENGTH_SHORT);
                        t.show();
 
 

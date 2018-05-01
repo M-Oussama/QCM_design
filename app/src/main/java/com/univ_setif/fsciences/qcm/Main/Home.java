@@ -50,8 +50,8 @@ public class Home extends Fragment {
         return v;
     }
 
-    public void loadUserCard() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+    private void loadUserCard() {
+        SharedPreferences sharedPreferences = v.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         HashMap<String, String> result = (HashMap<String, String>) sharedPreferences.getAll();
         if (result.size() == 4) {
             TextView userName = v.findViewById(R.id.user_info_fullname);
@@ -97,4 +97,10 @@ public class Home extends Fragment {
         return mediaFile;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(v != null && isVisibleToUser)
+            loadUserCard();
+    }
 }

@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import com.github.florent37.hollyviewpager.HollyViewPagerBus;
 import com.univ_setif.fsciences.qcm.ADDMCQ;
-import com.univ_setif.fsciences.qcm.MCQEdito;
+import com.univ_setif.fsciences.qcm.MCQEditor;
 import com.univ_setif.fsciences.qcm.MainMenu;
 import com.univ_setif.fsciences.qcm.R;
 import com.univ_setif.fsciences.qcm.control.RecyclerAdapter;
@@ -91,7 +91,7 @@ public class RecyclerViewFragment extends Fragment {
         newQuizfab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent add = new Intent(getActivity(), MCQEdito.class);
+                Intent add = new Intent(getActivity(), MCQEditor.class);
                 add.putExtra("AddQuestion",true);
                 startActivity(add);
 
@@ -161,8 +161,8 @@ public class RecyclerViewFragment extends Fragment {
 
 
 
-                   Intent update = new Intent(getActivity(),MCQEdito.class);
-                   update.putExtra("MCQEdito",true);
+                   Intent update = new Intent(getActivity(),MCQEditor.class);
+                   update.putExtra("MCQEditor",true);
                    Bundle Questioninfo =new Bundle();
                    Questioninfo.putString("OldQuestion",((RecyclerAdapter.ViewHolder) viewHolder).questioncontent.getText().toString());
                    Questioninfo.putString("OldAnswer1",answers.get(0).getText());

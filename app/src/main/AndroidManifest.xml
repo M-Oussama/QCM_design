@@ -23,10 +23,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MCQManager"
+            android:name=".RetroMCQManager"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MCQEditor"
+            android:name=".RetroMCQEditor"
             android:screenOrientation="portrait" android:noHistory="true" />
         <activity
             android:name=".Session"
@@ -35,13 +35,13 @@
             android:name=".ShowCorrection"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MCQmanage"
+            android:name=".MCQManager"
             android:screenOrientation="portrait"  />
         <activity
             android:name=".ADDMCQ"
             android:screenOrientation="portrait"
             android:theme="@style/Dialogtheme" />
-        <activity android:name=".MCQEdito" android:screenOrientation="portrait"></activity>
+        <activity android:name=".MCQEditor" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
