@@ -18,8 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 
 import com.github.florent37.hollyviewpager.HollyViewPagerBus;
@@ -41,7 +39,7 @@ import static android.content.Context.MODE_PRIVATE;
  */
 
 public class RecyclerViewFragment extends Fragment {
-    public static RecyclerView recyclerView;
+    public RecyclerView recyclerView;
     RecyclerAdapter recyclerAdapter;
     public ArrayList<QCM> ALLitem;
     com.github.clans.fab.FloatingActionMenu menufab;
@@ -52,8 +50,7 @@ public class RecyclerViewFragment extends Fragment {
                                               logout;
     int position=0;
     private ArrayList<QCM> qcm;
-    public static Context context;
-    private LinearLayoutManager linearLayoutManager;
+    public Context context;
     public RecyclerView.LayoutManager layoutManager;
 
     public RecyclerViewFragment(){
@@ -75,8 +72,7 @@ public class RecyclerViewFragment extends Fragment {
          ALLitem = getALLQuestion();
 
 
-        linearLayoutManager = new LinearLayoutManager(getActivity());
-        RecyclerView.LayoutManager layoutManager= linearLayoutManager;
+        RecyclerView.LayoutManager layoutManager= new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerAdapter = new RecyclerAdapter(position,ALLitem,getActivity());
@@ -295,7 +291,7 @@ public class RecyclerViewFragment extends Fragment {
      public ArrayList<Answer> getAnswers(String Question, ArrayList<QCM> allitem){
         ArrayList<Answer> Answers = new ArrayList<>();
         for (int i = 0; i <allitem.size() ; i++) {
-            if(allitem.get(i).getQuestion().getText().toString().equals(Question)){
+            if(allitem.get(i).getQuestion().getText().equals(Question)){
 
 
                 Answers.add(0,allitem.get(i).getAns1());

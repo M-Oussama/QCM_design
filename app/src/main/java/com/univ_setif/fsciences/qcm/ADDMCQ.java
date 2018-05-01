@@ -36,8 +36,11 @@ public class ADDMCQ extends AppCompatActivity {
                     return;
                 }
 
-                mcqCTRL ctrl = new mcqCTRL(getApplicationContext(), dbName, fullName);
-                ctrl.close();
+                //This line initializes a new database with the name dbName and descirption fullName
+                    //it is the line responsible of cteating the database AND its metadata
+                new mcqCTRL(getApplicationContext(), dbName, fullName).init();
+
+                Toast.makeText(getApplicationContext(), "Added successfully", Toast.LENGTH_SHORT).show();
             }
         });
     }

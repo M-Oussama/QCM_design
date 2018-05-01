@@ -812,11 +812,20 @@ public class mcqCTRL {
    ========================================*/
 
     /**
+     * Initializes the controller
+     */
+    public void init(){
+        mDbHelper = new DatabaseHelper(mContext);
+    }
+
+    /**
      * Opens database for read-write
      * @throws SQLException in case of opening anomalies
      */
     public void openWritable() throws SQLException {
-        mDbHelper = new DatabaseHelper(mContext);
+        if(mDbHelper == null)
+            init();
+
         mDb = mDbHelper.getWritableDatabase();
     }
 
@@ -825,7 +834,9 @@ public class mcqCTRL {
      * @throws SQLException in case of opening anomalies
      */
     public void openReadable() throws SQLException {
-        mDbHelper = new DatabaseHelper(mContext);
+        if(mDbHelper == null)
+            init();
+
         mDb       = mDbHelper.getReadableDatabase();
     }
 
@@ -959,12 +970,32 @@ public class mcqCTRL {
         return qcm;
     }
 
+    /**
+     * Modifies the <b>Full Name</b> of the current database
+     * @param fullName new <b>Full Name</b>
+     */
     public void editDatabaseName(String fullName){
         DATABASES.put(DATABASE_NAME, fullName);
         Gson gson = new Gson();
         String databases = gson.toJson(DATABASES);
         SharedPreferences meta = mContext.getSharedPreferences(METADATA, Context.MODE_PRIVATE);
         meta.edit().putString("databases", databases).apply();
+    }
+
+    /**
+     * Databases list getter
+     * @return DATABASES
+     */
+    public HashMap<String, String> getDatabaseData(){
+        return DATABASES;
+    }
+
+    /**
+     * Databases count getter
+     * @return DATABASES count
+     */
+    public int getDatabasesCount(){
+        return DATABASES.size();
     }
 
 
