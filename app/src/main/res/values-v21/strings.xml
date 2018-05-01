@@ -16,4 +16,5 @@
     <string name="start_maj">START</string>
     <string name="settings_maj">SETTINGS</string>
     <string name="help_maj">HELP</string>
+    <string name="elapsed_text">Elapsed Time: </string>
 </resources>

@@ -31,6 +31,8 @@ public class DisplayQcm extends Fragment {
     boolean [] pressed;
     CardView card;
 
+    boolean isLog = false;
+
     ArrayList<Answer> userAnswer;
     ArrayList<Answer> correctAnswers;
 
@@ -50,7 +52,8 @@ public class DisplayQcm extends Fragment {
                              Bundle savedInstanceState) {
 
         questionNumber = getArguments().getInt("number");
-        userAnswer = new ArrayList<>();
+        if(!isLog) userAnswer = new ArrayList<>();
+        if(!isLog) correctAnswers = new ArrayList<>();
 
         View view = inflater.inflate(R.layout.fragment_display_qcm, container, false);
 
@@ -147,8 +150,27 @@ public class DisplayQcm extends Fragment {
         ans[2].setText(getArguments().getString("answer3"));
         ans[3].setText(getArguments().getString("answer4"));
 
+        if(isLog) {
+            for (Answer a: userAnswer)
+                pressed[getAnswerButtonIndex(a.getText())] = true;
+
+            updateView();
+        }
 
         return view;
+    }
+
+    private int getAnswerButtonIndex(String text){
+        if(ans[0].getText().toString().equals(text))
+            return 0;
+        if(ans[1].getText().toString().equals(text))
+            return 1;
+        if(ans[2].getText().toString().equals(text))
+            return 2;
+        if(ans[3].getText().toString().equals(text))
+            return 3;
+
+        return -1;
     }
 
     @Override
@@ -156,7 +178,7 @@ public class DisplayQcm extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
 
         if(isVisibleToUser && getView() != null)
-                swipe.onSwipeIn(questionNumber);
+            swipe.onSwipeIn(questionNumber);
     }
 
     @Override
@@ -169,6 +191,10 @@ public class DisplayQcm extends Fragment {
 
     public void setCorrectAnswers(ArrayList<Answer> correctAnswers) {
         this.correctAnswers = correctAnswers;
+    }
+
+    public void setUserAnswer(ArrayList<Answer> userAnswer){
+        this.userAnswer = userAnswer;
     }
 
 
@@ -214,7 +240,7 @@ public class DisplayQcm extends Fragment {
             card.setBackgroundResource(R.color.wrongAnswer);
 
         for (Answer a: correctAnswers) {
-                if(a.getText().equals(ans[0].getText().toString()))
+            if(a.getText().equals(ans[0].getText().toString()))
                 ans[0].setBackgroundResource(R.color.correctAnswer);
             else if(a.getText().equals(ans[1].getText().toString()))
                 ans[1].setBackgroundResource(R.color.correctAnswer);
@@ -223,6 +249,10 @@ public class DisplayQcm extends Fragment {
             else
                 ans[3].setBackgroundResource(R.color.correctAnswer);
         }
+    }
+
+    public void fromLog(){
+        isLog = true;
     }
 
     public interface SwipeListener {

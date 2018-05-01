@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
+import com.univ_setif.fsciences.qcm.entity.Answer;
 import com.univ_setif.fsciences.qcm.fragments.DisplayQcm;
 import com.univ_setif.fsciences.qcm.entity.QCM;
 
@@ -22,9 +23,10 @@ import java.util.HashMap;
 public class SwipeAdapter extends FragmentPagerAdapter {
 
     private ArrayList<QCM> qcmList;
+    private ArrayList<Answer>[] answers;
     private HashMap<Integer, String> pageReferenceMap;
     private FragmentManager fm;
-    private int size;
+    private boolean isLog = false;
 
     public ArrayList<QCM> getQcmList() {
         return qcmList;
@@ -33,7 +35,6 @@ public class SwipeAdapter extends FragmentPagerAdapter {
     public SwipeAdapter(FragmentManager fm, Context context, int size) {
         super(fm);
         this.fm = fm;
-        this.size = size;
         pageReferenceMap = new HashMap<>();
 
         mcqCTRL ctrl = new mcqCTRL(context, "GL.db");
@@ -44,12 +45,23 @@ public class SwipeAdapter extends FragmentPagerAdapter {
         qcmList = new ArrayList<>();
         for(int i=0; i<size; i++)
             qcmList.add(allQCM.get(i));
-
     }
+
+    public SwipeAdapter(FragmentManager fm, Context context, ArrayList<QCM> list, ArrayList<Answer>[] answers) {
+        super(fm);
+        this.fm = fm;
+        pageReferenceMap = new HashMap<>();
+
+        qcmList = list;
+        this.answers = answers;
+        isLog = true;
+    }
+
 
     @Override
     public Fragment getItem(int position) {
         Fragment frag = new DisplayQcm();
+        frag.onCreate(null);
 
         Bundle bundle = new Bundle();
 
@@ -63,6 +75,13 @@ public class SwipeAdapter extends FragmentPagerAdapter {
         pageReferenceMap.put(position, frag.getTag());
 
         frag.setArguments(bundle);
+
+        if(isLog) {
+            DisplayQcm fragment = (DisplayQcm) frag;
+            fragment.fromLog();
+            fragment.setUserAnswer(answers[position]);
+            fragment.setCorrectAnswers(qcmList.get(position).getQuestion().getAnswers());
+        }
         return frag;
     }
 
@@ -81,9 +100,15 @@ public class SwipeAdapter extends FragmentPagerAdapter {
         Object object = super.instantiateItem(container, position);
 
         if (object instanceof Fragment) {
-            Fragment fragment = (Fragment) object;
+            DisplayQcm fragment = (DisplayQcm) object;
             String tag = fragment.getTag();
             pageReferenceMap.put(position, tag);
+
+            if(isLog) {
+                fragment.fromLog();
+                fragment.setUserAnswer(answers[position]);
+                fragment.setCorrectAnswers(qcmList.get(position).getQuestion().getAnswers());
+            }
         }
 
         return object;

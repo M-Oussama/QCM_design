@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.univ_setif.fsciences.qcm.fragments.UserSpaceFragment">
+    tools:context="com.univ_setif.fsciences.qcm.Main.UserSpace">
 
 
     <android.support.v7.widget.CardView
@@ -17,23 +17,22 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="50dp"
         android:clickable="true"
-        android:longClickable="false"
         android:focusable="true"
+        android:longClickable="false"
         app:cardElevation="@dimen/activity_vertical_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-            android:background="@drawable/white_background_images"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/white_background_images"
             android:orientation="vertical"
             android:paddingEnd="10dp"
             android:paddingStart="10dp">
 
             <TextView
-                android:textColor="@android:color/black"
                 android:id="@+id/userCard_firstname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -43,10 +42,10 @@
                 android:layout_marginTop="10dp"
                 android:text="John "
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@android:color/black"
                 android:textSize="24sp" />
 
             <TextView
-                android:textColor="@android:color/black"
                 android:id="@+id/userCard_lastname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,10 +54,10 @@
                 android:layout_marginStart="80dp"
                 android:text="Doe"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@android:color/black"
                 android:textSize="24sp" />
 
             <TextView
-                android:textColor="@android:color/black"
                 android:id="@+id/userCard_birthdate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,10 +65,10 @@
                 android:layout_marginStart="150dp"
                 android:text="01-01-1996"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
             <TextView
-                android:textColor="@android:color/black"
                 android:id="@+id/userCard_spec"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,16 +77,18 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:text="3eme Année Informatique"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@android:color/black" />
 
             <TextView
-                android:textColor="@android:color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Log"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="@android:color/black" />
 
             <TextView
+                android:id="@+id/emptyLogMsg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -95,13 +96,11 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@android:color/holo_red_dark" />
 
-            <TextView
-                android:textColor="@android:color/black"
-                android:id="@+id/userCard_log"
+            <ListView
+                android:id="@+id/userLog"
                 android:layout_width="match_parent"
-                android:layout_height="119dp"
-                android:gravity="center"
-                android:text="User Log Placeholder" />
+                android:layout_height="match_parent" />
+
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
@@ -128,6 +127,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:contentDescription="user_image"
+            android:scaleType="fitXY"
             android:src="@drawable/user"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="0dp" />

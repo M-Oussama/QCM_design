@@ -2,10 +2,10 @@ package com.univ_setif.fsciences.qcm.Main;
 
 
 import android.Manifest;
-import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -26,20 +26,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.univ_setif.fsciences.qcm.R;
+import com.univ_setif.fsciences.qcm.Session;
+import com.univ_setif.fsciences.qcm.control.UserLogArrayAdapter;
+import com.univ_setif.fsciences.qcm.control.UserLogCTRL;
+import com.univ_setif.fsciences.qcm.entity.UserLog;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -56,6 +62,9 @@ public class UserSpace extends Fragment {
     private TextView mBirthdate;
     private ImageView mProfilePicture;
     private ImageView mDetailsPP;
+
+    private ArrayList<UserLog> userLogs;
+    UserLogArrayAdapter adapter;
 
 
     private static final String USER_INFO = "userInfo";
@@ -75,12 +84,15 @@ public class UserSpace extends Fragment {
         // Inflate the layout for this fragment
         View v =inflater.inflate(R.layout.userspace, container, false);
 
-        CardView information = v.findViewById(R.id.info);
+        CardView information  = v.findViewById(R.id.info);
         mFirstname            = v.findViewById(R.id.userCard_firstname);
         mLastname             = v.findViewById(R.id.userCard_lastname);
-        mSpecialty           = v.findViewById(R.id.userCard_spec);
-        mBirthdate           =v.findViewById(R.id.userCard_birthdate);
-        mProfilePicture      =v.findViewById(R.id.userCard_image);
+        mSpecialty            =  v.findViewById(R.id.userCard_spec);
+        mBirthdate            = v.findViewById(R.id.userCard_birthdate);
+        mProfilePicture       = v.findViewById(R.id.userCard_image);
+        ListView userLogView = v.findViewById(R.id.userLog);
+
+        TextView emptyLog = v.findViewById(R.id.emptyLogMsg);
 
         information.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +115,71 @@ public class UserSpace extends Fragment {
                 mProfilePicture.setImageBitmap(profilePicture);
         }
 
+        try {
+            userLogs = new UserLogCTRL(v.getContext()).getLog();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(userLogs != null && !(userLogs.size() == 0)) {
+            emptyLog.setVisibility(View.GONE);
+
+            adapter = new UserLogArrayAdapter(getContext(), R.layout.activity_main, userLogs);
+            userLogView.setAdapter(adapter);
+
+            userLogView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent toSession = new Intent(getContext(), Session.class);
+                    toSession.putExtra("Log", "Log");
+                    toSession.putExtra("qcmList", userLogs.get(i).getQcmList());
+                    toSession.putExtra("answers", userLogs.get(i).getAnswers());
+                    toSession.putExtra("elapsed", userLogs.get(i).getElapsedTime());
+                    startActivity(toSession);
+                }
+            });
+
+
+            userLogView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    final int position = i;
+                    android.support.v7.app.AlertDialog.Builder confirm = new android.support.v7.app.AlertDialog.Builder(getContext());
+                    confirm.setMessage("Voulez-vous vraiment supprimer cette session de votre journal? Cette opération est irréversible")
+                            .setCancelable(false)
+                            .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    try {
+                                        new UserLogCTRL(getContext()).deleteLog(position);
+                                        adapter.remove(adapter.getItem(position));
+                                        adapter.notifyDataSetChanged();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    Toast.makeText(getContext(), "Log Deleted Successfully", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            });
+
+                    android.support.v7.app.AlertDialog exit = confirm.create();
+                    exit.setCanceledOnTouchOutside(true);
+                    exit.setTitle("Exit");
+                    exit.show();
+                    return true;
+                }
+            });
+
+        }
+        else
+            emptyLog.setVisibility(View.VISIBLE);
 
 
         return v;
@@ -139,8 +216,6 @@ public class UserSpace extends Fragment {
 
 
         final Button update = editorView.findViewById(R.id.user_update);
-
-
 
         /*======================================
                D A T E        P I C K E R
@@ -332,4 +407,23 @@ public class UserSpace extends Fragment {
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + profile);
         return mediaFile;
     }
+
+    private void notifyLogChange(){
+        try {
+            userLogs = new UserLogCTRL(getContext()).getLog();
+            adapter.notifyDataSetChanged();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if(adapter != null && isVisibleToUser)
+            notifyLogChange();
+
+    }
+
 }
