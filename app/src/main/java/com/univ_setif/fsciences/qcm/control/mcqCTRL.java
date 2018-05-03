@@ -987,14 +987,17 @@ public class mcqCTRL {
      * @return DATABASES
      */
     public HashMap<String, String> getDatabaseData(){
+        DATABASES = (HashMap<String, String>) mContext.getSharedPreferences(METADATA, Context.MODE_PRIVATE).getAll();
         return DATABASES;
     }
 
+    
     /**
      * Databases count getter
      * @return DATABASES count
      */
     public int getDatabasesCount(){
+        DATABASES = (HashMap<String, String>) mContext.getSharedPreferences(METADATA, Context.MODE_PRIVATE).getAll();
         return DATABASES.size();
     }
 
