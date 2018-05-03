@@ -36,8 +36,6 @@ public class MainMenu extends AppCompatActivity {
         viewpager.setCurrentItem(1);
         setupTabIcons();
 
-        int n = new mcqCTRL(getApplicationContext(), null).getDatabasesCount();
-
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
