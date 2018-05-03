@@ -570,11 +570,7 @@ public class mcqCTRL {
         mContext      = context;
         DATABASE_NAME = dbName + ".db";
 
-        SharedPreferences meta = context.getSharedPreferences(METADATA, Context.MODE_PRIVATE);
-        Type type = new TypeToken<HashMap<String, String>>(){}.getType();
-        String jsonFile = meta.getString("databases", "");
-        Gson gson = new Gson();
-        DATABASES = gson.fromJson(jsonFile, type);
+        DATABASES = loadMetadata();
 
         if(DATABASES == null) {
             DATABASES = new HashMap<>();
@@ -582,15 +578,12 @@ public class mcqCTRL {
         }
     }
 
+
     public mcqCTRL(Context context, String dbName, String dbFullName){
         mContext      = context;
         DATABASE_NAME = dbName + ".db";
 
-        SharedPreferences meta = context.getSharedPreferences(METADATA, Context.MODE_PRIVATE);
-        Type type = new TypeToken<HashMap<String, String>>(){}.getType();
-        String jsonFile = meta.getString("databases", "");
-        Gson gson = new Gson();
-        DATABASES = gson.fromJson(jsonFile, type);
+        DATABASES = loadMetadata();
 
         if(DATABASES == null) {
             DATABASES = new HashMap<>();
@@ -599,8 +592,7 @@ public class mcqCTRL {
 
         DATABASES.put(dbName, dbFullName);
 
-        String databases = gson.toJson(DATABASES);
-        meta.edit().putString("databases", databases).apply();
+        saveMetadata();
     }
 
     /*======================================
@@ -824,6 +816,19 @@ public class mcqCTRL {
 
         }
 
+    private HashMap<String,String> loadMetadata() {
+        SharedPreferences meta = mContext.getSharedPreferences(METADATA, Context.MODE_PRIVATE);
+        Type type = new TypeToken<HashMap<String, String>>(){}.getType();
+        String jsonFile = meta.getString("databases", "");
+        Gson gson = new Gson();
+        return gson.fromJson(jsonFile, type);
+    }
+
+    private void saveMetadata() {
+        String databases = new Gson().toJson(DATABASES);
+        mContext.getSharedPreferences(METADATA, Context.MODE_PRIVATE).edit().putString("databases", databases).apply();
+    }
+
 
     /*======================================
    //  P U B L I C    I N T E R F A C E
@@ -1007,6 +1012,7 @@ public class mcqCTRL {
      * @return DATABASES
      */
     public HashMap<String, String> getDatabaseData(){
+        DATABASES = loadMetadata();
         return DATABASES;
     }
 
@@ -1016,7 +1022,19 @@ public class mcqCTRL {
      * @return DATABASES count
      */
     public int getDatabasesCount(){
+        DATABASES = loadMetadata();
         return DATABASES.size();
+    }
+
+    /**
+     * Deletes the database
+     */
+    public void deleteDatabase(){
+        mContext.deleteDatabase(DATABASE_NAME);
+        String key = DATABASE_NAME.substring(0, DATABASE_NAME.length()-4);
+        DATABASES.remove(key);
+
+        saveMetadata();
     }
 
 
