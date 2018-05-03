@@ -11,10 +11,12 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.univ_setif.fsciences.qcm.entity.QCM;
 import com.univ_setif.fsciences.qcm.entity.Question;
 import com.univ_setif.fsciences.qcm.entity.Answer;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -568,8 +570,16 @@ public class mcqCTRL {
         mContext      = context;
         DATABASE_NAME = dbName + ".db";
 
-        SharedPreferences sp = context.getSharedPreferences("db-metadata", Context.MODE_PRIVATE);
-        DATABASES  = (HashMap<String, String>) sp.getAll();
+        SharedPreferences meta = context.getSharedPreferences(METADATA, Context.MODE_PRIVATE);
+        Type type = new TypeToken<HashMap<String, String>>(){}.getType();
+        String jsonFile = meta.getString("databases", "");
+        Gson gson = new Gson();
+        DATABASES = gson.fromJson(jsonFile, type);
+
+        if(DATABASES == null) {
+            DATABASES = new HashMap<>();
+            DATABASES.put("GL", "Génie Logiciel");
+        }
     }
 
     public mcqCTRL(Context context, String dbName, String dbFullName){
@@ -577,10 +587,18 @@ public class mcqCTRL {
         DATABASE_NAME = dbName + ".db";
 
         SharedPreferences meta = context.getSharedPreferences(METADATA, Context.MODE_PRIVATE);
-        DATABASES  = (HashMap<String, String>) meta.getAll();
+        Type type = new TypeToken<HashMap<String, String>>(){}.getType();
+        String jsonFile = meta.getString("databases", "");
+        Gson gson = new Gson();
+        DATABASES = gson.fromJson(jsonFile, type);
+
+        if(DATABASES == null) {
+            DATABASES = new HashMap<>();
+            DATABASES.put("GL", "Génie Logiciel");
+        }
+
         DATABASES.put(dbName, dbFullName);
 
-        Gson gson = new Gson();
         String databases = gson.toJson(DATABASES);
         meta.edit().putString("databases", databases).apply();
     }
@@ -989,7 +1007,6 @@ public class mcqCTRL {
      * @return DATABASES
      */
     public HashMap<String, String> getDatabaseData(){
-        DATABASES = (HashMap<String, String>) mContext.getSharedPreferences(METADATA, Context.MODE_PRIVATE).getAll();
         return DATABASES;
     }
 
@@ -999,7 +1016,6 @@ public class mcqCTRL {
      * @return DATABASES count
      */
     public int getDatabasesCount(){
-        DATABASES = (HashMap<String, String>) mContext.getSharedPreferences(METADATA, Context.MODE_PRIVATE).getAll();
         return DATABASES.size();
     }
 
