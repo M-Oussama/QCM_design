@@ -148,7 +148,7 @@ public class MCQEditor extends AppCompatActivity {
 
         QCM newQcm = new QCM(qst, ans1, ans2, ans3, ans4);
 
-        mcqCTRL controleur = new mcqCTRL(this, "GL.db");
+        mcqCTRL controleur = new mcqCTRL(this, "GL");
         controleur.openWritable();
         controleur.updateQCM(oldQCM, newQcm, flag);
         controleur.close();
@@ -180,7 +180,7 @@ public class MCQEditor extends AppCompatActivity {
                 qst.setAnswers(ans4);
 
             //Creating new Database Entry
-            mcqCTRL controleur = new mcqCTRL(this, "GL.db");
+            mcqCTRL controleur = new mcqCTRL(this, "GL");
             controleur.openWritable();
 
             QCM qcm = new QCM(qst, ans1, ans2, ans3, ans4);

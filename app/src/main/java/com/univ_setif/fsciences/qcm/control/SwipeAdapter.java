@@ -37,7 +37,7 @@ public class SwipeAdapter extends FragmentPagerAdapter {
         this.fm = fm;
         pageReferenceMap = new HashMap<>();
 
-        mcqCTRL ctrl = new mcqCTRL(context, "GL.db");
+        mcqCTRL ctrl = new mcqCTRL(context, "GL");
         ArrayList<QCM> allQCM = (ArrayList<QCM>) ctrl.getAllQCM();
         ctrl.close();
 

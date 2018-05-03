@@ -42,7 +42,7 @@ public class RetroMCQManager extends AppCompatActivity {
     }
 
     private void displayQuestionList() {
-        mcqCTRL controleur = new mcqCTRL(this, "GL.db");
+        mcqCTRL controleur = new mcqCTRL(this, "GL");
 
         controleur.openReadable();
         qcm = (ArrayList<QCM>) controleur.getAllQCM();

@@ -112,7 +112,7 @@ public class RetroMCQEditor extends AppCompatActivity {
             qst.setAnswers(ans4);
 
         //Creating new Database Entry
-        mcqCTRL controleur = new mcqCTRL(this, "GL.db");
+        mcqCTRL controleur = new mcqCTRL(this, "GL");
         controleur.openWritable();
 
         QCM qcm = new QCM(qst, ans1, ans2, ans3, ans4);
@@ -182,7 +182,7 @@ public class RetroMCQEditor extends AppCompatActivity {
 
         QCM newQcm = new QCM(qst, ans1, ans2, ans3, ans4);
 
-        mcqCTRL controleur = new mcqCTRL(this, "GL.db");
+        mcqCTRL controleur = new mcqCTRL(this, "GL");
         controleur.openWritable();
         controleur.updateQCM(oldQCM, newQcm, flag);
         controleur.close();
@@ -203,7 +203,7 @@ public class RetroMCQEditor extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                       initComponents();
-                        mcqCTRL controleur = new mcqCTRL(RetroMCQEditor.this, "GL.db");
+                        mcqCTRL controleur = new mcqCTRL(RetroMCQEditor.this, "GL");
                         controleur.openWritable();
                         controleur.deleteQCM(new Question(text));
                         controleur.close();

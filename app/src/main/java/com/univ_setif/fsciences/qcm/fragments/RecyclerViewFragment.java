@@ -238,7 +238,7 @@ public class RecyclerViewFragment extends Fragment {
 
 
     private ArrayList<QCM> getALLQuestion() {
-        mcqCTRL controleur = new mcqCTRL(getActivity(), "GL.db");
+        mcqCTRL controleur = new mcqCTRL(getActivity(), "GL");
 
         controleur.openReadable();
         qcm = (ArrayList<QCM>) controleur.getAllQCM();

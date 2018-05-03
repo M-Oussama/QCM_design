@@ -217,7 +217,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                    @Override
                    public void onClick(DialogInterface dialogInterface, int i) {
-                       mcqCTRL controleur = new mcqCTRL(MCQManager.context, "GL.db");
+                       mcqCTRL controleur = new mcqCTRL(MCQManager.context, "GL");
                        controleur.openWritable();
                        Toast.makeText(MCQManager.context, ""+viewHolder.questioncontent.getText(), Toast.LENGTH_SHORT).show();
                        controleur.deleteQCM(new Question(viewHolder.questioncontent.getText().toString()));

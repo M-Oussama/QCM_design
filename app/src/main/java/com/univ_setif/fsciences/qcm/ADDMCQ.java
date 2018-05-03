@@ -14,7 +14,7 @@ public class ADDMCQ extends AppCompatActivity {
     Button Addmcq;
     EditText dbNameEditText;
     EditText fullNameEditText;
-    String newmcq;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +38,12 @@ public class ADDMCQ extends AppCompatActivity {
 
                 //This line initializes a new database with the name dbName and descirption fullName
                     //it is the line responsible of cteating the database AND its metadata
-                new mcqCTRL(getApplicationContext(), dbName, fullName).init();
+                mcqCTRL ctrl = new mcqCTRL(getApplicationContext(), dbName, fullName);
+                ctrl.init();
+                int numb = ctrl.getDatabasesCount();
 
-                Toast.makeText(getApplicationContext(), "Added successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Added successfully: Nbr = " + numb , Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }

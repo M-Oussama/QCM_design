@@ -566,7 +566,7 @@ public class mcqCTRL {
 
     public mcqCTRL(Context context, String dbName){
         mContext      = context;
-        DATABASE_NAME = dbName;
+        DATABASE_NAME = dbName + ".db";
 
         SharedPreferences sp = context.getSharedPreferences("db-metadata", Context.MODE_PRIVATE);
         DATABASES  = (HashMap<String, String>) sp.getAll();
@@ -574,7 +574,7 @@ public class mcqCTRL {
 
     public mcqCTRL(Context context, String dbName, String dbFullName){
         mContext      = context;
-        DATABASE_NAME = dbName;
+        DATABASE_NAME = dbName + ".db";
 
         SharedPreferences meta = context.getSharedPreferences(METADATA, Context.MODE_PRIVATE);
         DATABASES  = (HashMap<String, String>) meta.getAll();
@@ -816,6 +816,8 @@ public class mcqCTRL {
      */
     public void init(){
         mDbHelper = new DatabaseHelper(mContext);
+        mDb = mDbHelper.getReadableDatabase();
+        mDbHelper.close();
     }
 
     /**
