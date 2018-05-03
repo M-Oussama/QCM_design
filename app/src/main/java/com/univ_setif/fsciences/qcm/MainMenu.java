@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.univ_setif.fsciences.qcm.Main.UserSpace;
+import com.univ_setif.fsciences.qcm.control.mcqCTRL;
 
 public class MainMenu extends AppCompatActivity {
     TabLayout tabLayout;
@@ -34,6 +35,8 @@ public class MainMenu extends AppCompatActivity {
 
         viewpager.setCurrentItem(1);
         setupTabIcons();
+
+        int n = new mcqCTRL(getApplicationContext(), null).getDatabasesCount();
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

@@ -1,6 +1,8 @@
 package com.univ_setif.fsciences.qcm;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
@@ -57,6 +59,25 @@ public class MCQManager extends AppCompatActivity {
         });
     }
     @Override
-    public void onBackPressed() { }
+    public void onBackPressed() {
+        AlertDialog.Builder logoutconfirmation = new AlertDialog.Builder(MCQManager.this);
+        logoutconfirmation.setTitle("LOG OUT")
+                .setMessage("Voulez-vous vraiment revenir au menu principale ")
+                .setPositiveButton("oui", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                })
+                .setNegativeButton("non", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog logout = logoutconfirmation.create();
+        logout.show();
+    }
 
 }

@@ -1012,7 +1012,6 @@ public class mcqCTRL {
      * @return DATABASES
      */
     public HashMap<String, String> getDatabaseData(){
-        DATABASES = loadMetadata();
         return DATABASES;
     }
 
@@ -1022,7 +1021,6 @@ public class mcqCTRL {
      * @return DATABASES count
      */
     public int getDatabasesCount(){
-        DATABASES = loadMetadata();
         return DATABASES.size();
     }
 

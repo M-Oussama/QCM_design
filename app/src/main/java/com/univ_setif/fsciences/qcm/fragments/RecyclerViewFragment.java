@@ -122,11 +122,10 @@ public class RecyclerViewFragment extends Fragment {
          // LOG OUT
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {LogOut();    }
+            public void onClick(View v) {
+                LogOut();
+            }
         });
-
-
-
 
           new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -318,15 +317,15 @@ public class RecyclerViewFragment extends Fragment {
         logout = view.findViewById(R.id.logout);
     }
 
-     private  void LogOut(){
+     private void LogOut(){
         AlertDialog.Builder logoutconfirmation = new AlertDialog.Builder(getActivity());
         logoutconfirmation.setTitle("LOG OUT")
                 .setMessage("Voulez-vous vraiment revenir au menu principale ")
                 .setPositiveButton("oui", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent logout = new Intent(getActivity(), MainMenu.class);
-                        startActivity(logout);
+                        dialog.dismiss();
+                        getActivity().finish();
                     }
                 })
                 .setNegativeButton("non", new DialogInterface.OnClickListener() {
