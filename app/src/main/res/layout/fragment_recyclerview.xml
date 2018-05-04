@@ -20,20 +20,74 @@
 
         android:orientation="vertical">
 
-        <include  layout="@layout/hvp_header_placeholder" />
 
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/header_height"
+            android:background="@drawable/white_background_images"
+            android:layout_marginTop="10sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="10sp"
+            app:cardElevation="20sp"
+            app:cardCornerRadius="10sp"
+
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/white_background_images">
+                <TextView
+                    android:id="@+id/qcmfullname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Génie Logiciel"
+                    android:layout_gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:fontFamily="cursive"
+                    android:textSize="20sp"
+                    android:drawableTop="@drawable/questionicon"/>
+                <TextView
+                    android:id="@+id/questionnumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Question :57"
+                    android:layout_margin="10sp"
+                    android:textSize="20sp"
+                    android:fontFamily="cursive"
+                    android:layout_alignParentRight="true"/>
+
+
+                <TextView
+                    android:id="@+id/qcmposition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="QCM Number : 1"
+                    android:fontFamily="cursive"
+                    android:layout_margin="10sp"
+                    android:textSize="20sp"
+                    android:layout_alignParentLeft="true"/>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
 
         <LinearLayout
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10sp"
+                android:background="@drawable/white_background_images"
+
 
 
                 />
@@ -53,60 +107,65 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        app:menu_colorNormal="@android:color/holo_blue_dark"
         android:padding="10sp"
+        app:menu_colorNormal="@android:color/holo_blue_dark"
 
         fab:menu_fab_hide_animation="@anim/hide_to_bottom"
         fab:menu_fab_show_animation="@anim/show_from_bottom">
+
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/New_Quiz_Subject"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_colorNormal="@android:color/holo_blue_dark"
-            fab:fab_size="mini"
             android:src="@drawable/newquizsubject"
-            fab:fab_label="New Quiz Subject" />
+            app:fab_colorNormal="@android:color/holo_blue_dark"
+            fab:fab_label="New Quiz Subject"
+            fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/New_Quiz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_colorNormal="@android:color/holo_blue_dark"
             android:src="@drawable/questionicon"
-            fab:fab_size="mini"
-            fab:fab_label="New Quiz" />
+            app:fab_colorNormal="@android:color/holo_blue_dark"
+            fab:fab_label="New Quiz"
+            fab:fab_size="mini" />
+
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/Remove_Quiz_Subject"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_colorNormal="@android:color/holo_blue_dark"
-            fab:fab_size="mini"
             android:src="@drawable/delete"
-            fab:fab_label="Remove Quiz Subject" />
+            app:fab_colorNormal="@android:color/holo_blue_dark"
+            fab:fab_label="Remove Quiz Subject"
+            fab:fab_size="mini" />
+
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/SessionSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/sessionsettings"
             app:fab_colorNormal="@android:color/holo_blue_dark"
-            fab:fab_size="mini"
-            fab:fab_label="Session Settings" />
+            fab:fab_label="Session Settings"
+            fab:fab_size="mini" />
+
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/Search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_colorNormal="@android:color/holo_blue_dark"
-            fab:fab_size="mini"
             android:src="@drawable/search"
-            fab:fab_label="Search" />
+            app:fab_colorNormal="@android:color/holo_blue_dark"
+            fab:fab_label="Search"
+            fab:fab_size="mini" />
+
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_colorNormal="@android:color/holo_blue_dark"
-            fab:fab_size="mini"
             android:src="@drawable/logout"
-            fab:fab_label="LOG OUT " />
+            app:fab_colorNormal="@android:color/holo_blue_dark"
+            fab:fab_label="LOG OUT "
+            fab:fab_size="mini" />
 
     </com.github.clans.fab.FloatingActionMenu>
 </FrameLayout>

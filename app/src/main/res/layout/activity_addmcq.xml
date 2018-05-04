@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="10sp"
     android:background="@drawable/corners"
-    tools:context="com.univ_setif.fsciences.qcm.ADDMCQ">
+    tools:context="com.univ_setif.fsciences.qcm.DBmanager">
 
     <TextView
         android:id="@+id/title"
@@ -17,37 +17,15 @@
         android:text="ADD NEW MCQ"
         android:textColor="@android:color/black"
         android:textSize="25sp" />
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/dbnameinputplace"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="59dp"
-        android:hint="DATABASE NAME">
-
-        <EditText
-            android:id="@+id/mcq_name"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border"
-            android:drawableLeft="@drawable/newquizsubject"
-            android:padding="8sp"
-
-
-            />
-    </android.support.design.widget.TextInputLayout>
-
     <android.support.design.widget.TextInputLayout
         android:id="@+id/descinputplace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/dbnameinputplace"
+       android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="60sp"
+        android:layout_below="@id/descinputplace"
         android:hint="FULL NAME">
 
         <EditText
@@ -63,6 +41,31 @@
             />
     </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/dbnameinputplace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/descinputplace"
+
+
+        android:hint="DATABASE NAME">
+
+        <EditText
+            android:id="@+id/mcq_name"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:drawableLeft="@drawable/newquizsubject"
+            android:padding="8sp"
+
+
+            />
+    </android.support.design.widget.TextInputLayout>
+
+
+
     <Button
         android:id="@+id/addmcq"
         android:layout_width="match_parent"
@@ -70,9 +73,23 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="223dp"
+
         android:background="@drawable/buttonstyle"
         android:fontFamily="cursive"
         android:text="ADD NEW MCQ"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/updatemcq"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="223dp"
+        android:background="@drawable/buttonstyle"
+        android:fontFamily="cursive"
+        android:text="UPDATE"
+        android:visibility="gone"
         android:textColor="@android:color/white" />
 
 </RelativeLayout>

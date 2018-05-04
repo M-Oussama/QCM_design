@@ -92,8 +92,14 @@ public class ShowCorrection extends AppCompatActivity {
 
     public void onViewCorrectAnswerClick(View v){
         Intent t = new Intent(ShowCorrection.this, Session.class);
+
         t.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         t.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+         Session.isStop=true;
+        t.putExtra("minutes",getIntent().getLongExtra("minutes",0));
+        t.putExtra("seconds",getIntent().getLongExtra("seconds",0));
+        t.putExtra("Showcorrection",1);
         startActivity(t);
     }
 }

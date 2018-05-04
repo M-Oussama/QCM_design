@@ -26,6 +26,7 @@ public class MCQEditor extends AppCompatActivity {
              Answer2,
              Answer3,
              Answer4;
+    String dbname;
     private CheckBox isCorrect1,
                      isCorrect2,
                      isCorrect3,
@@ -50,6 +51,7 @@ public class MCQEditor extends AppCompatActivity {
        if(getIntent().getBooleanExtra("AddQuestion",false)){
 
 
+           dbname = getIntent().getStringExtra("dbname");
            new Handler().postDelayed(new Runnable() {
                @Override
                public void run() {
@@ -67,6 +69,7 @@ public class MCQEditor extends AppCompatActivity {
            Add.setVisibility(View.GONE);
 
 
+           dbname = getIntent().getStringExtra("dbname");
 
            new Handler().postDelayed(new Runnable() {
                @Override
@@ -148,7 +151,7 @@ public class MCQEditor extends AppCompatActivity {
 
         QCM newQcm = new QCM(qst, ans1, ans2, ans3, ans4);
 
-        mcqCTRL controleur = new mcqCTRL(this, "GL");
+        mcqCTRL controleur = new mcqCTRL(this, dbname);
         controleur.openWritable();
         controleur.updateQCM(oldQCM, newQcm, flag);
         controleur.close();
@@ -179,7 +182,7 @@ public class MCQEditor extends AppCompatActivity {
                 qst.setAnswers(ans4);
 
             //Creating new Database Entry
-            mcqCTRL controleur = new mcqCTRL(this, "GL");
+            mcqCTRL controleur = new mcqCTRL(this, dbname);
             controleur.openWritable();
 
             QCM qcm = new QCM(qst, ans1, ans2, ans3, ans4);

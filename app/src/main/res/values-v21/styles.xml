@@ -8,7 +8,7 @@
 
     </style>
 
-    <style name="Dialogtheme" parent="Theme.AppCompat.Light.Dialog">
+    <style name="Dialogtheme" parent="@android:style/Theme.Material.Light.Dialog.NoActionBar">
 
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
@@ -16,7 +16,7 @@
     </style>
     <style name="PauseDialogAnimation">
         <item name="android:windowEnterAnimation">@anim/grow_in</item>
-        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+        <item name="android:windowExitAnimation">@anim/grow_out</item>
     </style>
 
     <style name="cardTheme" parent="android:Theme.Material.NoActionBar.TranslucentDecor" />

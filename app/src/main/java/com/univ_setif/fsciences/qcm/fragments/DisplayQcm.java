@@ -19,6 +19,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import info.hoang8f.widget.FButton;
+
 
 public class DisplayQcm extends Fragment {
 
@@ -27,7 +29,7 @@ public class DisplayQcm extends Fragment {
 
     TextView qstText;
 
-    Button [] ans;
+    FButton [] ans;
     boolean [] pressed;
     CardView card;
 
@@ -60,7 +62,7 @@ public class DisplayQcm extends Fragment {
         card = view.findViewById(R.id.card);
 
         qstText     = view.findViewById(R.id.questionContent);
-        ans         = new Button[4];
+        ans         = new FButton[4];
         pressed     = new boolean[4];
 
         for (boolean b: pressed) b = false;
@@ -76,12 +78,12 @@ public class DisplayQcm extends Fragment {
             public void onClick(View view) {
                 if(!pressed[0]) {
                     pressed[0] = true;
-                    ans[0].setBackgroundResource(R.color.selectedButton);
+                    ans[0].setButtonColor(getResources().getColor(R.color.selectedbutton));
                     userAnswer.add(new Answer(ans[0].getText().toString()));
                     swipe.onAnswer(questionNumber, userAnswer);
                 }else{
                     pressed[0] = false;
-                    ans[0].setBackgroundResource(android.R.drawable.btn_default);
+                    ans[0].setButtonColor(getResources().getColor(R.color.unselectedbutton));
                     swipe.onAnswer(questionNumber, userAnswer);
                     userAnswer.remove(new Answer(ans[0].getText().toString()));
 
@@ -94,12 +96,12 @@ public class DisplayQcm extends Fragment {
             public void onClick(View view) {
                 if(!pressed[1]) {
                     pressed[1] = true;
-                    ans[1].setBackgroundResource(R.color.selectedButton);
+                    ans[1].setButtonColor(getResources().getColor(R.color.selectedbutton));
                     userAnswer.add(new Answer(ans[1].getText().toString()));
                     swipe.onAnswer(questionNumber, userAnswer);
                 }else{
                     pressed[1] = false;
-                    ans[1].setBackgroundResource(android.R.drawable.btn_default);
+                    ans[1].setButtonColor(getResources().getColor(R.color.unselectedbutton));
                     swipe.onAnswer(questionNumber, userAnswer);
                     userAnswer.remove(new Answer(ans[1].getText().toString()));
 
@@ -112,12 +114,12 @@ public class DisplayQcm extends Fragment {
             public void onClick(View view) {
                 if(!pressed[2]) {
                     pressed[2] = true;
-                    ans[2].setBackgroundResource(R.color.selectedButton);
+                    ans[2].setButtonColor(getResources().getColor(R.color.selectedbutton));
                     userAnswer.add(new Answer(ans[2].getText().toString()));
                     swipe.onAnswer(questionNumber, userAnswer);
                 }else{
                     pressed[2] = false;
-                    ans[2].setBackgroundResource(android.R.drawable.btn_default);
+                    ans[2].setButtonColor(getResources().getColor(R.color.unselectedbutton));
                     swipe.onAnswer(questionNumber, userAnswer);
                     userAnswer.remove(new Answer(ans[2].getText().toString()));
 
@@ -130,13 +132,13 @@ public class DisplayQcm extends Fragment {
             public void onClick(View view) {
                 if(!pressed[3]) {
                     pressed[3] = true;
-                    ans[3].setBackgroundResource(R.color.selectedButton);
+                    ans[3].setButtonColor(getResources().getColor(R.color.selectedbutton));
                     userAnswer.add(new Answer(ans[3].getText().toString()));
                     swipe.onAnswer(questionNumber, userAnswer);
 
                 }else{
                     pressed[3] = false;
-                    ans[3].setBackgroundResource(android.R.drawable.btn_default);
+                    ans[3].setButtonColor(getResources().getColor(R.color.unselectedbutton));
                     swipe.onAnswer(questionNumber, userAnswer);
                     userAnswer.remove(new Answer(ans[3].getText().toString()));
 
@@ -202,38 +204,38 @@ public class DisplayQcm extends Fragment {
 
         boolean skipped = true;
 
-        ans[0].setClickable(false);
-        ans[1].setClickable(false);
-        ans[2].setClickable(false);
-        ans[3].setClickable(false);
+        ans[0].setEnabled(false);
+        ans[1].setEnabled(false);
+        ans[2].setEnabled(false);
+        ans[3].setEnabled(false);
 
-        ans[0].setBackgroundResource(android.R.drawable.btn_default);
-        ans[1].setBackgroundResource(android.R.drawable.btn_default);
-        ans[2].setBackgroundResource(android.R.drawable.btn_default);
-        ans[3].setBackgroundResource(android.R.drawable.btn_default);
+        ans[0].setButtonColor(getResources().getColor(R.color.unselectedbutton));
+        ans[1].setButtonColor(getResources().getColor(R.color.unselectedbutton));
+        ans[2].setButtonColor(getResources().getColor(R.color.unselectedbutton));
+        ans[3].setButtonColor(getResources().getColor(R.color.unselectedbutton));
 
         if(pressed[0]){
             skipped = false;
             if(!correctAnswers.contains(new Answer(ans[0].getText().toString())))
-                ans[0].setBackgroundResource(R.color.wrongAnswer);
+                ans[0].setButtonColor(getResources().getColor(R.color.wrongAnswer));
         }
 
         if(pressed[1]){
             skipped = false;
             if(!correctAnswers.contains(new Answer(ans[1].getText().toString())))
-                ans[1].setBackgroundResource(R.color.wrongAnswer);
+                ans[1].setButtonColor(getResources().getColor(R.color.wrongAnswer));
         }
 
         if(pressed[2]) {
             skipped = false;
             if (!correctAnswers.contains(new Answer(ans[2].getText().toString())))
-                ans[2].setBackgroundResource(R.color.wrongAnswer);
+                ans[2].setButtonColor(getResources().getColor(R.color.wrongAnswer));
         }
 
         if(pressed[3]){
             skipped = false;
             if(!correctAnswers.contains(new Answer(ans[3].getText().toString())))
-                ans[3].setBackgroundResource(R.color.wrongAnswer);
+                ans[3].setButtonColor(getResources().getColor(R.color.wrongAnswer));
         }
 
         if(skipped)
@@ -241,13 +243,13 @@ public class DisplayQcm extends Fragment {
 
         for (Answer a: correctAnswers) {
             if(a.getText().equals(ans[0].getText().toString()))
-                ans[0].setBackgroundResource(R.color.correctAnswer);
+                ans[0].setButtonColor(getResources().getColor(R.color.correctAnswer));
             else if(a.getText().equals(ans[1].getText().toString()))
-                ans[1].setBackgroundResource(R.color.correctAnswer);
+                ans[1].setButtonColor(getResources().getColor(R.color.correctAnswer));
             else if(a.getText().equals(ans[2].getText().toString()))
-                ans[2].setBackgroundResource(R.color.correctAnswer);
+                ans[2].setButtonColor(getResources().getColor(R.color.correctAnswer));
             else
-                ans[3].setBackgroundResource(R.color.correctAnswer);
+                ans[3].setButtonColor(getResources().getColor(R.color.correctAnswer));
         }
     }
 

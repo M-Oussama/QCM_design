@@ -50,7 +50,7 @@ public class AdminSpace extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        LoginCTRL.verify(view.getContext(), pass);
+                        LoginCTRL.verify(getActivity(), pass);
                     }
                 }, 1000);
 
