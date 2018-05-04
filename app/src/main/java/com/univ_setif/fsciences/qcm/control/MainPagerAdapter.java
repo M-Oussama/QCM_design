@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.univ_setif.fsciences.qcm.Main.AdminSpace;
 import com.univ_setif.fsciences.qcm.Main.Home;
@@ -13,10 +14,11 @@ import com.univ_setif.fsciences.qcm.Main.UserSpace;
  * Created by oussama on 06/04/2018.
  */
 
-public class PagerAdapter extends FragmentPagerAdapter {
+public class MainPagerAdapter extends FragmentPagerAdapter {
    private String frag[]={"AdminSpace","Home","UserSpace"};
    private Context context;
-    public PagerAdapter(FragmentManager fm, Context context) {
+
+    public MainPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context=context;
     }

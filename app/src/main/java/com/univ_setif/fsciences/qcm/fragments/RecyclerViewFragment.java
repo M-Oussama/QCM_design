@@ -23,7 +23,6 @@ import android.widget.NumberPicker;
 import com.github.florent37.hollyviewpager.HollyViewPagerBus;
 import com.univ_setif.fsciences.qcm.ADDMCQ;
 import com.univ_setif.fsciences.qcm.MCQEditor;
-import com.univ_setif.fsciences.qcm.MainMenu;
 import com.univ_setif.fsciences.qcm.R;
 import com.univ_setif.fsciences.qcm.control.RecyclerAdapter;
 import com.univ_setif.fsciences.qcm.control.mcqCTRL;
@@ -43,10 +42,11 @@ public class RecyclerViewFragment extends Fragment {
     RecyclerAdapter recyclerAdapter;
     public ArrayList<QCM> ALLitem;
     com.github.clans.fab.FloatingActionMenu menufab;
-    com.github.clans.fab.FloatingActionButton newQuizfab,
-                                              newquizsubjectfab,
-                                              removequizsubject,
-                                              sessionsettingsfab,
+    com.github.clans.fab.FloatingActionButton newQuizFAB,
+                                              newQuizSubjectFAB,
+                                              removeQuizSubjectFAB,
+                                              sessionSettingsFAB,
+                                              searchFAB,
                                               logout;
     int position=0;
     private ArrayList<QCM> qcm;
@@ -84,7 +84,7 @@ public class RecyclerViewFragment extends Fragment {
         // ADMIN MENU ITEMS
 
         // ADD NEW QUIZ
-        newQuizfab.setOnClickListener(new View.OnClickListener() {
+        newQuizFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent add = new Intent(getActivity(), MCQEditor.class);
@@ -94,7 +94,7 @@ public class RecyclerViewFragment extends Fragment {
             }
         });
         // ADD NEW QUIZ SUBJECT
-        newquizsubjectfab.setOnClickListener(new View.OnClickListener() {
+        newQuizSubjectFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent addQuizsubject = new Intent(getActivity(), ADDMCQ.class);
@@ -103,7 +103,7 @@ public class RecyclerViewFragment extends Fragment {
         });
         //DELETE QUIZ SUBJECT
 
-        removequizsubject.setOnClickListener(new View.OnClickListener() {
+        removeQuizSubjectFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -111,10 +111,81 @@ public class RecyclerViewFragment extends Fragment {
         });
 
         //SESSION SETTINGS
-        sessionsettingsfab.setOnClickListener(new View.OnClickListener() {
+        sessionSettingsFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onAdvancedOptionsClick();
+            }
+        });
+
+        //SEARCH SETTINGS
+        searchFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*================================================================
+                                           SEARCHING LOGIC
+                         NEEDS TO BE IMPLEMENTED ON AN APPROPRIATE VIEW SYSYEM
+                 ===============================================================*/
+                /*
+                        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            private String stripAccents(String str){
+                String s = Normalizer.normalize(str, Normalizer.Form.NFD);
+                s = s.replaceAll("[\\p{InCOMBINING_DIACRITICAL_MARKS}]", "");
+                return s;
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                String query = Normalizer.normalize(s.toLowerCase(), Normalizer.Form.NFD);
+                ArrayList<QCM> queryQCM = new ArrayList<>();
+
+                for(QCM item: qcm){
+                    if(stripAccents(item.getQuestion().getText().toLowerCase()).contains(query)  ||
+                            stripAccents(item.getAns1().getText().toLowerCase()).contains(query) ||
+                            stripAccents(item.getAns2().getText().toLowerCase()).contains(query) ||
+                            stripAccents(item.getAns3().getText().toLowerCase()).contains(query) ||
+                            stripAccents(item.getAns4().getText().toLowerCase()).contains(query) )
+                        queryQCM.add(item);
+                }
+
+                QCMArrayAdapter qcmArrayAdapter = new QCMArrayAdapter(getApplicationContext(),
+                        R.layout.activity_mcqeditor_create,
+                        queryQCM);
+
+                list.setAdapter(qcmArrayAdapter);
+
+                search.clearFocus();
+
+                return true;
+            }
+
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                String query = s.toLowerCase();
+                ArrayList<QCM> queryQCM = new ArrayList<>();
+
+                for(QCM item: qcm){
+                    if(stripAccents(item.getQuestion().getText().toLowerCase()).contains(query)  ||
+                            stripAccents(item.getAns1().getText().toLowerCase()).contains(query) ||
+                            stripAccents(item.getAns2().getText().toLowerCase()).contains(query) ||
+                            stripAccents(item.getAns3().getText().toLowerCase()).contains(query) ||
+                            stripAccents(item.getAns4().getText().toLowerCase()).contains(query) )
+                        queryQCM.add(item);
+                }
+
+                QCMArrayAdapter qcmArrayAdapter = new QCMArrayAdapter(getApplicationContext(),
+                        R.layout.activity_mcqeditor_create,
+                        queryQCM);
+
+                list.setAdapter(qcmArrayAdapter);
+
+                return true;
+            }
+        });
+
+                 */
             }
         });
 
@@ -310,10 +381,11 @@ public class RecyclerViewFragment extends Fragment {
      private void  initcomponent(View view){
         recyclerView = view.findViewById(R.id.recyclerView);
         menufab=  view.findViewById(R.id.menufab);
-        newQuizfab= view.findViewById(R.id.New_Quiz);
-        newquizsubjectfab= view.findViewById(R.id.New_Quiz_Subject);
-        removequizsubject= view.findViewById(R.id.Remove_Quiz_Subject);
-        sessionsettingsfab= view.findViewById(R.id.SessionSettings);
+        newQuizFAB = view.findViewById(R.id.New_Quiz);
+        newQuizSubjectFAB = view.findViewById(R.id.New_Quiz_Subject);
+        removeQuizSubjectFAB = view.findViewById(R.id.Remove_Quiz_Subject);
+        sessionSettingsFAB = view.findViewById(R.id.SessionSettings);
+        searchFAB          = view.findViewById(R.id.Search);
         logout = view.findViewById(R.id.logout);
     }
 

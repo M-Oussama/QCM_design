@@ -182,7 +182,6 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
                     .setNegativeButton("Non", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            timer = timer.resume();
                             dialogInterface.cancel();
                         }
                     });

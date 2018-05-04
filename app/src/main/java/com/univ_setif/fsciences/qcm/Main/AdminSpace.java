@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -29,11 +30,13 @@ public class AdminSpace extends Fragment {
     }
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        final View v =inflater.inflate(R.layout.adminspace, container, false);
+        final View v = inflater.inflate(R.layout.adminspace, container, false);
 
         Button submit = v.findViewById(R.id.sign_in);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -49,15 +52,14 @@ public class AdminSpace extends Fragment {
                     public void run() {
                         LoginCTRL.verify(view.getContext(), pass);
                     }
-                },1000);
+                }, 1000);
 
 
             }
         });
 
-        return  v;
+        return v;
     }
-
 
 }
 

@@ -47,7 +47,8 @@ public class UserLogArrayAdapter extends ArrayAdapter<UserLog> {
         TextView logElapsed = userLogItem.findViewById(R.id.log_elapsed);
 
         logDate.setText(item.getDate());
-        logNote.setText(Double.toString(item.getNote()));
+        String note = item.getNote() + "/20";
+        logNote.setText(note);
         logNbrQCM.setText(Integer.toString(item.getNbrQCM()));
         logElapsed.setText(item.getElapsedTime());
 

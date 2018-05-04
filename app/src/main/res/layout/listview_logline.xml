@@ -8,17 +8,18 @@
     <android.support.v7.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="0dp"
-        android:layout_height="179dp"
+        android:layout_height="165dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="25dp"
+        android:theme="@style/cardTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="210dp">
 
             <TextView
                 android:id="@+id/log_date"
@@ -28,7 +29,9 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/gnyrwn971"
                 android:text="DD-MM-YYYY hh:mm:ss"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,12 +41,13 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginStart="11dp"
-                android:layout_marginTop="19dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/gnyrwn971"
                 android:text="XX/20"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textColor="@android:color/holo_red_dark"
-                android:textSize="30sp"
+                android:textSize="36sp"
                 app:layout_constraintStart_toStartOf="@+id/log_elapsed"
                 app:layout_constraintTop_toBottomOf="@+id/log_date" />
 
@@ -54,7 +58,9 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignStart="@+id/log_date"
                 android:layout_marginStart="16dp"
+                android:fontFamily="@font/gnyrwn971"
                 android:text="@string/elapsed_text"
+                android:textSize="16sp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/log_elapsed"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -65,7 +71,9 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignTop="@+id/log_date"
                 android:layout_marginEnd="8dp"
+                android:fontFamily="@font/gnyrwn971"
                 android:text="XX"
+                android:textSize="16sp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/qstLabel"
                 app:layout_constraintEnd_toStartOf="@+id/qstLabel" />
 
@@ -77,7 +85,9 @@
                 android:layout_alignTop="@+id/log_date"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/gnyrwn971"
                 android:text="@string/question"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -87,7 +97,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="24dp"
+                android:fontFamily="@font/gnyrwn971"
                 android:text="XX:XX"
+                android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/elpsLabel"
                 app:layout_constraintTop_toBottomOf="@+id/log_note" />
         </android.support.constraint.ConstraintLayout>

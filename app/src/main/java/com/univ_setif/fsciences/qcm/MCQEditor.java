@@ -154,8 +154,7 @@ public class MCQEditor extends AppCompatActivity {
         controleur.close();
 
         Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
-        Intent back = new Intent(this,MCQManager.class);
-        startActivity(back);
+        finish();
 
 
 
@@ -193,11 +192,10 @@ public class MCQEditor extends AppCompatActivity {
             Toast t = Toast.makeText(this, "Success", Toast.LENGTH_SHORT);
             t.show();
 
-        Intent back = new Intent(this,MCQManager.class);
-        this.startActivity(back);
-
-
+        finish();
     }
+
+
     private boolean checkInputValidity(){
         if(question.getText().toString().isEmpty()){
             Toast t = Toast.makeText(this, "Veuillez taper une question", Toast.LENGTH_SHORT);

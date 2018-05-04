@@ -4,10 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.univ_setif.fsciences.qcm.MainMenu"
-
-
-    >
+    tools:context="com.univ_setif.fsciences.qcm.MainMenu">
 
 
     <android.support.v4.view.ViewPager
@@ -34,10 +31,9 @@
             android:id="@+id/tablayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/white_background_images">
+            android:alpha=".90">
 
             <android.support.design.widget.TabItem
-                android:transitionName="adminicon"
                 android:id="@+id/adminspace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

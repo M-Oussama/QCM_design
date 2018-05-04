@@ -11,7 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.univ_setif.fsciences.qcm.Main.UserSpace;
-import com.univ_setif.fsciences.qcm.control.mcqCTRL;
+import com.univ_setif.fsciences.qcm.control.MainPagerAdapter;
 
 public class MainMenu extends AppCompatActivity {
     TabLayout tabLayout;
@@ -27,14 +27,16 @@ public class MainMenu extends AppCompatActivity {
 
         final ViewPager viewpager = findViewById(R.id.viewpage);
 
-        PagerAdapter pagerAdapter = new com.univ_setif.fsciences.qcm.control.PagerAdapter(getSupportFragmentManager(),this);
+        PagerAdapter pagerAdapter = new MainPagerAdapter(getSupportFragmentManager(),this);
         viewpager.setAdapter(pagerAdapter);
+        viewpager.setOffscreenPageLimit(1);
 
         tabLayout = findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewpager);
 
         viewpager.setCurrentItem(1);
         setupTabIcons();
+
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

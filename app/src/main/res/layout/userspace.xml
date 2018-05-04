@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="#e6f2ff"
     tools:context="com.univ_setif.fsciences.qcm.Main.UserSpace">
 
 
@@ -19,7 +19,7 @@
         android:clickable="true"
         android:focusable="true"
         android:longClickable="false"
-        app:cardElevation="@dimen/activity_vertical_margin"
+        android:alpha=".90"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -27,7 +27,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/white_background_images"
             android:orientation="vertical"
             android:paddingEnd="10dp"
             android:paddingStart="10dp">
@@ -40,10 +39,12 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="80dp"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/gnyrwn971"
                 android:text="John "
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textColor="@android:color/black"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/userCard_lastname"
@@ -52,10 +53,12 @@
                 android:layout_gravity="center"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="80dp"
+                android:fontFamily="@font/gnyrwn971"
                 android:text="Doe"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textColor="@android:color/black"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/userCard_birthdate"
@@ -63,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="150dp"
+                android:fontFamily="@font/gnyrwn971"
                 android:text="01-01-1996"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@android:color/black"
@@ -76,16 +80,21 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
+                android:fontFamily="@font/gnyrwn971"
                 android:text="3eme Année Informatique"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/gnyrwn971"
                 android:text="Log"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                android:textSize="40sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/emptyLogMsg"
@@ -114,7 +123,6 @@
         android:layout_marginTop="31dp"
         android:shape="ring"
         app:cardCornerRadius="50dp"
-        app:cardElevation="25dp"
         app:layout_constraintBottom_toTopOf="@+id/info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.625"

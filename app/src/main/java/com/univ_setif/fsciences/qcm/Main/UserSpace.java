@@ -77,7 +77,6 @@ public class UserSpace extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -184,6 +183,7 @@ public class UserSpace extends Fragment {
 
         return v;
     }
+
 
     public void OnCardClick(View v) {
           /*========================================
@@ -310,12 +310,14 @@ public class UserSpace extends Fragment {
                 editor.apply();
 
                 Bitmap profilePicture = ((BitmapDrawable) mDetailsPP.getDrawable()).getBitmap();
-               storeImage(profilePicture);
+
+                storeImage(minimizeBitmap(profilePicture));
 
                 mLastname.setText(lastname.getText().toString());
                 mFirstname.setText(firstname.getText().toString());
                 mSpecialty.setText(specialty.getText());
                 mBirthdate.setText(birthdate.getText());
+                mProfilePicture.setImageBitmap(minimizeBitmap(profilePicture));
 
                 userEditor.cancel();
             }
@@ -331,9 +333,9 @@ public class UserSpace extends Fragment {
         if(resultCode == RESULT_OK && requestCode == SELECT_PICTURE){
             Uri imageUri = data.getData();
             mDetailsPP.setImageURI(imageUri);
-            mProfilePicture.setImageURI(imageUri);
         }
     }
+
     private void storeImage(Bitmap image) {
         File pictureFile = getOutputMediaFile();
 
@@ -368,6 +370,9 @@ public class UserSpace extends Fragment {
             Log.w(TAG, "Could not decode file: " + pictureFile.getPath());
             return null;
         }
+    }
+    private Bitmap minimizeBitmap(Bitmap bitmap){
+        return Bitmap.createScaledBitmap(bitmap, 200, 200, true);
     }
     private  File getOutputMediaFile(){
         File mediaStorageDir = new File(Environment.getExternalStorageDirectory()
@@ -411,17 +416,21 @@ public class UserSpace extends Fragment {
     private void notifyLogChange(){
         try {
             userLogs = new UserLogCTRL(getContext()).getLog();
-            adapter.notifyDataSetChanged();
+            if(adapter == null)
+                adapter = new UserLogArrayAdapter(getContext(), R.layout.listview_logline, userLogs);
+            else
+                adapter.notifyDataSetChanged();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if(adapter != null && isVisibleToUser)
+        if(isVisibleToUser)
             notifyLogChange();
 
     }

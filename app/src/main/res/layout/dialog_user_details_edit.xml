@@ -26,8 +26,7 @@
                 android:layout_below="@+id/user_image"
                 android:layout_centerHorizontal="true"
                 android:text="Upload Picture"
-                android:textAppearance="@style/TextAppearance.AppCompat"
-                android:textColor="@color/lightgrey" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <EditText
                 android:id="@+id/user_lastname"
