@@ -1,31 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context="com.univ_setif.fsciences.qcm.Session">
-
-    <TextView
-        android:id="@+id/showQuestionNumber"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/question_1"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:layout_constraintBottom_toTopOf="@+id/viewPager"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal"
+        android:weightSum="3"
+        >
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8sp"
+            android:layout_weight="1"
+            app:cardCornerRadius="10sp"
+            app:cardElevation="10sp"
+            android:padding="10sp"
+            app:layout_constraintBottom_toTopOf="@+id/viewPager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+
+                android:drawableTop="@drawable/questionicon"
+                android:id="@+id/showQuestionNumber"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/white_background_images"
+                android:fontFamily="@font/gnyrwn971"
+                android:gravity="center"
+                android:text="@string/question_1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+
+                android:textSize="12sp"
+
+                />
+        </android.support.v7.widget.CardView>
+
+
+        <FrameLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="100sp">
+
+            <com.bcgdv.asia.lib.ticktock.TickTockView
+
+                android:id="@+id/countdown"
+                android:layout_width="match_parent"
+                android:layout_height="100sp"
+
+
+                android:layout_gravity="center_horizontal"
+
+
+                android:textAlignment="center"
+                android:textDirection="firstStrong"
+
+
+
+
+                app:tickAutoFitText="true"
+                app:tickDotRadius="6dp"
+
+                app:tickEmptyRingColor="@android:color/white"
+
+                app:tickFillRingColor="@color/unselectedbutton"
+                app:tickMiddleColor="#323132"
+
+                app:tickMoveCounterClockwise="true"
+
+                app:tickRingThickness="4dp"
+                app:tickText="timepalce"
+                app:tickTextColor="@android:color/white"
+                app:tickTextSize="10sp"
+
+
+                />
+            <TextView
+
+                android:id="@+id/timer"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="00h:20m:10s"
+                android:textSize="13sp"
+                android:layout_margin="12sp"
+                android:textAlignment="center"
+                android:background="@drawable/transparent"
+                android:gravity="center_vertical"
+                android:textColor="@android:color/white"
+                android:visibility="gone"
+              />
+        </FrameLayout>
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="8sp"
+            app:cardElevation="10sp"
+            app:cardCornerRadius="10sp"
+            android:padding="4sp">
+
+            <TextView
+
+                android:id="@+id/module"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:textColor="@android:color/black"
+                android:drawableTop="@drawable/icon"
+                android:gravity="center"
+                android:text="@string/module"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+
+                android:background="@drawable/white_background_images"
+                android:textSize="14sp"
+                android:fontFamily="@font/gnyrwn971"
+                app:layout_constraintBottom_toTopOf="@+id/viewPager"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="413dp"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="64dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="100sp"
         android:clipToPadding="false"
         android:overScrollMode="never"
         android:paddingBottom="10dp"
@@ -34,28 +147,32 @@
         android:paddingRight="@dimen/card_padding"
         android:paddingStart="@dimen/card_padding"
         android:paddingTop="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <info.hoang8f.widget.FButton
         android:id="@+id/submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="@dimen/card_padding"
-        android:layout_marginStart="@dimen/card_padding"
+
+        android:elevation="10sp"
         android:onClick="onSubmitClickListener"
         android:text="Evaluer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+
+        android:textColor="@android:color/white"
+        android:fontFamily="@font/gnyrwn971"
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
     <TextView
         android:id="@+id/session_timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"

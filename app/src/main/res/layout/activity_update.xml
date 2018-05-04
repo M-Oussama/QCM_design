@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -24,7 +25,7 @@
             android:layout_height="wrap_content"
             android:text="DELETE"
             android:layout_alignParentRight="true"
-           android:gravity="center_vertical"
+            android:gravity="center_vertical"
             android:layout_centerVertical="true"
             android:textColor="@android:color/white"
             android:textSize="20sp"
@@ -54,130 +55,76 @@
 
 
     </RelativeLayout>
-<LinearLayout
-    android:id="@+id/view_foreground"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:clipChildren="false"
-    android:clipToPadding="false"
-    android:orientation="vertical"
-
-    android:baselineAligned="false"
-    >
-
-
-
-    <com.ramotion.foldingcell.FoldingCell
-        android:id="@+id/folding_cell"
+    <LinearLayout
+        android:id="@+id/view_foreground"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+
+        android:baselineAligned="false"
+        >
 
 
 
-        <FrameLayout
-            android:id="@+id/cell_content_view"
+        <com.ramotion.foldingcell.FoldingCell
+            android:id="@+id/folding_cell"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-         android:background="@android:color/white"
-            android:visibility="gone"
-
-            >
-            <RelativeLayout
-                android:id="@+id/card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </RelativeLayout>
+            android:layout_height="match_parent">
 
 
 
-            <LinearLayout
+            <FrameLayout
+                android:id="@+id/cell_content_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-
-
+                android:background="@android:color/white"
+                android:visibility="gone"
 
                 >
-                <!-- content header line -->
                 <RelativeLayout
-
-                    android:id="@+id/header"
+                    android:id="@+id/card"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                 >
-
-                    <TextView
-
-                        android:id="@+id/questiontitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="Question 1"
-                        android:layout_margin="10dp"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="@android:color/black"
-                        android:fontFamily="@font/gnyrwn971"
-                        android:textSize="20sp"
-                        />
-
-
+                    android:layout_height="wrap_content">
 
                 </RelativeLayout>
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginBottom="6dp"
-                    android:layout_marginTop="9dp"
-                    android:src="@android:color/black" />
+
+
 
                 <LinearLayout
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingBottom="6dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:paddingTop="9dp">
 
-                    <!-- avatar and name part -->
+
+
+                    >
+                    <!-- content header line -->
                     <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
 
+                        android:id="@+id/header"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
 
                         <TextView
 
-                            android:id="@+id/isCorrect1"
+                            android:id="@+id/questiontitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="9sp"
-                            android:layout_marginTop="15sp"
-                            android:text="1 )"
+                            android:layout_centerInParent="true"
+                            android:text="Question 1"
+                            android:layout_margin="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="@android:color/black"
+                            android:fontFamily="cursive"
                             android:textSize="20sp"
-                            android:textColor="@android:color/black"
-                            android:fontFamily="@font/gnyrwn971"/>
+                            />
 
 
-                        <TextView
-                            android:id="@+id/answer1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignTop="@id/isCorrect1"
-                            android:layout_marginBottom="2dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_toEndOf="@id/isCorrect1"
-                            android:layout_toRightOf="@id/isCorrect1"
-                            android:fontFamily="@font/gnyrwn971"
-                            android:text="answer1"
-                            android:textColor="@android:color/black"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
 
                     </RelativeLayout>
-
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -186,237 +133,291 @@
                         android:src="@android:color/black" />
 
                     <LinearLayout
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:baselineAligned="false"
-                        android:orientation="horizontal">
+                        android:orientation="vertical"
+                        android:paddingBottom="6dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingTop="9dp">
 
+                        <!-- avatar and name part -->
                         <RelativeLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent">
-
+                            android:layout_height="wrap_content">
 
 
                             <TextView
 
-                                android:id="@+id/isCorrect2"
+                                android:id="@+id/isCorrect1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="9sp"
                                 android:layout_marginTop="15sp"
-                                android:text="2 )"
+                                android:text="1 )"
                                 android:textSize="20sp"
                                 android:textColor="@android:color/black"
-                                android:fontFamily="@font/gnyrwn971"/>
+                                android:fontFamily="cursive"/>
 
 
                             <TextView
-                                android:id="@+id/answer2"
+                                android:id="@+id/answer1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignTop="@id/isCorrect2"
+                                android:layout_alignTop="@id/isCorrect1"
                                 android:layout_marginBottom="2dp"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginStart="10dp"
-                                android:layout_toEndOf="@id/isCorrect2"
-                                android:layout_toRightOf="@id/isCorrect2"
-                                android:fontFamily="@font/gnyrwn971"
-                                android:text="answer2"
+                                android:layout_toEndOf="@id/isCorrect1"
+                                android:layout_toRightOf="@id/isCorrect1"
+                                android:fontFamily="cursive"
+                                android:text="answer1"
                                 android:textColor="@android:color/black"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
 
                         </RelativeLayout>
 
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginBottom="6dp"
+                            android:layout_marginTop="9dp"
+                            android:src="@android:color/black" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:baselineAligned="false"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent">
+
+
+
+                                <TextView
+
+                                    android:id="@+id/isCorrect2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="9sp"
+                                    android:layout_marginTop="15sp"
+                                    android:text="2 )"
+                                    android:textSize="20sp"
+                                    android:textColor="@android:color/black"
+                                    android:fontFamily="cursive"/>
+
+
+                                <TextView
+                                    android:id="@+id/answer2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@id/isCorrect2"
+                                    android:layout_marginBottom="2dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_toEndOf="@id/isCorrect2"
+                                    android:layout_toRightOf="@id/isCorrect2"
+                                    android:fontFamily="cursive"
+                                    android:text="answer2"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginBottom="6dp"
+                            android:layout_marginTop="9dp"
+                            android:src="@android:color/black" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:baselineAligned="false"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent">
+
+
+
+                                <TextView
+                                    android:layout_marginTop="15sp"
+                                    android:id="@+id/isCorrect3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/answer3title"
+                                    android:text="3 )"
+                                    android:textSize="20sp"
+                                    android:layout_marginBottom="9sp"
+                                    android:textColor="@android:color/black"
+                                    android:fontFamily="cursive"/>
+
+
+                                <TextView
+                                    android:id="@+id/answer3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@id/isCorrect3"
+                                    android:layout_marginBottom="2dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_toEndOf="@id/isCorrect3"
+                                    android:layout_toRightOf="@id/isCorrect3"
+                                    android:fontFamily="cursive"
+                                    android:text="answer3"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginBottom="6dp"
+                            android:layout_marginTop="9dp"
+                            android:src="@android:color/black" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:baselineAligned="false"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent">
+
+
+
+                                <TextView
+                                    android:layout_marginTop="15sp"
+                                    android:id="@+id/isCorrect4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/answer4title"
+                                    android:text="4 )"
+                                    android:textSize="20sp"
+                                    android:textColor="@android:color/black"
+                                    android:fontFamily="cursive"/>
+
+
+                                <TextView
+                                    android:id="@+id/answer4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@id/isCorrect4"
+                                    android:layout_marginBottom="2dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_toEndOf="@id/isCorrect4"
+                                    android:layout_toRightOf="@id/isCorrect4"
+                                    android:fontFamily="cursive"
+                                    android:text="answer4"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
                     </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginBottom="6dp"
-                        android:layout_marginTop="9dp"
-                        android:src="@android:color/black" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:baselineAligned="false"
-                        android:orientation="horizontal">
-
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent">
-
-
-
-                            <TextView
-                                android:layout_marginTop="15sp"
-                                android:id="@+id/isCorrect3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/answer3title"
-                                android:text="3 )"
-                                android:textSize="20sp"
-                                android:layout_marginBottom="9sp"
-                                android:textColor="@android:color/black"
-                                android:fontFamily="@font/gnyrwn971"/>
-
-
-                            <TextView
-                                android:id="@+id/answer3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignTop="@id/isCorrect3"
-                                android:layout_marginBottom="2dp"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginStart="10dp"
-                                android:layout_toEndOf="@id/isCorrect3"
-                                android:layout_toRightOf="@id/isCorrect3"
-                                android:fontFamily="@font/gnyrwn971"
-                                android:text="answer3"
-                                android:textColor="@android:color/black"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginBottom="6dp"
-                        android:layout_marginTop="9dp"
-                        android:src="@android:color/black" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:baselineAligned="false"
-                        android:orientation="horizontal">
-
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent">
-
-
-
-                            <TextView
-                                android:layout_marginTop="15sp"
-                                android:id="@+id/isCorrect4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/answer4title"
-                                android:text="4 )"
-                                android:textSize="20sp"
-                                android:textColor="@android:color/black"
-                                android:fontFamily="@font/gnyrwn971"/>
-
-
-                            <TextView
-                                android:id="@+id/answer4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignTop="@id/isCorrect4"
-                                android:layout_marginBottom="2dp"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginStart="10dp"
-                                android:layout_toEndOf="@id/isCorrect4"
-                                android:layout_toRightOf="@id/isCorrect4"
-                                android:fontFamily="@font/gnyrwn971"
-                                android:text="answer4"
-                                android:textColor="@android:color/black"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
                 </LinearLayout>
-            </LinearLayout>
 
-        </FrameLayout>
+            </FrameLayout>
 
-        <FrameLayout
-            android:id="@+id/cell_title_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            >
-
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cardviewquestion"
+            <FrameLayout
+                android:id="@+id/cell_title_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+
+                >
 
 
-
-
-
-                app:cardElevation="15dp">
-
-                <LinearLayout
-
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cardviewquestion"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
 
-                    <RelativeLayout
-                        android:layout_width="80dp"
-                        android:layout_height="100dp"
-                        android:layout_weight="0"
-                        android:background="@drawable/bg_login2"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical"
-                        android:paddingBottom="20dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingTop="20dp">
 
-                        <TextView
-                            android:id="@+id/questionnumber"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:text="1"
-                            android:fontFamily="@font/gnyrwn971"
-                            android:textColor="@android:color/white"
-                            android:textSize="30dp" />
 
-                    </RelativeLayout>
 
-                    <RelativeLayout
+
+                    app:cardElevation="15dp">
+
+                    <LinearLayout
+
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/questioncontent"
+                        <RelativeLayout
+                            android:layout_width="80dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="0"
+                            android:background="@drawable/bg_login2"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:paddingBottom="20dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:paddingTop="20dp">
+
+                            <TextView
+                                android:id="@+id/questionnumber"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:text="1"
+                                android:fontFamily="cursive"
+                                android:textColor="@android:color/white"
+                                android:textSize="30dp" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_centerVertical="true"
-                            android:gravity="center_vertical"
-                            android:text="Question"
-                            android:textSize="20sp"
-                            android:textAlignment="center"
-                            android:fontFamily="@font/gnyrwn971"
-                            android:textColor="@android:color/black" />
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/questioncontent"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerVertical="true"
+                                android:gravity="center_vertical"
+                                android:text="Question"
+                                android:fontFamily="cursive"
+                                android:textSize="20sp"
+                                android:textAlignment="center"
+                                android:textColor="@android:color/black" />
 
 
-                    </RelativeLayout>
-                </LinearLayout>
+                        </RelativeLayout>
+                    </LinearLayout>
 
 
-            </android.support.v7.widget.CardView>
+                </android.support.v7.widget.CardView>
 
-        </FrameLayout>
+            </FrameLayout>
 
-    </com.ramotion.foldingcell.FoldingCell>
+        </com.ramotion.foldingcell.FoldingCell>
 
 
-</LinearLayout>
+    </LinearLayout>
 </FrameLayout>

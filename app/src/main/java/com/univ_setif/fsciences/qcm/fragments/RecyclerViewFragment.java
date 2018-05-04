@@ -8,22 +8,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 
 
-import com.github.florent37.hollyviewpager.HollyViewPagerBus;
-import com.univ_setif.fsciences.qcm.ADDMCQ;
+import com.univ_setif.fsciences.qcm.DBmanager;
 import com.univ_setif.fsciences.qcm.MCQEditor;
-import com.univ_setif.fsciences.qcm.MainMenu;
 import com.univ_setif.fsciences.qcm.R;
 import com.univ_setif.fsciences.qcm.control.RecyclerAdapter;
 import com.univ_setif.fsciences.qcm.control.mcqCTRL;
@@ -32,53 +28,72 @@ import com.univ_setif.fsciences.qcm.entity.QCM;
 
 import java.util.ArrayList;
 
-import static android.content.Context.MODE_PRIVATE;
-
 /**
  * Created by oussama on 18/04/2018.
  */
 
-public class RecyclerViewFragment extends Fragment {
+public class RecyclerViewFragment extends AppCompatActivity {
     public RecyclerView recyclerView;
     RecyclerAdapter recyclerAdapter;
-    public ArrayList<QCM> ALLitem;
+    TextView Qcmfullname,Qcmposition,Questionnumber;
+    public ArrayList<QCM> ALLitem1,ALLitem2;
     com.github.clans.fab.FloatingActionMenu menufab;
     com.github.clans.fab.FloatingActionButton newQuizfab,
                                               newquizsubjectfab,
                                               removequizsubject,
                                               sessionsettingsfab,
+                                              searchfab,
                                               logout;
     int position=0;
     private ArrayList<QCM> qcm;
     public Context context;
     public RecyclerView.LayoutManager layoutManager;
+    private  String dbfullname,dbname;
 
     public RecyclerViewFragment(){
 
     }
 
-   @SuppressLint("ValidFragment")
-   public RecyclerViewFragment(int position){
-        context = getActivity();
-        this.position = position;
-   }
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-      View view= inflater.inflate(R.layout.fragment_recyclerview, container, false);
-
-        initcomponent(view);
-         ALLitem = getALLQuestion();
 
 
-        RecyclerView.LayoutManager layoutManager= new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_recyclerview);
 
-        recyclerAdapter = new RecyclerAdapter(position,ALLitem,getActivity());
+
+
+        initcomponent();
+        dbfullname = getIntent().getStringExtra("Qcmfullname");
+        dbname= getIntent().getStringExtra("dbname");
+        int qcmposition = getIntent().getIntExtra("Qcmposition",0);
+         Qcmfullname.setText(dbfullname);
+         Qcmposition.setText("QCM Number:"+String.valueOf(qcmposition));
+          ALLitem1 = getALLQuestion(dbname);
+         if(ALLitem1==null){
+             Questionnumber.setText("Question:"+0);
+         }else{
+             Questionnumber.setText("Question:"+String.valueOf(ALLitem1.size()));
+         }
+
+
+            recyclerAdapter = new RecyclerAdapter(position,ALLitem1,getApplicationContext(),recyclerView);
+
+
+
+
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false ));
 
         recyclerView.setAdapter(recyclerAdapter);
-        recyclerView.setHasFixedSize(false);
+
+
+        recyclerView.setHasFixedSize(true);
+
+
+
+
+
 
 
         // ADMIN MENU ITEMS
@@ -87,8 +102,9 @@ public class RecyclerViewFragment extends Fragment {
         newQuizfab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent add = new Intent(getActivity(), MCQEditor.class);
+                Intent add = new Intent(getApplicationContext(), MCQEditor.class);
                 add.putExtra("AddQuestion",true);
+                add.putExtra("dbname",dbname);
                 startActivity(add);
 
             }
@@ -97,7 +113,7 @@ public class RecyclerViewFragment extends Fragment {
         newquizsubjectfab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent addQuizsubject = new Intent(getActivity(), ADDMCQ.class);
+                Intent addQuizsubject = new Intent(RecyclerViewFragment.this, DBmanager.class);
                 startActivity(addQuizsubject);
             }
         });
@@ -119,6 +135,12 @@ public class RecyclerViewFragment extends Fragment {
         });
 
 
+        searchfab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
          // LOG OUT
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +149,8 @@ public class RecyclerViewFragment extends Fragment {
             }
         });
 
+
+
           new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -134,12 +158,16 @@ public class RecyclerViewFragment extends Fragment {
             }
 
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
 
                if(direction==ItemTouchHelper.LEFT){
 
                    //SWIPE LEFT TO DELETE QUESTION
-                recyclerAdapter.delete(viewHolder.getAdapterPosition(), (RecyclerAdapter.ViewHolder) viewHolder);
+
+                                   recyclerAdapter.delete(viewHolder.getAdapterPosition(), (RecyclerAdapter.ViewHolder) viewHolder,dbname,RecyclerViewFragment.this);
+
+
+
 
                } else{
                    //  Swipe RIGHT TO UPDATE QUESTION
@@ -152,11 +180,11 @@ public class RecyclerViewFragment extends Fragment {
                    background.setBackgroundColor(getResources().getColor(R.color.green));
 
 
-                   answers =getAnswers(((RecyclerAdapter.ViewHolder) viewHolder).questioncontent.getText().toString(),ALLitem);
+                   answers =getAnswers(((RecyclerAdapter.ViewHolder) viewHolder).questioncontent.getText().toString(),ALLitem1);
 
 
 
-                   Intent update = new Intent(getActivity(),MCQEditor.class);
+                   Intent update = new Intent(getApplicationContext(),MCQEditor.class);
                    update.putExtra("MCQEditor",true);
                    Bundle Questioninfo =new Bundle();
                    Questioninfo.putString("OldQuestion",((RecyclerAdapter.ViewHolder) viewHolder).questioncontent.getText().toString());
@@ -165,7 +193,7 @@ public class RecyclerViewFragment extends Fragment {
                    Questioninfo.putString("OldAnswer3",answers.get(2).getText());
                    Questioninfo.putString("OldAnswer4",answers.get(3).getText());
 
-                   update.putExtra("CorrectAnswer",ALLitem.get(Integer.parseInt(answers.get(4).getText())).getQuestion().getAnswers());
+                   update.putExtra("CorrectAnswer",ALLitem1.get(Integer.parseInt(answers.get(4).getText())).getQuestion().getAnswers());
                    update.putExtras(Questioninfo);
                    startActivity(update);
 
@@ -229,15 +257,17 @@ public class RecyclerViewFragment extends Fragment {
 
                }
            }).attachToRecyclerView(recyclerView);
-          HollyViewPagerBus.registerRecyclerView(getActivity(), recyclerView);
 
-        return view;
+
+
+
     }
 
 
 
-    private ArrayList<QCM> getALLQuestion() {
-        mcqCTRL controleur = new mcqCTRL(getActivity(), "GL");
+    private ArrayList<QCM> getALLQuestion(String dbname) {
+
+        mcqCTRL controleur = new mcqCTRL(getApplicationContext(), dbname);
 
         controleur.openReadable();
         qcm = (ArrayList<QCM>) controleur.getAllQCM();
@@ -246,7 +276,7 @@ public class RecyclerViewFragment extends Fragment {
     }
 
      public void onAdvancedOptionsClick(){
-        AlertDialog.Builder advBuilder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder advBuilder = new AlertDialog.Builder(RecyclerViewFragment.this);
 
         //inflating layout on view
         @SuppressLint("InflateParams")
@@ -267,7 +297,7 @@ public class RecyclerViewFragment extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences.Editor adminSettings = getActivity().getSharedPreferences("adminSettings", MODE_PRIVATE).edit();
+                SharedPreferences.Editor adminSettings = getApplicationContext().getSharedPreferences("adminSettings", MODE_PRIVATE).edit();
                 adminSettings.putLong("minutes", minutes.getValue());
                 adminSettings.putLong("secondes", secondes.getValue());
                 adminSettings.putInt("nbrQCM", nbrQCM.getValue());
@@ -307,25 +337,30 @@ public class RecyclerViewFragment extends Fragment {
     }
 
 
-     private void  initcomponent(View view){
-        recyclerView = view.findViewById(R.id.recyclerView);
-        menufab=  view.findViewById(R.id.menufab);
-        newQuizfab= view.findViewById(R.id.New_Quiz);
-        newquizsubjectfab= view.findViewById(R.id.New_Quiz_Subject);
-        removequizsubject= view.findViewById(R.id.Remove_Quiz_Subject);
-        sessionsettingsfab= view.findViewById(R.id.SessionSettings);
-        logout = view.findViewById(R.id.logout);
+     private void  initcomponent(){
+         Qcmfullname = findViewById(R.id.qcmfullname);
+         Qcmposition = findViewById(R.id.qcmposition);
+         Questionnumber = findViewById(R.id.questionnumber);
+
+        recyclerView = findViewById(R.id.recyclerView);
+        menufab=  findViewById(R.id.menufab);
+        newQuizfab= findViewById(R.id.New_Quiz);
+        newquizsubjectfab= findViewById(R.id.New_Quiz_Subject);
+        removequizsubject= findViewById(R.id.Remove_Quiz_Subject);
+        sessionsettingsfab= findViewById(R.id.SessionSettings);
+         searchfab = findViewById(R.id.Search);
+        logout = findViewById(R.id.logout);
     }
 
      private void LogOut(){
-        AlertDialog.Builder logoutconfirmation = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder logoutconfirmation = new AlertDialog.Builder(getApplicationContext());
         logoutconfirmation.setTitle("LOG OUT")
                 .setMessage("Voulez-vous vraiment revenir au menu principale ")
                 .setPositiveButton("oui", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        getActivity().finish();
+                        finish();
                     }
                 })
                 .setNegativeButton("non", new DialogInterface.OnClickListener() {

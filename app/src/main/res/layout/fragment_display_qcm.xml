@@ -9,52 +9,102 @@
     android:layout_marginRight="10dp"
     android:layout_marginTop="10dp"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardElevation="@dimen/appbar_padding_top"
-    tools:cardCornerRadius="@dimen/card_padding">
+    app:cardElevation="20sp"
+    tools:cardCornerRadius="20sp"
+
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/white_background_images"
         android:orientation="vertical"
+
+        android:weightSum="6"
         tools:context="com.univ_setif.fsciences.qcm.fragments.DisplayQcm">
 
-
-        <TextView
-            android:id="@+id/questionContent"
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="233dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
 
-        <Button
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginTop="3sp"
+            app:cardElevation="10sp"
+            app:cardCornerRadius="20sp"
+
+
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_border"
+
+                >
+                <TextView
+                    android:id="@+id/questionContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+
+
+                    android:padding="4sp"
+                    android:text="Question"
+                    android:fontFamily="@font/gnyrwn971"
+                    android:background="@drawable/white_background_images"
+
+                    android:gravity="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+
+                    />
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+        <info.hoang8f.widget.FButton
+            android:layout_marginTop="20sp"
             android:id="@+id/answerContent1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginBottom="5sp"
+            android:fontFamily="@font/gnyrwn971"
+            android:text="@string/answer_1"
             android:layout_marginRight="20dp"
             android:layout_marginStart="20dp"
-            android:layout_weight="1"
-            android:background="@android:drawable/btn_default"
+            android:padding="3sp"
+            android:layout_weight="0.5"
+            android:textColor="@android:color/white"
+
             android:textSize="10sp" />
 
-        <Button
+        <info.hoang8f.widget.FButton
             android:id="@+id/answerContent2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5sp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:padding="3sp"
+            android:textColor="@android:color/white"
+            android:text="@string/answer_2"
+            android:fontFamily="@font/gnyrwn971"
             android:layout_marginStart="20dp"
-            android:layout_weight="1"
-            android:background="@android:drawable/btn_default"
+            android:layout_weight="0.5"
+
             android:textSize="10sp" />
 
-        <Button
+
+
+        <info.hoang8f.widget.FButton
             android:id="@+id/answerContent3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,11 +112,16 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginStart="20dp"
-            android:layout_weight="1"
-            android:background="@android:drawable/btn_default"
+            android:layout_marginBottom="5sp"
+            android:text="@string/answer_3"
+            android:padding="3sp"
+            android:layout_weight="0.5"
+            android:fontFamily="@font/gnyrwn971"
+            android:textColor="@android:color/white"
+
             android:textSize="10sp" />
 
-        <Button
+        <info.hoang8f.widget.FButton
             android:id="@+id/answerContent4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,8 +130,12 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginStart="20dp"
-            android:layout_weight="1"
-            android:background="@android:drawable/btn_default"
+            android:text="@string/answer_4"
+            android:padding="3sp"
+            android:fontFamily="@font/gnyrwn971"
+            android:textColor="@android:color/white"
+            android:layout_weight="0.5"
+
             android:textSize="10sp" />
 
     </LinearLayout>

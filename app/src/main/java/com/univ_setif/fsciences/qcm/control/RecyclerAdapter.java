@@ -25,6 +25,7 @@ import com.univ_setif.fsciences.qcm.R;
 import com.univ_setif.fsciences.qcm.entity.Answer;
 import com.univ_setif.fsciences.qcm.entity.QCM;
 import com.univ_setif.fsciences.qcm.entity.Question;
+import com.univ_setif.fsciences.qcm.fragments.RecyclerViewFragment;
 
 import java.util.ArrayList;
 
@@ -40,13 +41,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     int three=3,one=1,ten=10;
     public ArrayList<QCM> ALLitem;
     Context context;
+    RecyclerView recyclerView;
 
 
 
-    public RecyclerAdapter(int position, ArrayList<QCM> ALlitem,Context context){
+    public RecyclerAdapter(int position, ArrayList<QCM> ALlitem,Context context,RecyclerView recyclerView){
         this.Qcmposition = position;
         this.ALLitem = ALlitem;
         this.context=context;
+        this.recyclerView=recyclerView;
     }
 
     @Override
@@ -75,18 +78,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
+        for (int i = 0; i <new mcqCTRL(context,null).getDatabasesCount() ; i++) {
+            if(Qcmposition==i){
+                if(position<=ALLitem.size()){
+                    QCM current =ALLitem.get(position);
 
-        if(Qcmposition==0){
-            if(position<= ALLitem.size()){
-                QCM current =ALLitem.get(position);
 
 
-
-                holder.questioncontent.setText(String.valueOf(current.getQuestion().getText().toString()));
-                holder.questionnumber.setText(String.valueOf(position+1));
-
+                    holder.questioncontent.setText(String.valueOf(current.getQuestion().getText().toString()));
+                    holder.questionnumber.setText(String.valueOf(position+1));
+                }
             }
         }
+
+
 
 
 
@@ -139,24 +144,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        switch (Qcmposition){
-            case 0:{
-
-                return ALLitem.size();
-
-            }
-            case 1:{
-                return one;
-
-            }
-            case 3 :{
-                return ten;
-
-            }
-            default: return 0;
+        if(ALLitem==null){
+            return 0;
+        }else{
+            return  ALLitem.size();
         }
 
-    }
+
+        }
+
+
+
 
 
 
@@ -208,24 +206,25 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         }
     }
-      public void delete(final int position, final ViewHolder viewHolder){
+      public void delete(final int position, final ViewHolder viewHolder, final String dbname,Context mcontext){
 
 
-       AlertDialog.Builder confirm = new AlertDialog.Builder(MCQManager.context);
+
+       AlertDialog.Builder confirm = new AlertDialog.Builder(mcontext);
        confirm.setMessage("Voulez-vous vraiment supprimer ce QCM? Cette opération est irréversible")
                .setCancelable(false)
                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                    @Override
                    public void onClick(DialogInterface dialogInterface, int i) {
-                       mcqCTRL controleur = new mcqCTRL(MCQManager.context, "GL");
+                       mcqCTRL controleur = new mcqCTRL(context, dbname);
                        controleur.openWritable();
-                       Toast.makeText(MCQManager.context, ""+viewHolder.questioncontent.getText(), Toast.LENGTH_SHORT).show();
+                       Toast.makeText(context, ""+viewHolder.questioncontent.getText(), Toast.LENGTH_SHORT).show();
                        controleur.deleteQCM(new Question(viewHolder.questioncontent.getText().toString()));
-                       controleur.close();
                        ALLitem = (ArrayList<QCM>) controleur.getAllQCM();
+                       controleur.close();
                        notifyItemRemoved(position);
                        notifyItemRangeChanged(position,getItemCount());
-                       Toast t = Toast.makeText(MCQManager.context, "Deleted Successfully", Toast.LENGTH_SHORT);
+                       Toast t = Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_SHORT);
                        t.show();
 
 
@@ -240,15 +239,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                    }
                });
 
+
        AlertDialog deleteDialog = confirm.create();
        deleteDialog.setCanceledOnTouchOutside(true);
-       deleteDialog.setOnKeyListener(new Dialog.OnKeyListener() {
-           @Override
-           public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
-               dialogInterface.cancel();
-               return true;
-           }
-       });
+
        deleteDialog.setTitle("Supprimer");
        deleteDialog.show();
 

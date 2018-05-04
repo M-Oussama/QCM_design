@@ -9,108 +9,166 @@ import android.os.CountDownTimer;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bcgdv.asia.lib.ticktock.TickTockView;
 import com.univ_setif.fsciences.qcm.control.AnswerCTRL;
 import com.univ_setif.fsciences.qcm.control.SwipeAdapter;
-import com.univ_setif.fsciences.qcm.control.UserLogCTRL;
 import com.univ_setif.fsciences.qcm.entity.Answer;
 import com.univ_setif.fsciences.qcm.entity.QCM;
 import com.univ_setif.fsciences.qcm.fragments.DisplayQcm;
 
-import java.io.IOException;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Session extends FragmentActivity implements DisplayQcm.SwipeListener {
 
+    private ArrayList[] answers;
+   public static boolean isStop;
+    private ArrayList<QCM> qcmList;
     private SwipeAdapter swipeAdapter;
     private ViewPager viewPager;
-
-    private ArrayList[] answers;
-    private ArrayList<QCM> qcmList;
-    private double myNote;
-
-    private SessionTimer timer;
-    private TextView timerView;
-
+    public  TextView timerView;
+    // private SessionTimer timer;
     private int nbrQCM;
-    private String date;
+    TickTockView mCountDown;
+    long seconds, minutes;
+    int int_seconde,int_minute,hours,days;
 
 
-    private boolean finalized = false;
+
+
+    boolean stop=false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+
+
+        SharedPreferences sp = getSharedPreferences("adminSettings", MODE_PRIVATE);
+        minutes  = sp.getLong("minutes", 10);
+        seconds = sp.getLong("secondes", 0);
+        nbrQCM   = sp.getInt("nbrQCM", 20);
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
+        int_seconde= (int) minutes;
+        int_minute = (int)seconds;
 
-        timerView = findViewById(R.id.session_timer);
+
+        answers = new ArrayList[nbrQCM];
+
+        for (int i=0; i<nbrQCM; i++)
+            answers[i] = new ArrayList<Answer>();
+
+        mCountDown = (TickTockView) findViewById(R.id.countdown);
         viewPager = findViewById(R.id.viewPager);
+        swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), Session.this, nbrQCM);
+        qcmList = swipeAdapter.getQcmList();
+        viewPager.setAdapter(swipeAdapter);
+        viewPager.setPageMargin(40);
+        viewPager.setOffscreenPageLimit(nbrQCM);
+        timerView = findViewById(R.id.timer);
+        isStop=false;
+        if(isStop) {
 
-        if (getIntent().getStringExtra("Log") != null){
+            timerView.setVisibility(View.VISIBLE);
+            int sec = (int) getIntent().getLongExtra("seconds",0);
+            int min = (int) getIntent().getLongExtra("minutes",0);
+            timerView.setText("00h "+min+"m "+sec+"s");
 
-            Button evaluate = findViewById(R.id.submit);
-            evaluate.setVisibility(View.GONE);
+        }else{
+            if (mCountDown != null) {
 
-            qcmList = (ArrayList<QCM>) getIntent().getSerializableExtra("qcmList");
-            answers = (ArrayList[]) getIntent().getSerializableExtra("answers");
-            String elapsedTime = getIntent().getStringExtra("elapsed");
-            nbrQCM = qcmList.size();
+                mCountDown.setOnTickListener(new TickTockView.OnTickListener() {
+                    @Override
+                    public String getText(long timeRemaining) {
+                        seconds =  (timeRemaining / 1000) % 60;
+                        minutes =  ((timeRemaining / (1000 * 60)) % 60);
+                        hours = (int) ((timeRemaining / (1000 * 60 * 60)) % 24);
+                        days = (int) (timeRemaining / (1000 * 60 * 60 * 24));
 
-            swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), Session.this, qcmList, answers);
-            viewPager.setAdapter(swipeAdapter);
-            viewPager.setPageMargin(40);
-            viewPager.setOffscreenPageLimit(nbrQCM);
+                        int_seconde =(int)seconds;
+                        int_minute =(int)minutes;
 
-            timerView.setText(elapsedTime);
-            timerView.setTypeface(null, Typeface.BOLD);
-            timerView.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
 
-            finalized = true;
+                        boolean hasDays = days > 0;
+                        return String.format("%1$02d%4$s %2$02d%5$s %3$02d%6$s",
+                                hasDays ? days : hours,
+                                hasDays ? hours : minutes,
+                                hasDays ? minutes : seconds,
+                                hasDays ? "d" : "h",
+                                hasDays ? "h" : "m",
+                                hasDays ? "m" : "s");
+
+
+
+                    }
+                });
+
+                Calendar end = Calendar.getInstance();
+                end.add(Calendar.MINUTE, int_minute);
+                end.add(Calendar.SECOND, int_seconde);
+
+                Calendar start = Calendar.getInstance();
+                start.add(Calendar.MINUTE, -1);
+
+                if (mCountDown != null ) {
+                    mCountDown.start(start, end);
+
+
+                }
+            }
+
+
+
+            //    timer = new SessionTimer(minutes*60*1000 + secondes*1000, 1000);
+            //  timer.start();
         }
 
-        else {
-
-            DateFormat df = DateFormat.getDateTimeInstance();
-            date = df.format(Calendar.getInstance().getTime());
-
-            long minutes, seconds;
-
-            SharedPreferences sp = getSharedPreferences("adminSettings", MODE_PRIVATE);
-            minutes = sp.getLong("minutes", 10);
-            seconds = sp.getLong("secondes", 0);
-            nbrQCM = sp.getInt("nbrQCM", 20);
 
 
-            answers = new ArrayList[nbrQCM];
 
-            for (int i = 0; i < nbrQCM; i++)
-                answers[i] = new ArrayList<Answer>();
+    }
+    @Override
+    protected  void onResume(){
+        super.onResume();
+        if(stop){
+            resume();
+stop=false;
 
-            timerView = findViewById(R.id.session_timer);
-            viewPager = findViewById(R.id.viewPager);
-            swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), Session.this, nbrQCM);
-            qcmList = swipeAdapter.getQcmList();
-            viewPager.setAdapter(swipeAdapter);
-            viewPager.setPageMargin(40);
-            viewPager.setOffscreenPageLimit(nbrQCM);
 
-            timer = new SessionTimer(minutes * 60 * 1000 + seconds * 1000, 1000);
-            timer.start();
+        }else{
+
+
         }
+
+
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(timerView.isShown()){
 
-    public String toTime(long time){
-        long minutes = time / (60*1000);
-        long seconds = (time % 60000) / 1000;
+            mCountDown.stop();
+
+        }else {
+            stop=true;
+        }
+
+        mCountDown.stop();
+
+
+    }
+
+    public String toTime(){
+
 
         String timeLeft;
 
@@ -125,12 +183,17 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         return timeLeft;
     }
 
-
-
     private void finalizeSession(){
 
         Button submit = findViewById(R.id.submit);
+
+
+        timerView.setVisibility(View.VISIBLE);
+        timerView.setText("00h "+int_minute+"m "+int_seconde+"s");
+        mCountDown.stop();
+
         submit.setVisibility(View.GONE);
+
 
         for (int i=0; i<nbrQCM; i++) {
             DisplayQcm fragment = (DisplayQcm) swipeAdapter.getFragment(i);
@@ -143,7 +206,6 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         }
 
         viewPager.setCurrentItem(0);
-        finalized = true;
     }
 
     @Override
@@ -160,40 +222,31 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
     @Override
     public void onBackPressed() {
-        if(!finalized) {
-            timer.cancel();
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(Session.this);
-            builder.setMessage("Voulez-vous vraiment retourner au menu principal? \n" +
-                    "AVERTISSEMENT: Cette session sera perdue!")
-                    .setCancelable(false)
-                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialogInterface) {
-                            timer = timer.resume();
-                        }
-                    })
-                    .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            finish();
-                        }
-                    })
-                    .setNegativeButton("Non", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            timer = timer.resume();
-                            dialogInterface.cancel();
-                        }
-                    });
+        mCountDown.stop();
+        AlertDialog.Builder builder = new AlertDialog.Builder(Session.this);
+        builder.setMessage("Voulez-vous vraiment retourner au menu principal? \n" +
+                "AVERTISSEMENT: Cette session sera perdue!")
+                .setCancelable(false)
+                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        resume();
 
-            AlertDialog retour = builder.create();
-            retour.setTitle("Retour au Menu Principale");
-            retour.setCanceledOnTouchOutside(true);
-            retour.show();
-        }
-        else
-            super.onBackPressed();
+                        dialogInterface.cancel();
+                    }
+                });
+
+        AlertDialog retour = builder.create();
+        retour.setTitle("Retour au Menu Principale");
+        retour.setCanceledOnTouchOutside(true);
+        retour.show();
     }
 
     private boolean hasEmpty(ArrayList[] answers){
@@ -208,44 +261,27 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
     /*Submit Button*/
     public void onSubmitClickListener(View view) {
-        timer.cancel();
+
+        mCountDown.stop();
 
         AlertDialog.Builder confirm = new AlertDialog.Builder(Session.this);
         confirm.setCancelable(false)
-                .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialogInterface) {
-                        timer = timer.resume();
-                    }
-                })
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+
                         dispatchForCorrection();
-
-                        timerView.setText(toTime(timer.getElapsed()));
-                        timerView.setTypeface(null, Typeface.BOLD);
-                        timerView.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
-
-                        try {
-                            new UserLogCTRL(getApplicationContext())
-                                    .logSession(date, myNote, toTime(timer.getElapsed()), nbrQCM, qcmList, answers);
-                        } catch (IOException e) {
-                            Log.w("Session", "An error occurred while logging the session");
-                            e.printStackTrace();
-                        }
-
                         finalizeSession();
                     }
                 })
                 .setNegativeButton("Non", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        resume();
+
                         dialogInterface.cancel();
                     }
                 });
-
-
         if(hasEmpty(answers))
             confirm.setMessage("Vous avez pas répondu au tout les questions proposées. Puisque le système " +
                     "d'évaluation n'est pas négative, nous vous conseillons de répondre comme mème.\n" +
@@ -264,17 +300,25 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
     private void dispatchForCorrection(){
         AnswerCTRL answerCTRL = new AnswerCTRL(qcmList);
-        myNote = answerCTRL.checkAnswers(answers);
+
+        @SuppressWarnings("unchecked")
+        final double myNote = answerCTRL.checkAnswers(answers);
 
         Intent t = new Intent(Session.this, ShowCorrection.class);
+        t.putExtra("minutes",minutes);
+        t.putExtra("seconds",seconds);
         t.putExtra("note", myNote);
         startActivity(t);
     }
 
-    /**
-     * A Helper class for managing the timer of a Session
-     */
-    private class SessionTimer extends CountDownTimer{
+    private void resume(){
+        Calendar end = Calendar.getInstance();
+        end.add(Calendar.MINUTE, int_minute);
+        end.add(Calendar.SECOND, int_seconde);
+        mCountDown.start(end);
+    }
+
+  /*  private class SessionTimer extends CountDownTimer{
 
         private long initialTime;
         private long timeLeft;
@@ -303,13 +347,13 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             return initialTime - timeLeft;
         }
 
-        @Override
+     /*   @Override
         public void onTick(long l) {
             timeLeft = l;
-            timerView.setText(toTime(l));
-        }
+//            timerView.setText(toTime(l));
+        }*/
 
-        @Override
+    /*    @Override
         public void onFinish() {
             timerView.setText("Terminé!");
             timerView.setTypeface(null, Typeface.BOLD);
@@ -325,5 +369,5 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             startActivity(t);
             finalizeSession();
         }
-    }
+    }*/
 }
