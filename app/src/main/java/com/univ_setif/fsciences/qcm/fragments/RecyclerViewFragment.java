@@ -19,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.univ_setif.fsciences.qcm.DBmanager;
 import com.univ_setif.fsciences.qcm.MCQEditor;
 import com.univ_setif.fsciences.qcm.R;
 import com.univ_setif.fsciences.qcm.control.RecyclerAdapter;
@@ -41,11 +40,7 @@ public class RecyclerViewFragment extends AppCompatActivity {
     public ArrayList<QCM> qcmArrayList;
     com.github.clans.fab.FloatingActionMenu menufab;
     com.github.clans.fab.FloatingActionButton newQuizfab,
-                                              newquizsubjectfab,
-                                              removequizsubject,
-                                              sessionsettingsfab,
-                                              searchfab,
-                                              logout;
+                                              sessionsettingsfab;
     int position=0;
     private ArrayList<QCM> qcm;
     public Context context;
@@ -75,24 +70,11 @@ public class RecyclerViewFragment extends AppCompatActivity {
              Questionnumber.setText("Question:"+String.valueOf(qcmArrayList.size()));
          }
 
-
-            recyclerAdapter = new RecyclerAdapter(position, qcmArrayList,getApplicationContext(),recyclerView);
-
-
-
-
-
+         recyclerAdapter = new RecyclerAdapter(position, qcmArrayList,getApplicationContext(),recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false ));
-
         recyclerView.setAdapter(recyclerAdapter);
-
-
         recyclerView.setHasFixedSize(true);
-
-
-
-
 
 
 
@@ -105,47 +87,17 @@ public class RecyclerViewFragment extends AppCompatActivity {
                 Intent add = new Intent(getApplicationContext(), MCQEditor.class);
                 add.putExtra("AddQuestion",true);
                 add.putExtra("dbname",dbname);
-                startActivity(add);
+                startActivityForResult(add, 0);
 
             }
         });
-        // ADD NEW QUIZ SUBJECT
-        newquizsubjectfab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent addQuizsubject = new Intent(RecyclerViewFragment.this, DBmanager.class);
-                startActivity(addQuizsubject);
-            }
-        });
-        //DELETE QUIZ SUBJECT
 
-        removequizsubject.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         //SESSION SETTINGS
         sessionsettingsfab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onAdvancedOptionsClick();
-            }
-        });
-
-
-        searchfab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-         // LOG OUT
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LogOut();
             }
         });
 
@@ -339,11 +291,7 @@ public class RecyclerViewFragment extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         menufab=  findViewById(R.id.menufab);
         newQuizfab= findViewById(R.id.New_Quiz);
-        newquizsubjectfab= findViewById(R.id.New_Quiz_Subject);
-        removequizsubject= findViewById(R.id.Remove_Quiz_Subject);
         sessionsettingsfab= findViewById(R.id.SessionSettings);
-         searchfab = findViewById(R.id.Search);
-        logout = findViewById(R.id.logout);
     }
 
      private void LogOut(){
@@ -380,7 +328,6 @@ public class RecyclerViewFragment extends AppCompatActivity {
                         //qcmArrayList = (ArrayList<QCM>) controleur.getAllQCM();
                         controleur.close();
                         qcmArrayList.remove(viewHolder.getAdapterPosition());
-                        recyclerView.removeViewAt(viewHolder.getAdapterPosition());
                         recyclerAdapter.notifyItemRemoved(position);
                         recyclerAdapter.notifyItemRangeChanged(position,qcmArrayList.size());
                         Questionnumber.setText("Question:" + qcmArrayList.size());
@@ -411,11 +358,13 @@ public class RecyclerViewFragment extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == 0)
             if(resultCode == -1)
-                if(data.getBooleanExtra("changed", false)) {
+                if (data.getBooleanExtra("changed", false)) {
                     qcmArrayList = getALLQuestion(dbname);
                     recyclerAdapter = new RecyclerAdapter(position, qcmArrayList, getApplicationContext(), recyclerView);
                     recyclerView.setAdapter(recyclerAdapter);
+                    Questionnumber.setText("Question:" + qcmArrayList.size());
                     recyclerView.invalidate();
                 }
+
     }
 }

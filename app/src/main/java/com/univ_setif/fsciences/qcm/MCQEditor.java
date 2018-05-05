@@ -164,9 +164,6 @@ public class MCQEditor extends AppCompatActivity {
         getIntent().putExtra("changed", true);
         setResult(Activity.RESULT_OK, getIntent());
         finish();
-
-
-
     }
 
     public void ADD(View view) {
@@ -204,7 +201,9 @@ public class MCQEditor extends AppCompatActivity {
             Toast t = Toast.makeText(this, "Success", Toast.LENGTH_SHORT);
             t.show();
 
-        finish();
+            getIntent().putExtra("changed", true);
+            setResult(RESULT_OK, getIntent());
+            finish();
     }
 
 

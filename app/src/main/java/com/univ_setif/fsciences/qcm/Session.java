@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.os.CountDownTimer;
 import android.support.v4.app.FragmentActivity;
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class Session extends FragmentActivity implements DisplayQcm.SwipeListener {
 
@@ -39,6 +41,8 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
     private SessionTimer timer;
     private TextView timerView;
+    private TextView questionNumber;
+    private Button evaluate;
 
     private int nbrQCM;
     private String date;
@@ -51,12 +55,18 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
 
-        timerView = findViewById(R.id.session_timer);
-        viewPager = findViewById(R.id.viewPager);
+        Typeface gunnyRewritten = Typeface.createFromAsset(Session.this.getApplicationContext().getAssets(), "fonts/gnyrwn971.ttf");
+
+        timerView      = findViewById(R.id.session_timer);
+        timerView.setTypeface(gunnyRewritten);
+        viewPager      = findViewById(R.id.viewPager);
+        questionNumber = findViewById(R.id.showQuestionNumber);
+        questionNumber.setTypeface(gunnyRewritten);
+        evaluate = findViewById(R.id.submit);
+        evaluate.setTypeface(gunnyRewritten);
 
         if (getIntent().getStringExtra("Log") != null){
 
-            Button evaluate = findViewById(R.id.submit);
             evaluate.setVisibility(View.GONE);
 
             qcmList = (ArrayList<QCM>) getIntent().getSerializableExtra("qcmList");
@@ -148,7 +158,6 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
     @Override
     public void onSwipeIn(int position) {
-        TextView questionNumber = findViewById(R.id.showQuestionNumber);
         String display = "Question "+ position;
         questionNumber.setText(display);
     }
@@ -277,10 +286,6 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
         private long initialTime;
         private long timeLeft;
-
-        private long getInitialTime() {
-            return initialTime;
-        }
 
         private void setInitialTime(long l){
             initialTime = l;

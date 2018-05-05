@@ -574,12 +574,12 @@ public class mcqCTRL {
 
         if(DATABASES == null) {
             DATABASES = new HashMap<>();
-            DATABASES.put("GénieLogiciel", "GL");
+            DATABASES.put("GL", "Génie Logiciel");
         }
     }
 
 
-    public mcqCTRL(Context context, String dbFullName,String dbName ){
+    public mcqCTRL(Context context, String dbName,String dbFullName ){
         mContext      = context;
         DATABASE_NAME = dbName + ".db";
 
@@ -587,10 +587,10 @@ public class mcqCTRL {
 
         if(DATABASES == null) {
             DATABASES = new HashMap<>();
-            DATABASES.put("GénieLogiciel", "GL");
+            DATABASES.put("GL", "Génie Logiciel");
         }
 
-        DATABASES.put(dbFullName, dbName);
+        DATABASES.put(dbName, dbFullName);
 
 
         saveMetadata();
@@ -1002,7 +1002,8 @@ public class mcqCTRL {
      * @param fullName new <b>Full Name</b>
      */
     public void editDatabaseName(String fullName){
-        DATABASES.put(fullName, DATABASE_NAME);
+
+        DATABASES.put(DATABASE_NAME.substring(0, DATABASE_NAME.length()-3), fullName);
         Gson gson = new Gson();
         String databases = gson.toJson(DATABASES);
         SharedPreferences meta = mContext.getSharedPreferences(METADATA, Context.MODE_PRIVATE);

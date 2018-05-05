@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
+    xmlns:fab="http://schemas.android.com/tools"
+    android:background="#e6f2ff"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
 
@@ -55,18 +56,38 @@
                 </LinearLayout>
 
 
-                <android.support.design.widget.FloatingActionButton
+                <com.github.clans.fab.FloatingActionMenu
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|right"
+                    android:layout_margin="10sp"
                     android:src="@drawable/addmcq_icon"
-                   app:backgroundTint="@android:color/holo_blue_dark"
+                    android:onClick="onAddNewSubjectClick"
+                    app:backgroundTint="@android:color/holo_blue_dark" >
+
+                    <com.github.clans.fab.FloatingActionButton
+                        android:id="@+id/New_Quiz_Subject"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="onAddNewSubjectClick"
+                        android:src="@drawable/newquizsubject"
+                        app:fab_colorNormal="@android:color/holo_blue_dark"
+                        fab:fab_label="New Quiz Subject"
+                        fab:fab_size="mini" />
 
 
-                    android:layout_margin="10sp"/>
+                    <com.github.clans.fab.FloatingActionButton
+                        android:id="@+id/logout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="LogOut"
+                        android:src="@drawable/logout"
+                        app:fab_colorNormal="@android:color/holo_blue_dark"
+                        fab:fab_label="LOG OUT "
+                        fab:fab_size="mini" />
 
 
-
+                </com.github.clans.fab.FloatingActionMenu>
             </android.support.v7.widget.CardView>
 
             <ImageView

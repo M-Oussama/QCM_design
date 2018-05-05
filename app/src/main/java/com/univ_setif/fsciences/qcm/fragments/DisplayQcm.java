@@ -3,9 +3,12 @@ package com.univ_setif.fsciences.qcm.fragments;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.CardView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.univ_setif.fsciences.qcm.R;
+import com.univ_setif.fsciences.qcm.Session;
 import com.univ_setif.fsciences.qcm.entity.Answer;
 
 import java.lang.reflect.Array;
@@ -53,6 +57,9 @@ public class DisplayQcm extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        Typeface gunnyRewritten = Typeface.createFromAsset(getContext().getApplicationContext().getAssets(), "fonts/gnyrwn971.ttf");
+
+
         questionNumber = getArguments().getInt("number");
         if(!isLog) userAnswer = new ArrayList<>();
         if(!isLog) correctAnswers = new ArrayList<>();
@@ -62,15 +69,21 @@ public class DisplayQcm extends Fragment {
         card = view.findViewById(R.id.card);
 
         qstText     = view.findViewById(R.id.questionContent);
+        qstText.setTypeface(gunnyRewritten);
+        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(qstText, 25, 30, 1, TypedValue.COMPLEX_UNIT_DIP);
         ans         = new FButton[4];
         pressed     = new boolean[4];
 
         for (boolean b: pressed) b = false;
 
         ans[0]      = view.findViewById(R.id.answerContent1);
+        ans[0].setTypeface(gunnyRewritten);
         ans[1]      = view.findViewById(R.id.answerContent2);
+        ans[1].setTypeface(gunnyRewritten);
         ans[2]      = view.findViewById(R.id.answerContent3);
+        ans[2].setTypeface(gunnyRewritten);
         ans[3]      = view.findViewById(R.id.answerContent4);
+        ans[3].setTypeface(gunnyRewritten);
 
 
         ans[0].setOnClickListener(new View.OnClickListener() {

@@ -42,18 +42,18 @@ public class QcmRecyclerAdapter extends RecyclerView.Adapter<QcmRecyclerAdapter.
         if(position<=controleur.getDatabasesCount()){
 
 
-            final Object key = controleur.getDatabaseData().keySet().toArray()[position];
-            final String keys=key.toString();
-            final String keyvalue = controleur.getDatabaseData().get(key);
+            final String key = controleur.getDatabaseData().keySet().toArray()[position].toString();
+            final String value = controleur.getDatabaseData().get(key);
             holder.Qcm_number.setText(String.valueOf(position+1));
-            holder.Qcm_name.setText(String.valueOf(keys));
+            holder.Qcm_name.setText(String.valueOf(value));
+            holder.dbName = key;
             holder.cardviewqcm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent gotoquestion = new Intent(context, RecyclerViewFragment.class);
                     gotoquestion.putExtra("Qcmposition",position+1);
-                    gotoquestion.putExtra("Qcmfullname",keys);
-                    gotoquestion.putExtra("dbname",keyvalue);
+                    gotoquestion.putExtra("Qcmfullname",value);
+                    gotoquestion.putExtra("dbname",key);
                     gotoquestion.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(gotoquestion);
         }
@@ -72,10 +72,11 @@ public class QcmRecyclerAdapter extends RecyclerView.Adapter<QcmRecyclerAdapter.
     }
 
     public class MyViewHolder extends  RecyclerView.ViewHolder{
-       public  TextView Qcm_number,Qcm_name,update,delete;
+       public TextView Qcm_number,Qcm_name,update,delete;
        public CardView cardviewqcm;
        public RelativeLayout view_background;
        public CardView view_foreground;
+       public String dbName;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -90,14 +91,13 @@ public class QcmRecyclerAdapter extends RecyclerView.Adapter<QcmRecyclerAdapter.
         }
     }
 
-    public void delete(final Context context, final String dbfullname,final int position){
+    public void delete(final Context context, final String dbName,final int position){
          AlertDialog.Builder deleteQCM = new AlertDialog.Builder(context);
         deleteQCM.setMessage("you want to delete this QCM .?")
                 .setPositiveButton("oui", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String dbname =new mcqCTRL(context,null).getDatabaseData().get(dbfullname);
-                        mcqCTRL controlleur = new mcqCTRL(context,dbname);
+                        mcqCTRL controlleur = new mcqCTRL(context,dbName);
                         controlleur.deleteDatabase();
 
                         notifyItemRemoved(position);

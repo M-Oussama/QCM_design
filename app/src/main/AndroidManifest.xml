@@ -40,7 +40,7 @@
             android:name=".MCQManager"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".DBmanager"
+            android:name=".DBManager"
             android:screenOrientation="portrait" />
         <activity android:name=".MCQEditor" android:screenOrientation="portrait">
 

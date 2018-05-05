@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none"
+    android:background="#e6f2ff"
     android:weightSum="3">
 <FrameLayout
     android:layout_width="match_parent"
@@ -24,7 +24,6 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="@dimen/header_height"
-            android:background="@drawable/white_background_images"
             android:layout_marginTop="10sp"
             android:layout_marginLeft="10sp"
             android:layout_marginRight="10sp"
@@ -35,8 +34,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/white_background_images">
+                android:layout_height="match_parent">
                 <TextView
                     android:id="@+id/qcmfullname"
                     android:layout_width="match_parent"
@@ -46,7 +44,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:fontFamily="cursive"
+                    android:fontFamily="@font/gnyrwn971"
                     android:textSize="20sp"
                     android:drawableTop="@drawable/questionicon"/>
                 <TextView
@@ -56,7 +54,7 @@
                     android:text="Question :57"
                     android:layout_margin="10sp"
                     android:textSize="20sp"
-                    android:fontFamily="cursive"
+                    android:fontFamily="@font/gnyrwn971"
                     android:layout_alignParentRight="true"/>
 
 
@@ -64,11 +62,11 @@
                     android:id="@+id/qcmposition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="QCM Number : 1"
-                    android:fontFamily="cursive"
+                    android:layout_alignParentLeft="true"
                     android:layout_margin="10sp"
-                    android:textSize="20sp"
-                    android:layout_alignParentLeft="true"/>
+                    android:fontFamily="@font/gnyrwn971"
+                    android:text="QCM Number : 1"
+                    android:textSize="20sp" />
 
             </RelativeLayout>
 
@@ -85,12 +83,7 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10sp"
-                android:background="@drawable/white_background_images"
-
-
-
-                />
+                android:layout_margin="10sp" />
 
 
 
@@ -114,15 +107,6 @@
         fab:menu_fab_show_animation="@anim/show_from_bottom">
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/New_Quiz_Subject"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/newquizsubject"
-            app:fab_colorNormal="@android:color/holo_blue_dark"
-            fab:fab_label="New Quiz Subject"
-            fab:fab_size="mini" />
-
-        <com.github.clans.fab.FloatingActionButton
             android:id="@+id/New_Quiz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -132,39 +116,12 @@
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/Remove_Quiz_Subject"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/delete"
-            app:fab_colorNormal="@android:color/holo_blue_dark"
-            fab:fab_label="Remove Quiz Subject"
-            fab:fab_size="mini" />
-
-        <com.github.clans.fab.FloatingActionButton
             android:id="@+id/SessionSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/sessionsettings"
             app:fab_colorNormal="@android:color/holo_blue_dark"
             fab:fab_label="Session Settings"
-            fab:fab_size="mini" />
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/Search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/search"
-            app:fab_colorNormal="@android:color/holo_blue_dark"
-            fab:fab_label="Search"
-            fab:fab_size="mini" />
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logout"
-            app:fab_colorNormal="@android:color/holo_blue_dark"
-            fab:fab_label="LOG OUT "
             fab:fab_size="mini" />
 
     </com.github.clans.fab.FloatingActionMenu>

@@ -22,6 +22,8 @@ public class MCQManager extends Activity {
     private String pagetitle[];
     QcmRecyclerAdapter qcmRecyclerAdapter;
 
+    com.github.clans.fab.FloatingActionButton logout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +41,13 @@ public class MCQManager extends Activity {
        /* Intent gotoquestion = new Intent(getApplicationContext(),RecyclerViewFragment.class);
         startActivity(gotoquestion);
         finish();*/
-
+       logout = findViewById(R.id.logout);
+       logout.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               LogOut();
+           }
+       });
 
 
        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -51,18 +59,19 @@ public class MCQManager extends Activity {
            @Override
            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                TextView qcm_name = ((QcmRecyclerAdapter.MyViewHolder)viewHolder).Qcm_name;
-               String dbfullname = qcm_name.getText().toString();
+               String dbName = ((QcmRecyclerAdapter.MyViewHolder)viewHolder).dbName;
 
                if(direction==ItemTouchHelper.LEFT){
 
-                   qcmRecyclerAdapter.delete(MCQManager.this,dbfullname,viewHolder.getAdapterPosition());
+                   qcmRecyclerAdapter.delete(MCQManager.this, dbName, viewHolder.getAdapterPosition());
 
                }else{
 
-                   Intent updateQcm = new Intent(MCQManager.this,DBmanager.class);
-                   updateQcm.putExtra("Qcmfullname",dbfullname);
+                   Intent updateQcm = new Intent(MCQManager.this,DBManager.class);
+                   updateQcm.putExtra("Qcmfullname",qcm_name.getText().toString());
+                   updateQcm.putExtra("QcmDbName", dbName);
                    updateQcm.putExtra("update",true);
-                   startActivity(updateQcm);
+                   startActivityForResult(updateQcm, 1);
 
 
                }
@@ -122,6 +131,40 @@ public class MCQManager extends Activity {
        }).attachToRecyclerView(recyclerView);
 
     }
+
+    public void onAddNewSubjectClick(View v){
+        Intent addQuizsubject = new Intent(MCQManager.this, DBManager.class);
+        startActivity(addQuizsubject);
+    }
+
+    private void LogOut(){
+        AlertDialog.Builder logoutconfirmation = new AlertDialog.Builder(MCQManager.this);
+        logoutconfirmation.setTitle("LOG OUT")
+                .setMessage("Voulez-vous vraiment revenir au menu principale ")
+                .setPositiveButton("oui", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                })
+                .setNegativeButton("non", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog logout = logoutconfirmation.create();
+        logout.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 1){
+            qcmRecyclerAdapter.notifyDataSetChanged();
+        }
+    }
+
     @Override
     public void onBackPressed() {
         AlertDialog.Builder logoutconfirmation = new AlertDialog.Builder(MCQManager.this);

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="10sp"
     android:background="@drawable/corners"
-    tools:context="com.univ_setif.fsciences.qcm.DBmanager">
+    tools:context="com.univ_setif.fsciences.qcm.DBManager">
 
     <TextView
         android:id="@+id/title"
