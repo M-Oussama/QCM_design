@@ -13,6 +13,10 @@ import java.util.ArrayList;
 
 public class AnswerCTRL {
     private final ArrayList<QCM> qcm;
+    public static final int TOUTE_OU_RIEN = 0;
+    public static final int PARTIEL = 1;
+    public static final int NEGATIVE = 2;
+
 
     private double note=0;
 
@@ -21,20 +25,47 @@ public class AnswerCTRL {
     }
 
 
-    public double checkAnswers(ArrayList[] answers) {
+    public double checkAnswers(ArrayList[] answers, int corrigeType) {
+        switch(corrigeType) {
+            case PARTIEL:
+                for (int i = 0; i < qcm.size(); i++) {
+                    if (!(answers[i].size() == 0)) {
+                        if (answers[i].equals(qcm.get(i).getQuestion().getAnswers()))
+                            note++;
+                        else if (qcm.get(i).getQuestion().getAnswers().containsAll(answers[i]))
+                            note += 0.5;
+                    }
+                }
+                break;
 
-        for (int i=0; i<qcm.size(); i++) {
-            if(!(answers[i].size() == 0)){
-                if(answers[i].equals(qcm.get(i).getQuestion().getAnswers()))
-                    note++;
-                else if(qcm.get(i).getQuestion().getAnswers().containsAll(answers[i]))
-                    note += 0.5;
-            }
+            case TOUTE_OU_RIEN:
+                for (int i = 0; i < qcm.size(); i++) {
+                    if (!(answers[i].size() == 0)) {
+                        if (answers[i].equals(qcm.get(i).getQuestion().getAnswers()))
+                            note++;
+                    }
+                }
+                break;
+
+            case NEGATIVE:
+                for (int i = 0; i < qcm.size(); i++) {
+                    if (!(answers[i].size() == 0)) {
+                        if (answers[i].equals(qcm.get(i).getQuestion().getAnswers()))
+                            note++;
+                    }else
+                        note -= 0.25;
+                }
+
+                if(note < 0) note = 0;
+
+                break;
         }
 
-        note = round((note*20)/qcm.size(), 2);
 
-        return note;
+            note = round((note * 20) / qcm.size(), 2);
+
+            return note;
+
     }
 
     public static double round(double value, int places) {

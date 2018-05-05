@@ -70,7 +70,7 @@ public class DisplayQcm extends Fragment {
 
         qstText     = view.findViewById(R.id.questionContent);
         qstText.setTypeface(gunnyRewritten);
-        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(qstText, 25, 30, 1, TypedValue.COMPLEX_UNIT_DIP);
+        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(qstText, 30, 50, 1, TypedValue.COMPLEX_UNIT_DIP);
         ans         = new FButton[4];
         pressed     = new boolean[4];
 

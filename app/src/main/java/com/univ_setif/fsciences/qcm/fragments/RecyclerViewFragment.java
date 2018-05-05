@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,12 +16,14 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.univ_setif.fsciences.qcm.MCQEditor;
 import com.univ_setif.fsciences.qcm.R;
+import com.univ_setif.fsciences.qcm.control.AnswerCTRL;
 import com.univ_setif.fsciences.qcm.control.RecyclerAdapter;
 import com.univ_setif.fsciences.qcm.control.mcqCTRL;
 import com.univ_setif.fsciences.qcm.entity.Answer;
@@ -236,18 +239,34 @@ public class RecyclerViewFragment extends AppCompatActivity {
         advancedOptions.setCanceledOnTouchOutside(true);
         advancedOptions.show();
 
-        final NumberPicker minutes  = editorView.findViewById(R.id.minutes);
-        final NumberPicker secondes = editorView.findViewById(R.id.secondes);
-        final NumberPicker nbrQCM   = editorView.findViewById(R.id.nbrQCM);
+        final NumberPicker minutes      = editorView.findViewById(R.id.minutes);
+        final NumberPicker secondes     = editorView.findViewById(R.id.secondes);
+        final NumberPicker nbrQCM       = editorView.findViewById(R.id.nbrQCM);
+        final RadioButton partiel       = editorView.findViewById(R.id.partiel);
+        final RadioButton toute_ou_rien = editorView.findViewById(R.id.toute_ou_rien);
+        final RadioButton negative      = editorView.findViewById(R.id.negative);
 
         Button save = editorView.findViewById(R.id.param_save);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!partiel.isChecked() && !toute_ou_rien.isChecked() && !negative.isChecked()){
+                    Toast.makeText(getApplicationContext(), "Veuillez cocher un système d'évaluation", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 SharedPreferences.Editor adminSettings = getApplicationContext().getSharedPreferences("adminSettings", MODE_PRIVATE).edit();
                 adminSettings.putLong("minutes", minutes.getValue());
                 adminSettings.putLong("secondes", secondes.getValue());
                 adminSettings.putInt("nbrQCM", nbrQCM.getValue());
+
+                if(partiel.isChecked())
+                    adminSettings.putInt("evalSystem", AnswerCTRL.PARTIEL);
+                else if(toute_ou_rien.isChecked())
+                    adminSettings.putInt("evalSystem", AnswerCTRL.TOUTE_OU_RIEN);
+                else
+                    adminSettings.putInt("evalSystem", AnswerCTRL.NEGATIVE);
+
                 adminSettings.apply();
                 advancedOptions.cancel();
             }

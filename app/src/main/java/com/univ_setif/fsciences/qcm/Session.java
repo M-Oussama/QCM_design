@@ -42,10 +42,10 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
     private SessionTimer timer;
     private TextView timerView;
     private TextView questionNumber;
-    private Button evaluate;
 
     private int nbrQCM;
     private String date;
+    private int evalSystem;
 
 
     private boolean finalized = false;
@@ -62,7 +62,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         viewPager      = findViewById(R.id.viewPager);
         questionNumber = findViewById(R.id.showQuestionNumber);
         questionNumber.setTypeface(gunnyRewritten);
-        evaluate = findViewById(R.id.submit);
+        Button evaluate = findViewById(R.id.submit);
         evaluate.setTypeface(gunnyRewritten);
 
         if (getIntent().getStringExtra("Log") != null){
@@ -94,9 +94,10 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             long minutes, seconds;
 
             SharedPreferences sp = getSharedPreferences("adminSettings", MODE_PRIVATE);
-            minutes = sp.getLong("minutes", 10);
-            seconds = sp.getLong("secondes", 0);
-            nbrQCM = sp.getInt("nbrQCM", 20);
+            minutes    = sp.getLong("minutes", 10);
+            seconds    = sp.getLong("secondes", 0);
+            nbrQCM     = sp.getInt("nbrQCM", 20);
+            evalSystem = sp.getInt("evalSystem", AnswerCTRL.PARTIEL);
 
 
             answers = new ArrayList[nbrQCM];
@@ -255,9 +256,8 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
 
         if(hasEmpty(answers))
-            confirm.setMessage("Vous avez pas répondu au tout les questions proposées. Puisque le système " +
-                    "d'évaluation n'est pas négative, nous vous conseillons de répondre comme mème.\n" +
-                    "Etes-vous sur d'envoyer vos réponses maintenant?");
+            confirm.setMessage("Vous n'avez pas répondu à toutes les questions proposées! Voulez-vous vraimant soumettre " +
+                    "vos réponses comme-mème?");
         else
             confirm.setMessage("Voulez-vous vraiment envoyer vos réponses? Vous pouvez plus modifier vos réponses dès" +
                     " ce point.");
@@ -272,7 +272,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
     private void dispatchForCorrection(){
         AnswerCTRL answerCTRL = new AnswerCTRL(qcmList);
-        myNote = answerCTRL.checkAnswers(answers);
+        myNote = answerCTRL.checkAnswers(answers, evalSystem);
 
         Intent t = new Intent(Session.this, ShowCorrection.class);
         t.putExtra("note", myNote);
@@ -322,7 +322,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             AnswerCTRL answerCTRL = new AnswerCTRL(qcmList);
 
             @SuppressWarnings("unchecked")
-            final double myNote = answerCTRL.checkAnswers(answers);
+            final double myNote = answerCTRL.checkAnswers(answers, evalSystem);
 
             Intent t = new Intent(Session.this, ShowCorrection.class);
             t.putExtra("note", myNote);
