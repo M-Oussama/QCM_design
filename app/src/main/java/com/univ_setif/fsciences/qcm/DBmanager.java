@@ -40,8 +40,7 @@ public class DBmanager extends Activity {
                  public void onClick(View v) {
                      mcqCTRL mcqCTRL =new mcqCTRL(DBmanager.this,dbname);
                      mcqCTRL.editDatabaseName(dbname);
-                     Intent backtoQCM = new Intent(DBmanager.this,MCQManager.class);
-                     startActivity(backtoQCM);
+                     finish();
                  }
              });
 

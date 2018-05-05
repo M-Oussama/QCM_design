@@ -207,9 +207,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
     }
       public void delete(final int position, final ViewHolder viewHolder, final String dbname,Context mcontext){
-
-
-
        AlertDialog.Builder confirm = new AlertDialog.Builder(mcontext);
        confirm.setMessage("Voulez-vous vraiment supprimer ce QCM? Cette opération est irréversible")
                .setCancelable(false)
@@ -245,11 +242,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
        deleteDialog.setTitle("Supprimer");
        deleteDialog.show();
-
-
-
-
     }
+
       @SuppressLint({"ResourceAsColor", "WrongConstant"})
       private void displayQuestion(ViewHolder holder, int position, ArrayList<QCM>ALLitem){
        QCM current =ALLitem.get(position);

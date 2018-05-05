@@ -1031,7 +1031,7 @@ public class mcqCTRL {
      */
     public void deleteDatabase(){
         mContext.deleteDatabase(DATABASE_NAME);
-        String key = DATABASE_NAME.substring(0, DATABASE_NAME.length()-4);
+        String key = DATABASE_NAME.substring(0, DATABASE_NAME.length()-3);
         DATABASES.remove(key);
 
         saveMetadata();

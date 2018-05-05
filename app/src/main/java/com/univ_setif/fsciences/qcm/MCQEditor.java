@@ -1,5 +1,6 @@
 package com.univ_setif.fsciences.qcm;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -101,6 +102,8 @@ public class MCQEditor extends AppCompatActivity {
     public void UPDATE(View view) {
         if(!checkInputValidity()) return;
 
+        dbname = getIntent().getStringExtra("dbname");
+
         QCM oldQCM = new QCM(
                 new Question(getIntent().getStringExtra("OldQuestion")),
                 new Answer(getIntent().getStringExtra("OldAnswer1")),
@@ -157,6 +160,9 @@ public class MCQEditor extends AppCompatActivity {
         controleur.close();
 
         Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+
+        getIntent().putExtra("changed", true);
+        setResult(Activity.RESULT_OK, getIntent());
         finish();
 
 
@@ -166,6 +172,9 @@ public class MCQEditor extends AppCompatActivity {
     public void ADD(View view) {
 
         if(!checkInputValidity()) return;
+
+            dbname = getIntent().getStringExtra("dbname");
+
             Answer ans1 = new Answer(Answer1.getText().toString());
             Answer ans2 = new Answer(Answer2.getText().toString());
             Answer ans3 = new Answer(Answer3.getText().toString());
