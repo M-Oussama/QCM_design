@@ -46,7 +46,7 @@
             android:fontFamily="@font/gnyrwn971"
             android:text="L'adminspace est l'espace où vous pouvez gérer l'ensemble du questionnaire: en matière de système d'évaluation, nombre de questions, le minuteur, ainsi que la liste des sujets et leurs questions sous-jacentes."
             android:textColor="@color/black_de"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -58,7 +58,7 @@
             android:fontFamily="@font/gnyrwn971"
             android:text="L'éspace administrateur marche comme suite: "
             android:textColor="@color/black_de"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -70,7 +70,7 @@
             android:fontFamily="@font/gnyrwn971"
             android:text="1)- L'administrateur connecte sur le platforme en insérant son mot de passe (par défaut &quot;admin&quot;)"
             android:textColor="@color/black_de"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -80,9 +80,9 @@
             android:layout_marginStart="35dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/gnyrwn971"
-            android:text="2) - L'administrateur est présenté par la liste des sujets disponible, il peut y ajoutes d'autres, modifir ou supprimer celles existants."
+            android:text="2) - L'administrateur est présenté par la liste des sujets disponible, il peut y ajoutes d'autres, modifier ou supprimer celles existants."
             android:textColor="@color/black_de"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -94,7 +94,7 @@
             android:fontFamily="@font/gnyrwn971"
             android:text="3) - En cliquant sur un sujet, la liste des ces questions sera affichée. D'une façon pareil, l'administrateur peut ajouter, supprimer, ou modifier les question. Il est également capable de modifier les paramètres de la session (duréé, nombre des questions et système d'évaluation) "
             android:textColor="@color/black_de"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/goToAdmin"
