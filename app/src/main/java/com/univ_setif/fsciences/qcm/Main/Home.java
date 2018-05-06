@@ -84,7 +84,7 @@ public class Home extends Fragment {
 
                 ArrayList<UserLog> userLogs = null;
                 try {
-                    userLogs = new UserLogCTRL(getContext()).getLog();
+                    userLogs = new UserLogCTRL(getContext(), false).getLog();
                 } catch (IOException e) {
                     Log.w("Home", "Could not read from log file");
                 }

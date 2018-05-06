@@ -237,7 +237,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
                         timerView.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
 
                         try {
-                            new UserLogCTRL(getApplicationContext())
+                            new UserLogCTRL(getApplicationContext(), true)
                                     .logSession(date, myNote, toTime(timer.getElapsed()), nbrQCM, qcmList, answers);
                         } catch (IOException e) {
                             Log.w("Session", "An error occurred while logging the session");

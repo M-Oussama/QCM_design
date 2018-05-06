@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserHelp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/abeezee"
+                android:text="Bienvenue!"
+                android:textAlignment="center"
+                android:textColor="@color/black_de"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gnyrwn971"
+                android:text="Overview"
+                android:textColor="@color/black_de"
+                android:textSize="30sp"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/gnyrwn971"
+                android:text="Notre application serve comme un système d\'evaluation des questionnaires à choix multiple. Avant de commencer, l\'administrateur définit votre session en ajoutant, supprimant et / ou mettant à jour des sujets et des questions, en définissant la valeur de la minuterie, le nombre de questions à répondre et le système d'évaluation"
+                android:textColor="@color/black_de"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/gnyrwn971"
+                android:text="Après la configuration administrative, vous pouvez démarrer votre session en appuyant sur le bouton start apparaissant sur l'écran d'accueil. Votre questionnaire apparaît avec le minuteur (tel que défini par l'administrateur). Prenez votre temps, répondez à la première question, balayez vers la droite pour voir la suivante, répondez-y, revenez à la précédente et vérifiez-la, etc ... à votre rythme! Lorsque vous êtes satisfait de vos réponses, appuyez sur le bouton évaluer et vous serez présenté par votre marque. Nous avons une surprise spéciale pour vous si vous obtenez la note complète!"
+                android:textColor="@color/black_de"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/gnyrwn971"
+                android:text="À la fin, vous pouvez trouver votre profil à côté d'un journal de vos sessions précédentes. Vous pouvez modifier les informations de votre profil: nom, spécialité, anniversaire et photo de profil en cliquant sur les informations de votre profil. Vous pouvez également voir la correction de vos sessions précédentes en cliquant dessus. Nous croyons qu'avec ces sessions enregistrées, vous serez en mesure de vous auto-évaluer efficacement et d'améliorer votre compréhension du sujet donné."
+                android:textColor="@color/black_de"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/goToAdmin"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gnyrwn971"
+                android:text="Admin Space"
+                android:onClick="onAdminHelpClick"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/backToMenu"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gnyrwn971"
+                android:text="Retour au Menu Principal"
+                android:onClick="onReturnClick"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+</ScrollView>

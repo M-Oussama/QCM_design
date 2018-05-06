@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminHelp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/abeezee"
+            android:text="Administrator Space"
+            android:textAlignment="center"
+            android:textColor="@color/black_de"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gnyrwn971"
+            android:text="Overview"
+            android:textColor="@color/black_de"
+            android:textSize="30sp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/gnyrwn971"
+            android:text="L'adminspace est l'espace où vous pouvez gérer l'ensemble du questionnaire: en matière de système d'évaluation, nombre de questions, le minuteur, ainsi que la liste des sujets et leurs questions sous-jacentes."
+            android:textColor="@color/black_de"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/gnyrwn971"
+            android:text="L'éspace administrateur marche comme suite: "
+            android:textColor="@color/black_de"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/gnyrwn971"
+            android:text="1)- L'administrateur connecte sur le platforme en insérant son mot de passe (par défaut &quot;admin&quot;)"
+            android:textColor="@color/black_de"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/gnyrwn971"
+            android:text="2) - L'administrateur est présenté par la liste des sujets disponible, il peut y ajoutes d'autres, modifir ou supprimer celles existants."
+            android:textColor="@color/black_de"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/gnyrwn971"
+            android:text="3) - En cliquant sur un sujet, la liste des ces questions sera affichée. D'une façon pareil, l'administrateur peut ajouter, supprimer, ou modifier les question. Il est également capable de modifier les paramètres de la session (duréé, nombre des questions et système d'évaluation) "
+            android:textColor="@color/black_de"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/goToAdmin"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gnyrwn971"
+            android:text="Retour au User Space"
+            android:onClick="onUserHelpClick"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/backToMenu"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gnyrwn971"
+            android:text="Retour au Menu Principal"
+            android:onClick="onReturnHomeClick"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+</ScrollView>

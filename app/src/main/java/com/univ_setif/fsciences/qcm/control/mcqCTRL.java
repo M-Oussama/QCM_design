@@ -749,14 +749,14 @@ public class mcqCTRL {
             }
         }
 
-    private boolean isMapped(Question qst){
-        int id = getQuestionID(qst.getText());
-
-        String sql = "SELECT * FROM QuestionAnswer WHERE questionID=" + String.valueOf(id);
-
-        return mDb.rawQuery(sql, null).getCount() > 0;
-
-    }
+//        private boolean isMapped(Question qst){
+//        int id = getQuestionID(qst.getText());
+//
+//        String sql = "SELECT * FROM QuestionAnswer WHERE questionID=" + String.valueOf(id);
+//
+//        return mDb.rawQuery(sql, null).getCount() > 0;
+//
+//    }
 
 
     private void updateQCM(QCM qcm,

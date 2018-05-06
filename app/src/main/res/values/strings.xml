@@ -45,4 +45,5 @@
     <string name="help_maj">HELP</string>
     <string name="elapsed_text">Elapsed Time: </string>
     <string name="module"> GénieLogiciel</string>
+    <string name="pg1">      Notre application serve comme un système d\'evaluation des questionnaires à choix multiple. Avant de commencer, l\'administrateur définit votre session en ajoutant, supprimant et / ou mettant à jour des sujets et des questions, en définissant la valeur de la minuterie, le nombre de questions à répondre et le système d\'évaluation</string>
 </resources>

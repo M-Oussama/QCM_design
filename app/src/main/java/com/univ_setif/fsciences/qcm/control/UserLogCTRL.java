@@ -19,20 +19,30 @@ public class UserLogCTRL {
     private static final String TAG = "UserLogCTRL";
 
     private final File log;
-    private final AppendingObjectOutputStream logWriter;
-    private final ObjectInputStream logReader;
+    private AppendingObjectOutputStream logWriter;
+    private ObjectInputStream logReader;
+    private boolean available;
 
-    public UserLogCTRL(Context context) throws IOException {
+    public UserLogCTRL(Context context, boolean create) throws IOException {
         log = new File(context.getFilesDir(), "user_sessions.log");
 
-        if(!log.exists()){
+        if(!log.exists() && create){
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(log));
             oos.flush();
             oos.close();
+            available = true;
+            logWriter = new AppendingObjectOutputStream(new FileOutputStream(log, true));
+            logReader = new ObjectInputStream(new FileInputStream(log));
         }
 
-        logWriter = new AppendingObjectOutputStream(new FileOutputStream(log, true));
-        logReader = new ObjectInputStream(new FileInputStream(log));
+        else if(log.exists()){
+            logWriter = new AppendingObjectOutputStream(new FileOutputStream(log, true));
+            logReader = new ObjectInputStream(new FileInputStream(log));
+            available = true;
+        }
+
+        else
+            available = false;
     }
 
     /**
@@ -54,69 +64,71 @@ public class UserLogCTRL {
             ArrayList<QCM> qcmList,
             ArrayList[] answers
     ) throws IOException {
-
-        UserLog log = new UserLog(date, note, elapsedTime, nbrQCM, qcmList, answers);
-        logWriter.writeUnshared(log);
-        logWriter.flush();
-        logWriter.close();
-
-    }
-
-
-    public UserLog getLogLine() throws IOException, ClassNotFoundException {
-        UserLog logLine;
-        logLine = (UserLog) logReader.readObject();
-        logReader.close();
-
-        return logLine;
-    }
-
-    public ArrayList<UserLog> getLog(){
-        ArrayList<UserLog> userLog = new ArrayList<>();
-        boolean keepReading = true;
-
-        if(log.exists()) {
-            while (keepReading) {
-                UserLog logLine = null;
-                try {
-                    logLine = (UserLog) logReader.readObject();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                } catch (ClassNotFoundException e1) {
-                    e1.printStackTrace();
-                }
-
-                if (logLine != null)
-                    userLog.add(logLine);
-                else
-                    keepReading = false;
-            }
+        if(available) {
+            UserLog log = new UserLog(date, note, elapsedTime, nbrQCM, qcmList, answers);
+            logWriter.writeUnshared(log);
+            logWriter.flush();
+            logWriter.close();
         }
-        return userLog;
+
+    }
+
+
+    /**
+     * gets the user log from <i>log file</i>
+     * @return user log arraylist
+     */
+    public ArrayList<UserLog> getLog(){
+        if(available) {
+            ArrayList<UserLog> userLog = new ArrayList<>();
+            boolean keepReading = true;
+
+            if (log.exists()) {
+                while (keepReading) {
+                    UserLog logLine = null;
+                    try {
+                        logLine = (UserLog) logReader.readObject();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    } catch (ClassNotFoundException e1) {
+                        e1.printStackTrace();
+                    }
+
+                    if (logLine != null)
+                        userLog.add(logLine);
+                    else
+                        keepReading = false;
+                }
+            }
+            return userLog;
+        } else
+            return null;
     }
 
     public void deleteLog(int position) {
-        ArrayList<UserLog> userLogs = getLog();
-        userLogs.remove(position);
-        ObjectOutputStream oop = null;
-        try {
-            oop = new ObjectOutputStream(new FileOutputStream(log, false));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        for (UserLog line: userLogs) {
+        if(available) {
+            ArrayList<UserLog> userLogs = getLog();
+            userLogs.remove(position);
+            ObjectOutputStream oop = null;
             try {
-                oop.writeUnshared(line);
+                oop = new ObjectOutputStream(new FileOutputStream(log, false));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
 
-        try {
-            oop.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            for (UserLog line : userLogs) {
+                try {
+                    oop.writeUnshared(line);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            try {
+                oop.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

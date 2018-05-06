@@ -14,10 +14,8 @@
         android:theme="@style/MyTheme">
         <activity
             android:name=".MainMenu"
-
-
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,7 +27,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".RetroMCQEditor"
-            android:screenOrientation="portrait" android:noHistory="true" />
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Session"
             android:screenOrientation="portrait" />
@@ -38,16 +37,18 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".MCQManager"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".DBManager"
             android:screenOrientation="portrait" />
-        <activity android:name=".MCQEditor" android:screenOrientation="portrait">
-
-        </activity>
-        <activity android:name=".fragments.RecyclerViewFragment" android:screenOrientation="portrait" >
-
-        </activity>
+        <activity
+            android:name=".MCQEditor"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".fragments.RecyclerViewFragment"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UserHelp" />
+        <activity android:name=".AdminHelp"></activity>
     </application>
 
 </manifest>

@@ -115,7 +115,7 @@ public class UserSpace extends Fragment {
         }
 
         try {
-            userLogs = new UserLogCTRL(v.getContext()).getLog();
+            userLogs = new UserLogCTRL(v.getContext(), false).getLog();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -151,7 +151,7 @@ public class UserSpace extends Fragment {
                                 public void onClick(DialogInterface dialogInterface, int i) {
 
                                     try {
-                                        new UserLogCTRL(getContext()).deleteLog(position);
+                                        new UserLogCTRL(getContext(), false).deleteLog(position);
                                         adapter.remove(adapter.getItem(position));
                                         adapter.notifyDataSetChanged();
                                     } catch (IOException e) {
@@ -415,7 +415,7 @@ public class UserSpace extends Fragment {
 
     private void notifyLogChange(){
         try {
-            userLogs = new UserLogCTRL(getContext()).getLog();
+            userLogs = new UserLogCTRL(getContext(), false).getLog();
             if(adapter == null)
                 adapter = new UserLogArrayAdapter(getContext(), R.layout.listview_logline, userLogs);
             else

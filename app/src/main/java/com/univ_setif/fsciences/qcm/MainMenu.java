@@ -68,8 +68,8 @@ public class MainMenu extends AppCompatActivity {
         startActivity(t);
     }
 
-    public void onUserClick(View V) {
-        Intent t = new Intent(MainMenu.this, UserSpace.class);
+    public void onHelpClick(View V) {
+        Intent t = new Intent(MainMenu.this, UserHelp.class);
         startActivity(t);
     }
 
