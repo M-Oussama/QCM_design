@@ -53,7 +53,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
     private int evalSystem;
     private String dbname,dbfullname;
     private  String qcmtime;
-    public long minute,second;
+    public long minutes,seconds;
     public String elpsedtime;
 
 
@@ -63,16 +63,6 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
-        SharedPreferences userchoice = getApplicationContext().getSharedPreferences("userchoice",MODE_PRIVATE);
-
-        if(userchoice.getString("dbname","ouss").equals("GL")){
-            dbname = "GL";
-            dbfullname = new mcqCTRL(getApplicationContext(),null).getDatabaseData().get(dbname);
-
-        }else{
-            dbname=userchoice.getString("dbname","GL");
-            dbfullname = new mcqCTRL(getApplicationContext(),null).getDatabaseData().get(dbname);
-        }
 
         Typeface gunnyRewritten = Typeface.createFromAsset(Session.this.getApplicationContext().getAssets(), "fonts/gnyrwn971.ttf");
 
@@ -109,8 +99,6 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
             DateFormat df = DateFormat.getDateTimeInstance();
             date = df.format(Calendar.getInstance().getTime());
-
-            long minutes, seconds;
 
             SharedPreferences sp = getSharedPreferences("adminSettings", MODE_PRIVATE);
             minutes    = sp.getLong("minutes", 10);
@@ -404,10 +392,10 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         t.putExtra("Questioncount",qcmList.size());
 
         t.putExtra("Module",dbfullname);
-        String qcmtime = minute+":"+second;
+        String qcmtime = toTime(minutes*60+seconds);
 
         t.putExtra("qcmtime",qcmtime);
-        t.putExtra("usertime",elpsedtime);
+        t.putExtra("usertime",toTime(timer.getElapsed()));
 
         startActivity(t);
     }
@@ -462,9 +450,9 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             t.putExtra("Questioncount",qcmList.size());
 
             t.putExtra("Module",dbfullname);
-            String qcmtime = minute+":"+second;
-            t.putExtra("qcmtime",qcmtime);
-            t.putExtra("usertime",qcmtime);
+            String qcmtime = toTime(minutes*60 + seconds);
+            t.putExtra("qcmtime", qcmtime);
+            t.putExtra("usertime",toTime(timer.getElapsed()));
             t.putExtra("correctAnswer",DisplayQcm.correctanswer);
             t.putExtra("skipped",DisplayQcm.questionignored);
             startActivity(t);

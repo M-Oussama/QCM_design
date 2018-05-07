@@ -24,14 +24,11 @@ import java.util.HashMap;
 public class ShowCorrection extends AppCompatActivity {
     Button returnMain;
     static Button addQuestion;
-    TextView showNote;
     double note = 0;
 
-    FrameLayout closed_card,opened_card;
-    FoldingCell foldingCell;
     LinearLayout linearLayout;
     Button correction;
-    TextView Note,name,module,usertime,Qcmtime,questioncout,answered,skipped,Questioncount;
+    TextView Note,name,module,usertime,Qcmtime,Questioncount;
 
 
 
@@ -41,10 +38,6 @@ public class ShowCorrection extends AppCompatActivity {
         setContentView(R.layout.activity_show_correction);
 
         //Note Display
-        showNote = findViewById(R.id.show_note);
-        opened_card = findViewById(R.id.opened_card);
-        closed_card = findViewById(R.id.note_card);
-        foldingCell = findViewById(R.id.folding_cell);
         linearLayout = findViewById(R.id.linearLayout4);
         addQuestion =  findViewById(R.id.add_question);
         returnMain = findViewById(R.id.back_menu);
@@ -58,40 +51,19 @@ public class ShowCorrection extends AppCompatActivity {
 
         Questioncount = findViewById(R.id.questioncount);
         note        = getIntent().getExtras().getDouble("note");
-        String noteString = note + "/"+getIntent().getIntExtra("Questioncount",0);
+        String noteString = note + "/20";
 
 
 
         SharedPreferences username =getApplicationContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         HashMap<String, String> result = (HashMap<String, String>) username.getAll();
 
-        Note.setText("Note "+ noteString);
-        showNote.setText(noteString);
-        name.setText("Nom " +result.get("firstname")+" "+result.get("surname"));
+        Note.setText("Note: "+ noteString);
+        name.setText("Nom: " +result.get("firstname")+" "+result.get("surname"));
         module.setText(getIntent().getStringExtra("Module"));
-        usertime.setText("Votre Temps est : "+getIntent().getStringExtra("usertime"));
-        Qcmtime.setText("Le Temps de L'examan "+getIntent().getStringExtra("qcmtime"));
-        Questioncount.setText("Question : "+Integer.valueOf(getIntent().getIntExtra("Questioncount",0)));
-
-
-
-
-        closed_card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                foldingCell.toggle(false);
-            }
-        });
-        opened_card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                foldingCell.toggle(false);
-            }
-        });
-
+        usertime.setText     ("Votre Temps       :     "+getIntent().getStringExtra("usertime"));
+        Qcmtime.setText      ("Temps de L'examan :     " +getIntent().getStringExtra("qcmtime"));
+        Questioncount.setText("Questions         :     "+Integer.valueOf(getIntent().getIntExtra("Questioncount",0)));
 
         if(note>=getIntent().getIntExtra("Questioncount",0)/2&& note <20){
 
