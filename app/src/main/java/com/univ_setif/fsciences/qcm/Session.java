@@ -392,7 +392,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         t.putExtra("Questioncount",qcmList.size());
 
         t.putExtra("Module",dbfullname);
-        String qcmtime = toTime(minutes*60+seconds);
+        String qcmtime = toTime(minutes*60*1000 + seconds*1000);
 
         t.putExtra("qcmtime",qcmtime);
         t.putExtra("usertime",toTime(timer.getElapsed()));
@@ -450,7 +450,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             t.putExtra("Questioncount",qcmList.size());
 
             t.putExtra("Module",dbfullname);
-            String qcmtime = toTime(minutes*60 + seconds);
+            String qcmtime = toTime(minutes*60*1000 + seconds*1000);
             t.putExtra("qcmtime", qcmtime);
             t.putExtra("usertime",toTime(timer.getElapsed()));
             t.putExtra("correctAnswer",DisplayQcm.correctanswer);
