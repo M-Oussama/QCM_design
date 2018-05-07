@@ -2,6 +2,7 @@ package com.univ_setif.fsciences.qcm;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import com.univ_setif.fsciences.qcm.control.AnswerCTRL;
 import com.univ_setif.fsciences.qcm.control.SwipeAdapter;
 import com.univ_setif.fsciences.qcm.control.UserLogCTRL;
+import com.univ_setif.fsciences.qcm.control.mcqCTRL;
 import com.univ_setif.fsciences.qcm.entity.Answer;
 import com.univ_setif.fsciences.qcm.entity.QCM;
 import com.univ_setif.fsciences.qcm.fragments.DisplayQcm;
@@ -82,7 +84,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             viewPager.setOffscreenPageLimit(nbrQCM);
 
             timerView.setText(elapsedTime);
-            timerView.setTypeface(null, Typeface.BOLD);
+            timerView.setTypeface(gunnyRewritten, Typeface.BOLD);
             timerView.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
 
             finalized = true;
@@ -98,7 +100,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             SharedPreferences sp = getSharedPreferences("adminSettings", MODE_PRIVATE);
             minutes    = sp.getLong("minutes", 10);
             seconds    = sp.getLong("secondes", 0);
-            nbrQCM     = sp.getInt("nbrQCM", 20);
+            nbrQCM     = sp.getInt("nbrQCM", 10);
             evalSystem = sp.getInt("evalSystem", AnswerCTRL.PARTIEL);
 
 
@@ -109,7 +111,10 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
             timerView = findViewById(R.id.session_timer);
             viewPager = findViewById(R.id.viewPager);
-            swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), Session.this, nbrQCM);
+            SharedPreferences user = Session.this.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+            String dbName = user.getString("module", "GL");
+            qcmList = (ArrayList) new mcqCTRL(Session.this, dbName).getAllQCM();
+            swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), Session.this, qcmList, nbrQCM);
             qcmList = swipeAdapter.getQcmList();
             viewPager.setAdapter(swipeAdapter);
             viewPager.setPageMargin(40);
@@ -193,12 +198,6 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             negativebutton.setTypeface(gunnyRewritten);
             dialog_title.setTypeface(gunnyRewritten);
             dialog_message.setTypeface(gunnyRewritten);
-            cancelsession.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    timer = timer.resume();
-                }
-            });
 
             dialog_title.setText("Retour au Menu Principale");
             dialog_message.setText("Voulez-vous vraiment retourner au menu principal? \n" +
@@ -207,13 +206,13 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             positivebutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    cancelsession.cancel();
                     finish();
                 }
             });
             negativebutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     cancelsession.cancel();
                     timer = timer.resume();
                 }
@@ -222,13 +221,6 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             cancelsession.setCanceledOnTouchOutside(false);
             cancelsession.setContentView(view);
             cancelsession.show();
-
-
-
-
-
-
-
 
         }
         else
@@ -249,9 +241,6 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
     public void onSubmitClickListener(View view) {
         timer.cancel();
 
-
-
-
         final Dialog evaluate = new Dialog(Session.this);
 
         LayoutInflater inflater = getLayoutInflater();
@@ -265,13 +254,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         dialog_title = v.findViewById(R.id.dialog_title);
         dialog_message = v.findViewById(R.id.dialog_message);
         evaluate.setCancelable(false);
-        evaluate.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                timer = timer.resume();
-            }
-        });
-      Typeface gunnyRewritten = Typeface.createFromAsset(Session.this.getApplicationContext().getAssets(), "fonts/gnyrwn971.ttf");
+      final Typeface gunnyRewritten = Typeface.createFromAsset(Session.this.getApplicationContext().getAssets(), "fonts/gnyrwn971.ttf");
         positivebutton.setTypeface(gunnyRewritten);
         negativebutton.setTypeface(gunnyRewritten);
         dialog_title.setTypeface(gunnyRewritten);
@@ -294,20 +277,12 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
                 dispatchForCorrection();
 
-                TextView elpsedtime = findViewById(R.id.finaltime);
-                elpsedtime.setVisibility(View.VISIBLE);
-                elpsedtime.setText(toTime(timer.getElapsed()));
-                elpsedtime.setTypeface(null, Typeface.BOLD);
-                elpsedtime. setTextColor(getResources().getColor(android.R.color.holo_green_dark));
-                timer.cancel();
-                timerView.setVisibility(View.GONE);
-           /*     timerView.setText(toTime(timer.getElapsed()));
-                timerView.setTypeface(null, Typeface.BOLD);
-                timerView.setTextColor(getResources().getColor(android.R.color.holo_green_dark));*/
-
+                timerView.setText(toTime(timer.getElapsed()));
+                timerView.setTypeface(gunnyRewritten, Typeface.BOLD);
+                timerView.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
 
                 try {
-                    new UserLogCTRL(getApplicationContext())
+                    new UserLogCTRL(getApplicationContext(), true)
                             .logSession(date, myNote, toTime(timer.getElapsed()), nbrQCM, qcmList, answers);
                 } catch (IOException e) {
                     Log.w("Session", "An error occurred while logging the session");
@@ -317,13 +292,12 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
                 finalizeSession();
 
                 evaluate.cancel();
-
             }
         });
         negativebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                timer = timer.resume();
                 evaluate.cancel();
 
             }

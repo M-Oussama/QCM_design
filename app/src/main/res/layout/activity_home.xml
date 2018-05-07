@@ -128,7 +128,9 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="40dp"
             android:layout_marginTop="60dp"
-
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:onClick="onSettingsclick"
             android:alpha=".90"
             app:cardCornerRadius="10dp"
@@ -179,7 +181,6 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:onClick="onHelpClick"
             app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

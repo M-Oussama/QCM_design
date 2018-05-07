@@ -25,7 +25,6 @@ public class MCQManager extends Activity {
     int pageCount = 1;
     RecyclerView recyclerView;
     public static Context context;
-    private String pagetitle[];
     QcmRecyclerAdapter qcmRecyclerAdapter;
     TextView Qcmnbr;
 

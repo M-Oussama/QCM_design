@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.univ_setif.fsciences.qcm.Settings"
-    app:cardBackgroundColor="@color/contentBadgeTitle">
+    app:cardBackgroundColor="#e6f2ff">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -26,17 +26,18 @@
                 android:layout_marginTop="12sp"
                 android:src="@drawable/setting"
                 android:transitionName="Settingsicon" />
+
             <TextView
+                android:id="@+id/set_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/settings"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10sp"
+                android:fontFamily="@font/gnyrwn971"
                 android:text="Settings"
                 android:textColor="@android:color/white"
-                android:textSize="18sp"
-                android:layout_below="@id/settings"
-                android:layout_marginBottom="10sp"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/gnyrwn971"
-                />
+                android:textSize="18sp" />
 
         </RelativeLayout>
         <RelativeLayout
@@ -60,7 +61,7 @@
             android:layout_above="@+id/chooseqcm"
             android:id="@+id/relative2"
             android:layout_below="@+id/relative1"
-            android:background="@color/contentBadgeTitle"
+            android:background="#e6f2ff"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -70,6 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/gnyrwn971"
                 android:text="Change QCM"
                 android:textAlignment="center"
@@ -81,7 +83,8 @@
                 <RadioGroup
                     android:id="@+id/radiogroup"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="25dp">
 
 
 

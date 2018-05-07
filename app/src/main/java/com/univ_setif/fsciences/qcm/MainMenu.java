@@ -4,6 +4,7 @@ import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.util.Pair;
@@ -13,13 +14,19 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.univ_setif.fsciences.qcm.Main.Home;
 import com.univ_setif.fsciences.qcm.Main.UserSpace;
 import com.univ_setif.fsciences.qcm.control.MainPagerAdapter;
+import com.univ_setif.fsciences.qcm.control.mcqCTRL;
+import com.univ_setif.fsciences.qcm.entity.QCM;
+
+import java.util.ArrayList;
 
 public class MainMenu extends AppCompatActivity {
     TabLayout tabLayout;
@@ -33,6 +40,7 @@ public class MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         final ViewPager viewpager = findViewById(R.id.viewpage);
 
@@ -76,6 +84,16 @@ public class MainMenu extends AppCompatActivity {
 
 
     public void onStartClick(View v) {
+        SharedPreferences user = getSharedPreferences("userInfo", MODE_PRIVATE);
+        String dbName = user.getString("module", "GL");
+
+        ArrayList<QCM> tester = (ArrayList) new mcqCTRL(MainMenu.this, dbName).getAllQCM();
+
+        if(tester == null || tester.size() < 10){
+            Toast.makeText(MainMenu.this, "Please add at least 10 questions to the selected subject!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent t = new Intent(MainMenu.this, Session.class);
         startActivity(t);
     }
@@ -85,10 +103,6 @@ public class MainMenu extends AppCompatActivity {
         startActivity(t);
     }
 
-    public void onHelpClick(View V) {
-        Intent t = new Intent(MainMenu.this, UserHelp.class);
-        startActivity(t);
-    }
     @Override
     public void onBackPressed() {
 
@@ -132,7 +146,7 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void onSettingsclick(View view) {
-        Intent setting = new Intent(MainMenu.this,Settings.class);
+        Intent setting = new Intent(MainMenu.this, Settings.class);
         final Pair  pairs ;
         pairs=new Pair<View ,String>(Home.Settingsicon,"Settingsicon");
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
@@ -141,6 +155,5 @@ public class MainMenu extends AppCompatActivity {
         }else{
             startActivity(setting);
         }
-
     }
 }

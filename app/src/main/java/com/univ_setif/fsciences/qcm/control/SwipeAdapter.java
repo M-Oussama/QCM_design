@@ -1,6 +1,7 @@
 package com.univ_setif.fsciences.qcm.control;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -32,12 +33,15 @@ public class SwipeAdapter extends FragmentPagerAdapter {
         return qcmList;
     }
 
-    public SwipeAdapter(FragmentManager fm, Context context, int size) {
+    public SwipeAdapter(FragmentManager fm, Context context, ArrayList<QCM> list, int size) {
         super(fm);
         this.fm = fm;
         pageReferenceMap = new HashMap<>();
 
-        mcqCTRL ctrl = new mcqCTRL(context, "GL");
+        SharedPreferences sp = context.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        String dbName = sp.getString("module", "GL");
+
+        mcqCTRL ctrl = new mcqCTRL(context, dbName);
         ArrayList<QCM> allQCM = (ArrayList<QCM>) ctrl.getAllQCM();
         ctrl.close();
 

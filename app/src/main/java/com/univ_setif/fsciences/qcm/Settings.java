@@ -1,12 +1,16 @@
 package com.univ_setif.fsciences.qcm;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.univ_setif.fsciences.qcm.control.mcqCTRL;
@@ -14,7 +18,7 @@ import com.univ_setif.fsciences.qcm.control.mcqCTRL;
 public class Settings extends Activity {
 
     RadioGroup radioGroup;
-    RadioButton radioButton;
+    myRadioButton radioButton;
     String dbname,dbfullname;
     private int mcqcount;
     private String key,value;
@@ -25,36 +29,62 @@ public class Settings extends Activity {
         setContentView(R.layout.activity_settings);
         radioGroup =(RadioGroup) findViewById(R.id.radiogroup);
 
+        Typeface gunnyRewritten = Typeface.createFromAsset(Settings.this.getApplicationContext().getAssets(), "fonts/gnyrwn971.ttf");
+
+        ((TextView) findViewById(R.id.title)).setTypeface(gunnyRewritten);
+        ((TextView) findViewById(R.id.set_title)).setTypeface(gunnyRewritten);
+
+
         controleur= new mcqCTRL(getApplicationContext(),null);
         mcqcount = controleur.getDatabasesCount();
         for (int i = 0; i <mcqcount ; i++) {
-            radioButton = new RadioButton(this);
+            radioButton = new myRadioButton(this);
+            radioButton.setTypeface(gunnyRewritten);
+            radioButton.setTextSize(18);
             key =controleur.getDatabaseData().keySet().toArray()[i].toString();
             value = controleur.getDatabaseData().get(key);
 
             radioButton.setText(value);
+            radioButton.setDbName(key);
             radioButton.setId(i);
 
             radioButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    dbname=value;
-                    dbfullname = radioButton.getText().toString() ;
-                    Toast.makeText(Settings.this, "value : "+" key "+dbname, Toast.LENGTH_SHORT).show();
+                    myRadioButton RadioButton = (myRadioButton) v;
+                    dbname= RadioButton.getDbName();
                 }
             });
-            radioGroup.addView(radioButton);
 
+            radioGroup.addView(radioButton);
         }
         controleur.close();
     }
 
     public void ChoosedQCM(View view) {
-        Intent mcq = new Intent(getApplicationContext(),MainMenu.class);
-        mcq.putExtra("dbname",dbname);
-        mcq.putExtra("dbfullname",dbfullname);
-        startActivity(mcq);
+        SharedPreferences userInfo = getSharedPreferences("userInfo", MODE_PRIVATE);
+        userInfo.edit().putString("module", dbname).apply();
         finish();
+    }
+
+    private class myRadioButton extends android.support.v7.widget.AppCompatRadioButton{
+
+
+        private String dbName;
+
+        public String getDbName() {
+            return dbName;
+        }
+
+        public void setDbName(String dbName) {
+            this.dbName = dbName;
+        }
+
+
+        public myRadioButton(Context context) {
+            super(context);
+        }
+
 
     }
 }

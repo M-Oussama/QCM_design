@@ -254,6 +254,10 @@ public class RecyclerViewFragment extends AppCompatActivity {
     }
 
     public void onAdvancedOptionsClick(){
+        if(qcm == null || qcm.size() < 10){
+            Toast.makeText(RecyclerViewFragment.this, "You need 10 questions for this subject to be usable", Toast.LENGTH_SHORT).show();
+            return;
+        }
         AlertDialog.Builder advBuilder = new AlertDialog.Builder(RecyclerViewFragment.this);
 
         //inflating layout on view
