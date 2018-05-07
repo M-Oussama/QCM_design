@@ -3,6 +3,7 @@ package com.univ_setif.fsciences.qcm.fragments;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.univ_setif.fsciences.qcm.R;
 import com.univ_setif.fsciences.qcm.Session;
@@ -30,6 +32,7 @@ public class DisplayQcm extends Fragment {
 
     private SwipeListener swipe;
     private int questionNumber;
+    Boolean correct=false;
 
     TextView qstText;
 
@@ -41,6 +44,7 @@ public class DisplayQcm extends Fragment {
 
     ArrayList<Answer> userAnswer;
     ArrayList<Answer> correctAnswers;
+    public static int questionignored,correctanswer;
 
     public DisplayQcm() {
         // Required empty public constructor
@@ -229,41 +233,70 @@ public class DisplayQcm extends Fragment {
 
         if(pressed[0]){
             skipped = false;
-            if(!correctAnswers.contains(new Answer(ans[0].getText().toString())))
+            if(!correctAnswers.contains(new Answer(ans[0].getText().toString()))){
                 ans[0].setButtonColor(getResources().getColor(R.color.wrongAnswer));
+
+
+            }
+
         }
 
         if(pressed[1]){
             skipped = false;
             if(!correctAnswers.contains(new Answer(ans[1].getText().toString())))
                 ans[1].setButtonColor(getResources().getColor(R.color.wrongAnswer));
+
         }
 
         if(pressed[2]) {
             skipped = false;
             if (!correctAnswers.contains(new Answer(ans[2].getText().toString())))
                 ans[2].setButtonColor(getResources().getColor(R.color.wrongAnswer));
+
         }
 
         if(pressed[3]){
             skipped = false;
             if(!correctAnswers.contains(new Answer(ans[3].getText().toString())))
                 ans[3].setButtonColor(getResources().getColor(R.color.wrongAnswer));
+
+        }
+        correct=false;
+
+        if(skipped){
+            card.setBackgroundResource(R.color.wrongAnswer);
+            questionignored++;
+            SharedPreferences.Editor questionignore = getActivity().getSharedPreferences("userchoice",Context.MODE_PRIVATE).edit();
+            questionignore.putInt("questionignored",questionignored);
+            questionignore.commit();
         }
 
-        if(skipped)
-            card.setBackgroundResource(R.color.wrongAnswer);
 
         for (Answer a: correctAnswers) {
-            if(a.getText().equals(ans[0].getText().toString()))
+            if(a.getText().equals(ans[0].getText().toString())){
                 ans[0].setButtonColor(getResources().getColor(R.color.correctAnswer));
-            else if(a.getText().equals(ans[1].getText().toString()))
+
+
+            }
+
+            else if(a.getText().equals(ans[1].getText().toString())){
                 ans[1].setButtonColor(getResources().getColor(R.color.correctAnswer));
-            else if(a.getText().equals(ans[2].getText().toString()))
+
+            }
+
+            else if(a.getText().equals(ans[2].getText().toString())){
                 ans[2].setButtonColor(getResources().getColor(R.color.correctAnswer));
+
+            }
+
             else
+            {
                 ans[3].setButtonColor(getResources().getColor(R.color.correctAnswer));
+
+            }
+
         }
+
     }
 
     public void fromLog(){

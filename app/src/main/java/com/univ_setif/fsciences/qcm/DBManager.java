@@ -75,6 +75,7 @@ public class DBManager extends Activity {
                     pagetitle=fullName;
                     Toast.makeText(getApplicationContext(), "Added successfully", Toast.LENGTH_SHORT).show();
                     Intent backtomanger = new Intent(getApplicationContext(),MCQManager.class);
+                    backtomanger.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     backtomanger.putExtra("pagetitle",pagetitle);
                     backtomanger.putExtra("position",numb-1);
                     startActivity(backtomanger);

@@ -2,7 +2,6 @@ package com.univ_setif.fsciences.qcm;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +18,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.univ_setif.fsciences.qcm.control.AnswerCTRL;
 import com.univ_setif.fsciences.qcm.control.SwipeAdapter;
@@ -50,6 +50,10 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
     private int nbrQCM;
     private String date;
     private int evalSystem;
+    private String dbname,dbfullname;
+    private  String qcmtime;
+    public long minute,second;
+    public String elpsedtime;
 
 
     private boolean finalized = false;
@@ -58,6 +62,16 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
+        SharedPreferences userchoice = getApplicationContext().getSharedPreferences("userchoice",MODE_PRIVATE);
+
+        if(userchoice.getString("dbname","ouss").equals("GL")){
+            dbname = "GL";
+            dbfullname = new mcqCTRL(getApplicationContext(),null).getDatabaseData().get(dbname);
+
+        }else{
+            dbname=userchoice.getString("dbname","GL");
+            dbfullname = new mcqCTRL(getApplicationContext(),null).getDatabaseData().get(dbname);
+        }
 
         Typeface gunnyRewritten = Typeface.createFromAsset(Session.this.getApplicationContext().getAssets(), "fonts/gnyrwn971.ttf");
 
@@ -84,7 +98,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             viewPager.setOffscreenPageLimit(nbrQCM);
 
             timerView.setText(elapsedTime);
-            timerView.setTypeface(gunnyRewritten, Typeface.BOLD);
+            timerView.setTypeface(null, Typeface.BOLD);
             timerView.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
 
             finalized = true;
@@ -100,7 +114,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             SharedPreferences sp = getSharedPreferences("adminSettings", MODE_PRIVATE);
             minutes    = sp.getLong("minutes", 10);
             seconds    = sp.getLong("secondes", 0);
-            nbrQCM     = sp.getInt("nbrQCM", 10);
+            nbrQCM     = sp.getInt("nbrQCM", 20);
             evalSystem = sp.getInt("evalSystem", AnswerCTRL.PARTIEL);
 
 
@@ -198,6 +212,12 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             negativebutton.setTypeface(gunnyRewritten);
             dialog_title.setTypeface(gunnyRewritten);
             dialog_message.setTypeface(gunnyRewritten);
+            cancelsession.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    timer = timer.resume();
+                }
+            });
 
             dialog_title.setText("Retour au Menu Principale");
             dialog_message.setText("Voulez-vous vraiment retourner au menu principal? \n" +
@@ -222,6 +242,13 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             cancelsession.setContentView(view);
             cancelsession.show();
 
+
+
+
+
+
+
+
         }
         else
             super.onBackPressed();
@@ -240,6 +267,9 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
     /*Submit Button*/
     public void onSubmitClickListener(View view) {
         timer.cancel();
+
+
+
 
         final Dialog evaluate = new Dialog(Session.this);
 
@@ -292,6 +322,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
                 finalizeSession();
 
                 evaluate.cancel();
+
             }
         });
         negativebutton.setOnClickListener(new View.OnClickListener() {
@@ -330,7 +361,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
                         timerView.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
 
                         try {
-                            new UserLogCTRL(getApplicationContext(), true)
+                            new UserLogCTRL(getApplicationContext())
                                     .logSession(date, myNote, toTime(timer.getElapsed()), nbrQCM, qcmList, answers);
                         } catch (IOException e) {
                             Log.w("Session", "An error occurred while logging the session");
@@ -369,6 +400,14 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
         Intent t = new Intent(Session.this, ShowCorrection.class);
         t.putExtra("note", myNote);
+        t.putExtra("Questioncount",qcmList.size());
+
+        t.putExtra("Module",dbfullname);
+        String qcmtime = minute+":"+second;
+
+        t.putExtra("qcmtime",qcmtime);
+        t.putExtra("usertime",elpsedtime);
+
         startActivity(t);
     }
 
@@ -419,6 +458,14 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
             Intent t = new Intent(Session.this, ShowCorrection.class);
             t.putExtra("note", myNote);
+            t.putExtra("Questioncount",qcmList.size());
+
+            t.putExtra("Module",dbfullname);
+            String qcmtime = minute+":"+second;
+            t.putExtra("qcmtime",qcmtime);
+            t.putExtra("usertime",qcmtime);
+            t.putExtra("correctAnswer",DisplayQcm.correctanswer);
+            t.putExtra("skipped",DisplayQcm.questionignored);
             startActivity(t);
             finalizeSession();
         }

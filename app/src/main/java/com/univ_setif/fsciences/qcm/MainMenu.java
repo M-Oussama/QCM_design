@@ -98,11 +98,15 @@ public class MainMenu extends AppCompatActivity {
         startActivity(t);
     }
 
+    public void onUserClick(View V) {
+        Intent t = new Intent(MainMenu.this, UserSpace.class);
+        startActivity(t);
+    }
+
     public void onHelpClick(View V) {
         Intent t = new Intent(MainMenu.this, UserHelp.class);
         startActivity(t);
     }
-
     @Override
     public void onBackPressed() {
 
@@ -146,7 +150,7 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void onSettingsclick(View view) {
-        Intent setting = new Intent(MainMenu.this, Settings.class);
+        Intent setting = new Intent(MainMenu.this,Settings.class);
         final Pair  pairs ;
         pairs=new Pair<View ,String>(Home.Settingsicon,"Settingsicon");
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
@@ -155,5 +159,6 @@ public class MainMenu extends AppCompatActivity {
         }else{
             startActivity(setting);
         }
+
     }
 }

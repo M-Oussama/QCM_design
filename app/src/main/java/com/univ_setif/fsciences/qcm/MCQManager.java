@@ -144,7 +144,9 @@ public class MCQManager extends Activity {
 
     public void onAddNewSubjectClick(View v){
         Intent addQuizsubject = new Intent(MCQManager.this, DBManager.class);
+        addQuizsubject.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(addQuizsubject);
+
     }
 
     private void LogOut(){
