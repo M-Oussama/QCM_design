@@ -48,8 +48,9 @@
         <activity
             android:name=".fragments.RecyclerViewFragment"
             android:screenOrientation="portrait" />
-        <activity android:name=".UserHelp" />
-        <activity android:name=".AdminHelp"></activity>
+        <activity android:name=".UserHelp" android:screenOrientation="portrait" />
+        <activity android:name=".AdminHelp" android:screenOrientation="portrait"  />
+        <activity android:name=".Settings"  android:theme="@style/Theme.AppCompat.Light.Dialog" android:screenOrientation="portrait" ></activity>
     </application>
 
 </manifest>

@@ -35,7 +35,7 @@ public class Home extends Fragment {
 
     private static final String TAG = "Home";
     View v;
-
+    public static  ImageView Settingsicon;
 
     public Home() {
         // Required empty public constructor
@@ -50,6 +50,8 @@ public class Home extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.activity_home, container, false);
+        Settingsicon = v.findViewById(R.id.settings_icon);
+
 
         new loadUser().run();
 

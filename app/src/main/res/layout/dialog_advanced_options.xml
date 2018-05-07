@@ -39,6 +39,15 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="20sp">
                 <NumberPicker
+                    android:id="@+id/minutes"
+                    android:layout_marginLeft="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="20sp"
+                    android:layout_alignEnd="@+id/radioGroup"/>
+
+                <NumberPicker
                     android:id="@+id/secondes"
                     android:layout_width="wrap_content"
                     android:layout_height="70dp"
@@ -48,16 +57,8 @@
                     android:layout_toEndOf="@+id/temps_txt"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:ignore="NotSibling" />
-                <NumberPicker
-                    android:id="@+id/minutes"
-                    android:layout_marginLeft="20sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="70dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="20sp"
-                    android:layout_alignEnd="@+id/radioGroup"
 
-                    />
+
             </LinearLayout>
             <TextView
                 android:id="@+id/temps_txt2"
