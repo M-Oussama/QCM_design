@@ -109,7 +109,7 @@
                     android:background="@drawable/buttonstyle"
 
                     android:text="SIGN IN"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/white" />
             </RelativeLayout>
 
 

@@ -170,6 +170,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
+            android:onClick="onHelpClick"
             android:alpha=".90"
             app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"

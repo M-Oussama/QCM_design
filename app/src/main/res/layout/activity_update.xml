@@ -76,7 +76,7 @@
 
 
             <FrameLayout
-                android:id="@+id/cell_content_view"
+                android:id="@+id/card_open"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"

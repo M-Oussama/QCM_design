@@ -1,5 +1,6 @@
 package com.univ_setif.fsciences.qcm;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +9,10 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.univ_setif.fsciences.qcm.Main.UserSpace;
 import com.univ_setif.fsciences.qcm.control.MainPagerAdapter;
@@ -73,27 +77,49 @@ public class MainMenu extends AppCompatActivity {
         startActivity(t);
     }
 
+    public void onHelpClick(View V) {
+        Intent t = new Intent(MainMenu.this, UserHelp.class);
+        startActivity(t);
+    }
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder confirm = new AlertDialog.Builder(MainMenu.this);
-        confirm.setMessage("Voulez-vous vraiment quitter l'application?")
-                .setCancelable(false)
-                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                    }
-                })
-                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                });
 
-        AlertDialog exit = confirm.create();
-        exit.setCanceledOnTouchOutside(true);
-        exit.setTitle("Exit");
-        exit.show();
+
+
+        final Dialog logoutconfirmation = new Dialog(MainMenu.this);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View view=inflater.inflate(R.layout.alertdialog,null);
+
+        Button positivebutton,negativebutton;
+        TextView dialog_title,dialog_message;
+
+        positivebutton =view.findViewById(R.id.positivebutton);
+        negativebutton =view.findViewById(R.id.negative_button);
+        dialog_title = view.findViewById(R.id.dialog_title);
+        dialog_message = view.findViewById(R.id.dialog_message);
+
+        dialog_title.setText("EXIT");
+        dialog_message.setText("Voulez-vous vraiment quitter l'application?");
+
+        positivebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        negativebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                logoutconfirmation.cancel();
+
+            }
+        });
+        logoutconfirmation.setCanceledOnTouchOutside(false);
+        logoutconfirmation.setContentView(view);
+        logoutconfirmation.show();
+
+
     }
 }

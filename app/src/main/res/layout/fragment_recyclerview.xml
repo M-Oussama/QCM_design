@@ -83,7 +83,7 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10sp" />
+             />
 
 
 
@@ -111,7 +111,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/questionicon"
-            app:fab_colorNormal="@android:color/holo_blue_dark"
+            app:fab_colorNormal="@android:color/transparent"
+            app:rippleColor="@android:color/holo_blue_dark"
             fab:fab_label="New Quiz"
             fab:fab_size="mini" />
 
@@ -120,7 +121,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/sessionsettings"
-            app:fab_colorNormal="@android:color/holo_blue_dark"
+            app:fab_colorNormal="@android:color/transparent"
+            app:rippleColor="@android:color/holo_blue_dark"
             fab:fab_label="Session Settings"
             fab:fab_size="mini" />
 

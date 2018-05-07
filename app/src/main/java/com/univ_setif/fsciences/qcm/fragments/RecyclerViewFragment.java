@@ -2,6 +2,7 @@ package com.univ_setif.fsciences.qcm.fragments;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 
 
 import com.univ_setif.fsciences.qcm.MCQEditor;
+import com.univ_setif.fsciences.qcm.MainMenu;
 import com.univ_setif.fsciences.qcm.R;
 import com.univ_setif.fsciences.qcm.control.AnswerCTRL;
 import com.univ_setif.fsciences.qcm.control.RecyclerAdapter;
@@ -61,26 +64,43 @@ public class RecyclerViewFragment extends AppCompatActivity {
         context = getApplicationContext();
 
         initcomponent();
+        menufab.setAnimated(true);
+
+
+
         dbfullname = getIntent().getStringExtra("Qcmfullname");
         dbname= getIntent().getStringExtra("dbname");
-        int qcmposition = getIntent().getIntExtra("Qcmposition",0);
-         Qcmfullname.setText(dbfullname);
+        final int qcmposition = getIntent().getIntExtra("Qcmposition",0);
+
+
+        Qcmfullname.setText(dbfullname);
+
+
          Qcmposition.setText("QCM Number:"+String.valueOf(qcmposition));
+
+
           qcmArrayList = getALLQuestion(dbname);
+
+
          if(qcmArrayList ==null){
              Questionnumber.setText("Question:"+0);
          }else{
              Questionnumber.setText("Question:"+String.valueOf(qcmArrayList.size()));
          }
 
+
          recyclerAdapter = new RecyclerAdapter(position, qcmArrayList,getApplicationContext(),recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false ));
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setHasFixedSize(true);
+        if(getIntent().getBooleanExtra("fromupdate",false) | getIntent().getBooleanExtra("fromback",false)){
+            recyclerView.scrollToPosition(getIntent().getIntExtra("Questionposition",0));
+
+        }
 
 
-
+        newQuizfab.setColorPressed(getResources().getColor(android.R.color.holo_blue_light));
         // ADMIN MENU ITEMS
 
         // ADD NEW QUIZ
@@ -90,12 +110,16 @@ public class RecyclerViewFragment extends AppCompatActivity {
                 Intent add = new Intent(getApplicationContext(), MCQEditor.class);
                 add.putExtra("AddQuestion",true);
                 add.putExtra("dbname",dbname);
+
+                add.putExtra("Qcmfullname",dbfullname);
+                add.putExtra("Qcmposition",qcmposition);
                 startActivityForResult(add, 0);
+                finish();
 
             }
         });
 
-
+        sessionsettingsfab.setColorPressed(getResources().getColor(android.R.color.holo_blue_light));
         //SESSION SETTINGS
         sessionsettingsfab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,10 +168,14 @@ public class RecyclerViewFragment extends AppCompatActivity {
                    Questioninfo.putString("OldAnswer3",answers.get(2).getText());
                    Questioninfo.putString("OldAnswer4",answers.get(3).getText());
                    Questioninfo.putString("dbname", dbname);
+                   Questioninfo.putString("Qcmfullname",dbfullname);
+                   Questioninfo.putInt("Qcmposition",qcmposition);
+                   Questioninfo.putInt("Questionposition",viewHolder.getAdapterPosition()+1);
 
                    update.putExtra("CorrectAnswer", qcmArrayList.get(Integer.parseInt(answers.get(4).getText())).getQuestion().getAnswers());
                    update.putExtras(Questioninfo);
                    startActivityForResult(update, 0);
+                   finish();
 
                }
 
@@ -303,6 +331,7 @@ public class RecyclerViewFragment extends AppCompatActivity {
 
 
      private void  initcomponent(){
+         menufab = findViewById(R.id.menufab);
          Qcmfullname = findViewById(R.id.qcmfullname);
          Qcmposition = findViewById(R.id.qcmposition);
          Questionnumber = findViewById(R.id.questionnumber);
@@ -335,7 +364,63 @@ public class RecyclerViewFragment extends AppCompatActivity {
     }
 
     public void delete(final int position, final RecyclerAdapter.ViewHolder viewHolder, final String dbname, Context mcontext){
-        android.support.v7.app.AlertDialog.Builder confirm = new android.support.v7.app.AlertDialog.Builder(mcontext);
+
+
+
+
+        final Dialog confirm = new Dialog(RecyclerViewFragment.this);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View view=inflater.inflate(R.layout.alertdialog,null);
+
+        Button positivebutton,negativebutton;
+        TextView dialog_title,dialog_message;
+
+        positivebutton =view.findViewById(R.id.positivebutton);
+        negativebutton =view.findViewById(R.id.negative_button);
+        dialog_title = view.findViewById(R.id.dialog_title);
+        dialog_message = view.findViewById(R.id.dialog_message);
+
+        dialog_title.setText("Supprimer");
+        dialog_message.setText("Voulez-vous vraiment supprimer ce QCM? Cette opération est irréversible");
+
+        positivebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mcqCTRL controleur = new mcqCTRL(getApplicationContext(), getIntent().getStringExtra("dbname"));
+                controleur.openWritable();
+                controleur.deleteQCM(new Question(viewHolder.questioncontent.getText().toString()));
+                //qcmArrayList = (ArrayList<QCM>) controleur.getAllQCM();
+                controleur.close();
+                qcmArrayList.remove(viewHolder.getAdapterPosition());
+                recyclerAdapter.notifyItemRemoved(position);
+                recyclerAdapter.notifyItemRangeChanged(position,qcmArrayList.size());
+                Questionnumber.setText("Question:" + qcmArrayList.size());
+                Toast t = Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_SHORT);
+                t.show();
+                confirm.cancel();
+            }
+        });
+        negativebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recyclerAdapter.notifyDataSetChanged();
+
+                confirm.cancel();
+
+            }
+        });
+        confirm. setCanceledOnTouchOutside(false);
+        confirm.setContentView(view);
+        confirm.show();
+
+
+
+
+
+
+
+       /* android.support.v7.app.AlertDialog.Builder confirm = new android.support.v7.app.AlertDialog.Builder(mcontext);
         confirm.setMessage("Voulez-vous vraiment supprimer ce QCM? Cette opération est irréversible")
                 .setCancelable(false)
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
@@ -370,7 +455,7 @@ public class RecyclerViewFragment extends AppCompatActivity {
         deleteDialog.setCanceledOnTouchOutside(true);
 
         deleteDialog.setTitle("Supprimer");
-        deleteDialog.show();
+        deleteDialog.show();*/
     }
 
     @Override

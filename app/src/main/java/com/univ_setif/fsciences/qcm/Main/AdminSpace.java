@@ -23,8 +23,8 @@ import com.univ_setif.fsciences.qcm.control.LoginCTRL;
  */
 public class AdminSpace extends Fragment {
 
-
-
+  public static  ProgressDialog pd;
+  public static  TextInputLayout password;
     public AdminSpace() {
         // Required empty public constructor
     }
@@ -42,9 +42,9 @@ public class AdminSpace extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                TextInputLayout password = v.findViewById(R.id.password);
+                 password = v.findViewById(R.id.password);
                 final String pass = password.getEditText().getText().toString();
-                ProgressDialog pd = new ProgressDialog(getActivity());
+                pd = new ProgressDialog(getActivity());
                 pd.setMessage("loading");
                 pd.show();
                 new Handler().postDelayed(new Runnable() {
@@ -53,6 +53,9 @@ public class AdminSpace extends Fragment {
                         LoginCTRL.verify(getActivity(), pass);
                     }
                 }, 1000);
+
+
+
 
 
             }

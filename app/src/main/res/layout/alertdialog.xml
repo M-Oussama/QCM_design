@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+
+
+
+    app:cardElevation="20sp"
+
+
+
+    >
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        ></LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/holo_blue_dark"
+        android:orientation="vertical">
+
+    </FrameLayout>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="4dp"
+        android:layout_marginTop="32dp"
+        android:id="@+id/congratulation_card"
+        app:cardBackgroundColor="#FAFAFA"
+        app:cardElevation="0dp"
+        android:layout_gravity="bottom">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/dialog_title"
+                android:textSize="25sp"
+                android:textColor="@android:color/primary_text_light"
+                android:layout_marginTop="48dp"
+                android:fontFamily="@font/gnyrwn971"
+                android:text="Congratulations"
+                android:elevation="10sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="32dp"
+                android:textSize="19sp"
+                android:layout_marginRight="32dp"
+                android:id="@+id/dialog_message"
+                android:gravity="center"
+                android:fontFamily="@font/gnyrwn971"
+                android:text="You've just displayed this awesome pop up view "
+                android:elevation="10sp"
+
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <Button
+                    android:id="@+id/positivebutton"
+                    android:layout_weight="1"
+                    android:layout_alignRight="@id/negative_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:elevation="10sp"
+                    android:background="@android:color/holo_blue_light"
+                    android:layout_alignParentRight="true"
+                    android:text="oui"
+                    android:textColor="@android:color/white"
+                    android:fontFamily="@font/gnyrwn971"
+                    />
+                <Button
+                    android:layout_weight="1"
+                    android:id="@+id/negative_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2sp"
+                    android:text="no"
+                    android:elevation="10sp"
+                    android:textColor="@android:color/white"
+                    android:background="@android:color/holo_blue_light"
+                    android:fontFamily="@font/gnyrwn971"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <ImageView
+        android:layout_width="64sp"
+        android:layout_height="64sp"
+        android:layout_gravity="center_horizontal|top"
+        android:background="@drawable/circular_tick"
+        android:padding="1dp"
+        android:src="@drawable/warning_icon" />
+
+
+</FrameLayout>
