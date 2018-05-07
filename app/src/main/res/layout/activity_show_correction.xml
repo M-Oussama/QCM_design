@@ -26,58 +26,73 @@
             android:weightSum="2"
 
             >
+
             <com.ramotion.foldingcell.FoldingCell
 
 
-                android:layout_weight="0.6"
-
                 android:id="@+id/folding_cell"
+
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="0.6"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.069">
+
                 <FrameLayout
-                    android:layout_weight="1.95"
                     android:id="@+id/opened_card"
                     android:layout_width="match_parent"
                     android:layout_height="380sp"
                     android:layout_margin="8sp"
+                    android:layout_weight="1.95"
                     android:visibility="gone"
 
                     >
 
                     <LinearLayout
-                        android:weightSum="6"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:weightSum="6">
+
                         <RelativeLayout
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
+                                android:layout_centerHorizontal="true"
+                                android:fontFamily="@font/gnyrwn971"
                                 android:text="Information "
                                 android:textColor="@android:color/black"
-                                android:layout_centerHorizontal="true"
-                                android:textSize="30sp"
-                                android:fontFamily="@font/gnyrwn971"/>
+                                android:textSize="30sp" />
 
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
                             <TextView
                                 android:id="@+id/name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="Nom :Jhon Doe"
-                                android:gravity="bottom"
-                                android:textColor="@android:color/black"
                                 android:layout_margin="10sp"
                                 android:fontFamily="@font/gnyrwn971"
-                                android:textSize="19sp"/>
+                                android:gravity="bottom"
+                                android:text="Nom :Jhon Doe"
+                                android:textColor="@android:color/black"
+                                android:textSize="19sp" />
 
                             <TextView
                                 android:id="@+id/Note"
@@ -85,17 +100,17 @@
                                 android:layout_height="match_parent"
 
 
+                                android:layout_alignParentRight="true"
                                 android:fontFamily="@font/gnyrwn971"
                                 android:text="Note : 15/20 "
-                                android:layout_alignParentRight="true"
                                 android:textColor="@android:color/holo_red_dark"
                                 android:textSize="18sp" />
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
 
                             <TextView
                                 android:id="@+id/module"
@@ -110,11 +125,12 @@
                                 android:textSize="20sp" />
 
                         </RelativeLayout>
+
                         <RelativeLayout
-                            android:layout_weight="1"
-                            android:layout_marginTop="10sp"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10sp"
+                            android:layout_weight="1">
 
                             <TextView
                                 android:id="@+id/usertime"
@@ -129,13 +145,13 @@
                                 android:textSize="19sp" />
 
 
-
                         </RelativeLayout>
+
                         <RelativeLayout
-                            android:layout_weight="1"
-                            android:layout_marginTop="10sp"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10sp"
+                            android:layout_weight="1">
 
                             <TextView
                                 android:id="@+id/Qcmtime"
@@ -153,25 +169,22 @@
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:layout_weight="1"
-                            android:layout_marginTop="10sp"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10sp"
+                            android:layout_weight="1">
+
                             <TextView
                                 android:id="@+id/questioncount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Nombre des Question :20"
                                 android:layout_centerHorizontal="true"
-                                android:textSize="19sp"
+                                android:fontFamily="@font/gnyrwn971"
+                                android:text="Nombre des Question :20"
                                 android:textColor="@android:color/black"
-                                android:fontFamily="@font/gnyrwn971"/>
+                                android:textSize="19sp" />
 
                         </RelativeLayout>
-
-
-
-
 
 
                     </LinearLayout>
@@ -186,14 +199,12 @@
 
 
                     >
+
                     <android.support.v7.widget.CardView
                         android:id="@+id/cardviewquestion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-
-
-
 
 
                         app:cardElevation="15dp">
