@@ -12,7 +12,7 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="cursive"
+        android:fontFamily="@font/gnyrwn971"
         android:gravity="center_horizontal"
         android:text="ADD NEW MCQ"
         android:textColor="@android:color/black"
@@ -75,7 +75,7 @@
         android:layout_marginTop="223dp"
 
         android:background="@drawable/buttonstyle"
-        android:fontFamily="cursive"
+        android:fontFamily="@font/gnyrwn971"
         android:text="ADD NEW MCQ"
         android:textColor="@android:color/white" />
 
@@ -87,7 +87,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="223dp"
         android:background="@drawable/buttonstyle"
-        android:fontFamily="cursive"
+        android:fontFamily="@font/gnyrwn971"
         android:text="UPDATE"
         android:visibility="gone"
         android:textColor="@android:color/white" />

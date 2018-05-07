@@ -69,14 +69,16 @@ public class DBManager extends Activity {
                     //it is the line responsible of cteating the database AND its metadata
                     mcqCTRL ctrl = new mcqCTRL(getApplicationContext(), dbName, fullName);
                     ctrl.init();
+                    /*
                     int numb = ctrl.getDatabasesCount();
 
                     pagetitle=fullName;
-                    Toast.makeText(getApplicationContext(), "Added successfully: Nbr = " + numb , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Added successfully", Toast.LENGTH_SHORT).show();
                     Intent backtomanger = new Intent(getApplicationContext(),MCQManager.class);
                     backtomanger.putExtra("pagetitle",pagetitle);
                     backtomanger.putExtra("position",numb-1);
                     startActivity(backtomanger);
+                    */
                     finish();
                 }
             });

@@ -44,10 +44,6 @@ public class UserLog implements Serializable {
         return elapsedTime;
     }
 
-    public void setElapsedTime(String elapsedTime) {
-        this.elapsedTime = elapsedTime;
-    }
-
     public int getNbrQCM() {
         return nbrQCM;
     }
@@ -58,10 +54,6 @@ public class UserLog implements Serializable {
 
     public ArrayList<QCM> getQcmList() {
         return qcmList;
-    }
-
-    public void setQcmList(ArrayList<QCM> qcmList) {
-        this.qcmList = qcmList;
     }
 
     public ArrayList[] getAnswers() {
