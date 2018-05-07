@@ -53,7 +53,7 @@ public class ShowCorrection extends AppCompatActivity {
         Note = findViewById(R.id.Note);
         name = findViewById(R.id.name);
         module = findViewById(R.id.module);
-        usertime = findViewById(R.id.questioncount);
+        usertime = findViewById(R.id.usertime);
         Qcmtime = findViewById(R.id.Qcmtime);
 
         Questioncount = findViewById(R.id.questioncount);
@@ -116,7 +116,7 @@ public class ShowCorrection extends AppCompatActivity {
             dialog_message.setText("Bravo! Vous avez eu un bon note !" );
 
 
-            felicitation.setCanceledOnTouchOutside(false);
+            felicitation.setCanceledOnTouchOutside(true);
             felicitation.setContentView(view);
             felicitation.show();
             new Handler().postDelayed(new Runnable() {
@@ -149,7 +149,7 @@ public class ShowCorrection extends AppCompatActivity {
             dialog_message.setText("OH NO ! Vous avez eu une mauvaise note  !" );
 
 
-            bad.setCanceledOnTouchOutside(false);
+            bad.setCanceledOnTouchOutside(true);
             bad.setContentView(view);
             bad.show();
             new Handler().postDelayed(new Runnable() {
