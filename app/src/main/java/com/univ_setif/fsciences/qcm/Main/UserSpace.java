@@ -4,6 +4,7 @@ package com.univ_setif.fsciences.qcm.Main;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,6 +36,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.univ_setif.fsciences.qcm.MainMenu;
 import com.univ_setif.fsciences.qcm.R;
 import com.univ_setif.fsciences.qcm.Session;
 import com.univ_setif.fsciences.qcm.control.UserLogArrayAdapter;
@@ -143,35 +145,55 @@ public class UserSpace extends Fragment {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                     final int position = i;
-                    android.support.v7.app.AlertDialog.Builder confirm = new android.support.v7.app.AlertDialog.Builder(getContext());
-                    confirm.setMessage("Voulez-vous vraiment supprimer cette session de votre journal? Cette opération est irréversible")
-                            .setCancelable(false)
-                            .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
 
-                                    try {
-                                        new UserLogCTRL(getContext()).deleteLog(position);
-                                        adapter.remove(adapter.getItem(position));
-                                        adapter.notifyDataSetChanged();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
 
-                                    Toast.makeText(getContext(), "Log Deleted Successfully", Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                            .setNegativeButton("Non", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    dialogInterface.cancel();
-                                }
-                            });
+                    final Dialog confirm = new Dialog(getActivity());
 
-                    android.support.v7.app.AlertDialog exit = confirm.create();
-                    exit.setCanceledOnTouchOutside(true);
-                    exit.setTitle("Exit");
-                    exit.show();
+                    LayoutInflater inflater = getLayoutInflater();
+                    View v=inflater.inflate(R.layout.alertdialog,null);
+
+                    Button positivebutton,negativebutton;
+                    TextView dialog_title,dialog_message;
+
+                    positivebutton =v.findViewById(R.id.positivebutton);
+                    negativebutton =v.findViewById(R.id.negative_button);
+                    dialog_title = v.findViewById(R.id.dialog_title);
+                    dialog_message = v.findViewById(R.id.dialog_message);
+
+                    dialog_title.setText("Supprimer");
+                    dialog_message.setText("Voulez-vous vraiment supprimer cette session de votre journal? Cette opération est irréversible");
+                    confirm.setCancelable(false);
+
+                    positivebutton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            try {
+                                new UserLogCTRL(getContext()).deleteLog(position);
+                                adapter.remove(adapter.getItem(position));
+                                adapter.notifyDataSetChanged();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            Toast.makeText(getContext(), "Log Deleted Successfully", Toast.LENGTH_SHORT).show();
+                            confirm.cancel();
+                        }
+
+                    });
+                    negativebutton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            confirm.cancel();
+
+                        }
+                    });
+                    confirm.setCanceledOnTouchOutside(true);
+
+                    confirm.setCanceledOnTouchOutside(false);
+                    confirm.setContentView(v);
+                    confirm.show();
+
                     return true;
                 }
             });

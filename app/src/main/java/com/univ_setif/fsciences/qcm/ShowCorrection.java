@@ -1,13 +1,25 @@
 package com.univ_setif.fsciences.qcm;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.ramotion.foldingcell.FoldingCell;
+
+import java.util.HashMap;
 
 public class ShowCorrection extends AppCompatActivity {
     Button returnMain;
@@ -15,6 +27,11 @@ public class ShowCorrection extends AppCompatActivity {
     TextView showNote;
     double note = 0;
 
+    FrameLayout closed_card,opened_card;
+    FoldingCell foldingCell;
+    LinearLayout linearLayout;
+    Button correction;
+    TextView Note,name,module,usertime,Qcmtime,questioncout,answered,skipped,Questioncount;
 
 
 
@@ -24,14 +41,157 @@ public class ShowCorrection extends AppCompatActivity {
         setContentView(R.layout.activity_show_correction);
 
         //Note Display
-        showNote = findViewById(R.id.note);
-        note        = getIntent().getExtras().getDouble("note");
-        String noteString = note + "/20";
-        showNote.setText(noteString);
+        showNote = findViewById(R.id.show_note);
+        opened_card = findViewById(R.id.opened_card);
+        closed_card = findViewById(R.id.note_card);
+        foldingCell = findViewById(R.id.folding_cell);
+        linearLayout = findViewById(R.id.linearLayout4);
+        addQuestion =  findViewById(R.id.add_question);
+        returnMain = findViewById(R.id.back_menu);
+        correction = findViewById(R.id.correction);
 
+        Note = findViewById(R.id.Note);
+        name = findViewById(R.id.name);
+        module = findViewById(R.id.module);
+        usertime = findViewById(R.id.questioncount);
+        Qcmtime = findViewById(R.id.Qcmtime);
+
+        Questioncount = findViewById(R.id.questioncount);
+        note        = getIntent().getExtras().getDouble("note");
+        String noteString = note + "/"+getIntent().getIntExtra("Questioncount",0);
+
+
+
+        SharedPreferences username =getApplicationContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        HashMap<String, String> result = (HashMap<String, String>) username.getAll();
+
+        Note.setText("Note "+ noteString);
+        showNote.setText(noteString);
+        name.setText("Nom " +result.get("firstname")+" "+result.get("surname"));
+        module.setText(getIntent().getStringExtra("Module"));
+        usertime.setText("Votre Temps est : "+getIntent().getStringExtra("usertime"));
+        Qcmtime.setText("Le Temps de L'examan "+getIntent().getStringExtra("qcmtime"));
+        Questioncount.setText("Question : "+Integer.valueOf(getIntent().getIntExtra("Questioncount",0)));
+
+
+
+
+        closed_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                foldingCell.toggle(false);
+            }
+        });
+        opened_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                foldingCell.toggle(false);
+            }
+        });
+
+
+        if(note>=getIntent().getIntExtra("Questioncount",0)/2&& note <20){
+
+            final Dialog felicitation = new Dialog(ShowCorrection.this);
+
+            LayoutInflater inflater = getLayoutInflater();
+            View view=inflater.inflate(R.layout.alertdialog,null);
+
+            Button positivebutton,negativebutton;
+            TextView dialog_title,dialog_message;
+            ImageView imageView;
+            positivebutton =view.findViewById(R.id.positivebutton);
+            negativebutton =view.findViewById(R.id.negative_button);
+            dialog_title = view.findViewById(R.id.dialog_title);
+            dialog_message = view.findViewById(R.id.dialog_message);
+            imageView = view.findViewById(R.id.image1);
+            imageView.setImageResource(R.drawable.success);
+            positivebutton.setVisibility(View.GONE);
+            negativebutton.setVisibility(View.GONE);
+
+            dialog_title.setText("Félicitation");
+            dialog_message.setText("Bravo! Vous avez eu un bon note !" );
+
+
+            felicitation.setCanceledOnTouchOutside(false);
+            felicitation.setContentView(view);
+            felicitation.show();
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    felicitation.dismiss();
+                }
+            }, 3000);
+
+        }else{
+
+            final Dialog bad = new Dialog(ShowCorrection.this);
+
+            LayoutInflater inflater = getLayoutInflater();
+            View view=inflater.inflate(R.layout.alertdialog,null);
+
+            Button positivebutton,negativebutton;
+            TextView dialog_title,dialog_message;
+            ImageView imageView;
+
+            positivebutton =view.findViewById(R.id.positivebutton);
+            negativebutton =view.findViewById(R.id.negative_button);
+            dialog_title = view.findViewById(R.id.dialog_title);
+            dialog_message = view.findViewById(R.id.dialog_message);
+            imageView = view.findViewById(R.id.image1);
+            imageView.setImageResource(R.drawable.fail_icon);
+            positivebutton.setVisibility(View.GONE);
+            negativebutton.setVisibility(View.GONE);
+
+            dialog_title.setText("Félicitation");
+            dialog_message.setText("OH NO ! Vous avez eu une mauvaise note  !" );
+
+
+            bad.setCanceledOnTouchOutside(false);
+            bad.setContentView(view);
+            bad.show();
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    bad.dismiss();
+                }
+            }, 3000);
+
+        }
 
         //Add Question Button Display
         if(note==20) {
+
+
+            final Dialog felicitation = new Dialog(ShowCorrection.this);
+
+            LayoutInflater inflater = getLayoutInflater();
+            View view=inflater.inflate(R.layout.alertdialog,null);
+
+            Button positivebutton,negativebutton;
+            TextView dialog_title,dialog_message;
+
+            positivebutton =view.findViewById(R.id.positivebutton);
+            negativebutton =view.findViewById(R.id.negative_button);
+            dialog_title = view.findViewById(R.id.dialog_title);
+            dialog_message = view.findViewById(R.id.dialog_message);
+            positivebutton.setVisibility(View.GONE);
+            negativebutton.setVisibility(View.GONE);
+
+            dialog_title.setText("Félicitation");
+            dialog_message.setText("Bravo! Vous avez eu la note complete! \n" +
+                    "Maintenant, vous avez l'option d'ajouter une nouvelle question!");
+
+
+            felicitation.setCanceledOnTouchOutside(false);
+            felicitation.setContentView(view);
+            felicitation.show();
+             new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    felicitation.dismiss();
+                }
+            }, 3000);
 
             AlertDialog.Builder Felicitation = new android.app.AlertDialog.Builder(this);
             Felicitation.setTitle("Félicitation")
@@ -39,25 +199,14 @@ public class ShowCorrection extends AppCompatActivity {
                             "Maintenant, vous avez l'option d'ajouter une nouvelle question!");
 
 
-            final AlertDialog felicitation = Felicitation.create();
-            felicitation.show();
 
-            Handler handler = null;
-            handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    felicitation.dismiss();
-                }
-            }, 3000);
-
-            addQuestion =  findViewById(R.id.add_question);
 
             addQuestion.setVisibility(View.VISIBLE);
 
             addQuestion.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent t = new Intent(ShowCorrection.this, RetroMCQEditor.class);
+                    Intent t = new Intent(ShowCorrection.this, DBManager.class);
                     t.putExtra("invoker", "ShowCorrection");
                     startActivity(t);
                 }
@@ -66,7 +215,7 @@ public class ShowCorrection extends AppCompatActivity {
 
 
         //Return to MainMenu
-        returnMain = findViewById(R.id.back_menu);
+
 
 
         returnMain.setOnClickListener(new View.OnClickListener() {

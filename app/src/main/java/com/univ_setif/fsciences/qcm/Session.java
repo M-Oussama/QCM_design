@@ -18,10 +18,12 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.univ_setif.fsciences.qcm.control.AnswerCTRL;
 import com.univ_setif.fsciences.qcm.control.SwipeAdapter;
 import com.univ_setif.fsciences.qcm.control.UserLogCTRL;
+import com.univ_setif.fsciences.qcm.control.mcqCTRL;
 import com.univ_setif.fsciences.qcm.entity.Answer;
 import com.univ_setif.fsciences.qcm.entity.QCM;
 import com.univ_setif.fsciences.qcm.fragments.DisplayQcm;
@@ -48,7 +50,10 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
     private int nbrQCM;
     private String date;
     private int evalSystem;
-    private String dbname;
+    private String dbname,dbfullname;
+    private  String qcmtime;
+    public long minute,second;
+    public String elpsedtime;
 
 
     private boolean finalized = false;
@@ -61,9 +66,11 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
         if(userchoice.getString("dbname","ouss").equals("GL")){
             dbname = "GL";
+            dbfullname = new mcqCTRL(getApplicationContext(),null).getDatabaseData().get(dbname);
 
         }else{
             dbname=userchoice.getString("dbname","GL");
+            dbfullname = new mcqCTRL(getApplicationContext(),null).getDatabaseData().get(dbname);
         }
 
         Typeface gunnyRewritten = Typeface.createFromAsset(Session.this.getApplicationContext().getAssets(), "fonts/gnyrwn971.ttf");
@@ -109,7 +116,8 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             seconds    = sp.getLong("secondes", 0);
             nbrQCM     = sp.getInt("nbrQCM", 20);
             evalSystem = sp.getInt("evalSystem", AnswerCTRL.PARTIEL);
-
+            minute =minutes;
+            second = seconds;
 
             answers = new ArrayList[nbrQCM];
 
@@ -301,7 +309,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             @Override
             public void onClick(View v) {
 
-
+                elpsedtime = toTime(timer.getElapsed());
                 dispatchForCorrection();
 
                 TextView elpsedtime = findViewById(R.id.finaltime);
@@ -405,6 +413,14 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
         Intent t = new Intent(Session.this, ShowCorrection.class);
         t.putExtra("note", myNote);
+        t.putExtra("Questioncount",qcmList.size());
+
+        t.putExtra("Module",dbfullname);
+        String qcmtime = minute+":"+second;
+
+        t.putExtra("qcmtime",qcmtime);
+        t.putExtra("usertime",elpsedtime);
+
         startActivity(t);
     }
 
@@ -455,6 +471,14 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
             Intent t = new Intent(Session.this, ShowCorrection.class);
             t.putExtra("note", myNote);
+            t.putExtra("Questioncount",qcmList.size());
+
+            t.putExtra("Module",dbfullname);
+            String qcmtime = minute+":"+second;
+            t.putExtra("qcmtime",qcmtime);
+            t.putExtra("usertime",qcmtime);
+            t.putExtra("correctAnswer",DisplayQcm.correctanswer);
+            t.putExtra("skipped",DisplayQcm.questionignored);
             startActivity(t);
             finalizeSession();
         }
