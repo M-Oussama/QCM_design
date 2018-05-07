@@ -28,16 +28,17 @@ public class SwipeAdapter extends FragmentPagerAdapter {
     private FragmentManager fm;
     private boolean isLog = false;
 
+
     public ArrayList<QCM> getQcmList() {
         return qcmList;
     }
 
-    public SwipeAdapter(FragmentManager fm, Context context, int size) {
+    public SwipeAdapter(FragmentManager fm, Context context, int size,String dbname) {
         super(fm);
         this.fm = fm;
         pageReferenceMap = new HashMap<>();
 
-        mcqCTRL ctrl = new mcqCTRL(context, "GL");
+        mcqCTRL ctrl = new mcqCTRL(context, dbname);
         ArrayList<QCM> allQCM = (ArrayList<QCM>) ctrl.getAllQCM();
         ctrl.close();
 
@@ -47,7 +48,7 @@ public class SwipeAdapter extends FragmentPagerAdapter {
             qcmList.add(allQCM.get(i));
     }
 
-    public SwipeAdapter(FragmentManager fm, Context context, ArrayList<QCM> list, ArrayList<Answer>[] answers) {
+    public SwipeAdapter(FragmentManager fm, Context context, ArrayList<QCM> list, ArrayList<Answer>[] answers,String dbname) {
         super(fm);
         this.fm = fm;
         pageReferenceMap = new HashMap<>();

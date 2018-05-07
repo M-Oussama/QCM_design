@@ -27,6 +27,7 @@
                 android:src="@drawable/setting"
                 android:transitionName="Settingsicon" />
             <TextView
+                android:id="@+id/titlesettings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Settings"
@@ -47,127 +48,49 @@
             <Button
 
                 android:id="@+id/choosemcq"
-               android:layout_alignParentBottom="true"
+                android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="ChoosedQCM"
                 android:textColor="@android:color/white"
                 android:background="@android:color/holo_blue_dark"
                 android:text="Submit"/>
         </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_above="@+id/chooseqcm"
-                android:id="@+id/relative2"
-                android:layout_below="@+id/relative1"
-                android:background="@color/contentBadgeTitle"
+        <RelativeLayout
+            android:layout_above="@+id/chooseqcm"
+            android:id="@+id/relative2"
+            android:layout_below="@+id/relative1"
+            android:background="@color/contentBadgeTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/changemcq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:fontFamily="@font/gnyrwn971"
+                android:textColor="@android:color/white"
+                android:text="Change QCM"
+                android:textAlignment="center"
+                android:textSize="42sp" />
+            <ScrollView
+                android:layout_below="@+id/changemcq"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/title"
+                <RadioGroup
+                    android:id="@+id/radiogroup"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:fontFamily="@font/gnyrwn971"
-                    android:text="Change QCM"
-                    android:textAlignment="center"
-                    android:textSize="30sp" />
-                <ScrollView
-                    android:layout_below="@+id/title"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <RadioGroup
-                        android:layout_below="@+id/radiogroup"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <RadioButton
-                            android:id="@+id/radio1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                        <RadioButton
-                            android:id="@+id/radio2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                        <RadioButton
-                            android:id="@+id/radio3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                        <RadioButton
-                            android:id="@+id/radio4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                        <RadioButton
-
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                        <RadioButton
-
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />   <RadioButton
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />   <RadioButton
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />   <RadioButton
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />   <RadioButton
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />   <RadioButton
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />   <RadioButton
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />   <RadioButton
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />   <RadioButton
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />   <RadioButton
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />   <RadioButton
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />   <RadioButton
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />   <RadioButton
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />   <RadioButton
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />   <RadioButton
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />   <RadioButton
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />   <RadioButton
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />   <RadioButton
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />   <RadioButton
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />   <RadioButton
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content">
 
 
-                    </RadioGroup>
-                </ScrollView>
 
-            </RelativeLayout>
+                </RadioGroup>
+            </ScrollView>
+
+        </RelativeLayout>
 
 
 

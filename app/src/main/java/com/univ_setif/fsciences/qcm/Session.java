@@ -48,6 +48,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
     private int nbrQCM;
     private String date;
     private int evalSystem;
+    private String dbname;
 
 
     private boolean finalized = false;
@@ -56,6 +57,14 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
+        SharedPreferences userchoice = getApplicationContext().getSharedPreferences("userchoice",MODE_PRIVATE);
+
+        if(userchoice.getString("dbname","ouss").equals("GL")){
+            dbname = "GL";
+
+        }else{
+            dbname=userchoice.getString("dbname","GL");
+        }
 
         Typeface gunnyRewritten = Typeface.createFromAsset(Session.this.getApplicationContext().getAssets(), "fonts/gnyrwn971.ttf");
 
@@ -76,7 +85,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             String elapsedTime = getIntent().getStringExtra("elapsed");
             nbrQCM = qcmList.size();
 
-            swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), Session.this, qcmList, answers);
+            swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), Session.this, qcmList, answers,dbname);
             viewPager.setAdapter(swipeAdapter);
             viewPager.setPageMargin(40);
             viewPager.setOffscreenPageLimit(nbrQCM);
@@ -109,7 +118,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
             timerView = findViewById(R.id.session_timer);
             viewPager = findViewById(R.id.viewPager);
-            swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), Session.this, nbrQCM);
+            swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), Session.this, nbrQCM,dbname);
             qcmList = swipeAdapter.getQcmList();
             viewPager.setAdapter(swipeAdapter);
             viewPager.setPageMargin(40);
@@ -154,6 +163,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
 
             fragment.updateView();
         }
+        timer.cancel();
 
         viewPager.setCurrentItem(0);
         finalized = true;

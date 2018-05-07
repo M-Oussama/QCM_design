@@ -2,8 +2,10 @@ package com.univ_setif.fsciences.qcm;
 
 import android.app.ActivityOptions;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.util.Pair;
@@ -28,11 +30,33 @@ public class MainMenu extends AppCompatActivity {
             R.drawable.adminico,
             R.drawable.homeico,
             R.drawable.userico};
+   public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context=this;
+        SharedPreferences MMfirstlunch = getSharedPreferences("firstlunch",MODE_PRIVATE);
+
+          if(MMfirstlunch.getAll().size()==0){
+              SharedPreferences.Editor luncheditor = getApplicationContext().getSharedPreferences("firstlunch",MODE_PRIVATE).edit();
+              luncheditor.putBoolean("MMfirstLunch",true);
+              luncheditor.commit();
+              if(MMfirstlunch.getBoolean("MMfirstLunch",true)){
+                  SharedPreferences.Editor userchoice = getApplicationContext().getSharedPreferences("userchoice", MODE_PRIVATE).edit();
+
+
+                  userchoice.putString("dbname","GL");
+                  userchoice.putString("dbfullname","GénieLogiciel");
+                  userchoice.apply();
+
+
+              }
+          }
+
+
+
 
         final ViewPager viewpager = findViewById(R.id.viewpage);
 
@@ -76,8 +100,10 @@ public class MainMenu extends AppCompatActivity {
 
 
     public void onStartClick(View v) {
-        Intent t = new Intent(MainMenu.this, Session.class);
-        startActivity(t);
+        Intent start = new Intent(MainMenu.this, Session.class);
+        start.putExtra("dbname",getIntent().getStringExtra("dbname"));
+        start.putExtra("dbfullname",getIntent().getStringExtra("dbfullname"));
+        startActivity(start);
     }
 
     public void onUserClick(View V) {
