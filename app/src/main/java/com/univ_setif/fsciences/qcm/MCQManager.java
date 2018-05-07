@@ -2,18 +2,24 @@ package com.univ_setif.fsciences.qcm;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.univ_setif.fsciences.qcm.Main.AdminSpace;
 import com.univ_setif.fsciences.qcm.control.QcmRecyclerAdapter;
+import com.univ_setif.fsciences.qcm.control.mcqCTRL;
 
 public class MCQManager extends Activity {
     int pageCount = 1;
@@ -21,8 +27,9 @@ public class MCQManager extends Activity {
     public static Context context;
     private String pagetitle[];
     QcmRecyclerAdapter qcmRecyclerAdapter;
+    TextView Qcmnbr;
 
-    com.github.clans.fab.FloatingActionButton logout;
+    com.github.clans.fab.FloatingActionButton logout,newQuiz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,24 +37,28 @@ public class MCQManager extends Activity {
 
 
         setContentView(R.layout.activity_mcqmanage);
-
+        AdminSpace.password.getEditText().setText("");
 
 
         recyclerView = findViewById(R.id.Qcm_recyclerview);
         qcmRecyclerAdapter = new QcmRecyclerAdapter(getApplicationContext());
         recyclerView.setAdapter(qcmRecyclerAdapter);
-
+        Qcmnbr = findViewById(R.id.qcm_nbr);
+        Qcmnbr.setText("Module : "+new mcqCTRL(getApplicationContext(),null).getDatabasesCount());
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false ));
        /* Intent gotoquestion = new Intent(getApplicationContext(),RecyclerViewFragment.class);
         startActivity(gotoquestion);
         finish();*/
        logout = findViewById(R.id.logout);
+       newQuiz = findViewById(R.id.New_Quiz_Subject);
        logout.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
                LogOut();
            }
        });
+        logout.setColorPressed(getResources().getColor(android.R.color.holo_blue_bright));
+        newQuiz.setColorPressed(getResources().getColor(android.R.color.holo_blue_bright));
 
 
        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -63,7 +74,7 @@ public class MCQManager extends Activity {
 
                if(direction==ItemTouchHelper.LEFT){
 
-                   qcmRecyclerAdapter.delete(MCQManager.this, dbName, viewHolder.getAdapterPosition());
+                   qcmRecyclerAdapter.delete(MCQManager.this, dbName, viewHolder.getAdapterPosition(),Qcmnbr,getLayoutInflater());
 
                }else{
 
@@ -138,24 +149,50 @@ public class MCQManager extends Activity {
     }
 
     private void LogOut(){
-        AlertDialog.Builder logoutconfirmation = new AlertDialog.Builder(MCQManager.this);
-        logoutconfirmation.setTitle("LOG OUT")
-                .setMessage("Voulez-vous vraiment revenir au menu principale ")
-                .setPositiveButton("oui", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        finish();
-                    }
-                })
-                .setNegativeButton("non", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-        AlertDialog logout = logoutconfirmation.create();
-        logout.show();
+
+
+
+        final Dialog logoutconfirmation = new Dialog(MCQManager.this);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View view=inflater.inflate(R.layout.alertdialog,null);
+
+        Button positivebutton,negativebutton;
+        TextView dialog_title,dialog_message;
+
+        positivebutton =view.findViewById(R.id.positivebutton);
+        negativebutton =view.findViewById(R.id.negative_button);
+        dialog_title = view.findViewById(R.id.dialog_title);
+        dialog_message = view.findViewById(R.id.dialog_message);
+
+        Typeface gunnyRewritten = Typeface.createFromAsset(MCQManager.this.getApplicationContext().getAssets(), "fonts/gnyrwn971.ttf");
+        positivebutton.setTypeface(gunnyRewritten);
+        negativebutton.setTypeface(gunnyRewritten);
+        dialog_title.setTypeface(gunnyRewritten);
+        dialog_message.setTypeface(gunnyRewritten);
+
+        dialog_title.setText("LOG OUT");
+        dialog_message.setText("Voulez-vous vraiment revenir au menu principale ");
+
+        positivebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        negativebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                logoutconfirmation.cancel();
+
+            }
+        });
+        logoutconfirmation. setCanceledOnTouchOutside(false);
+        logoutconfirmation.setContentView(view);
+        logoutconfirmation.show();
+
+
     }
 
     @Override
@@ -167,24 +204,46 @@ public class MCQManager extends Activity {
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder logoutconfirmation = new AlertDialog.Builder(MCQManager.this);
-        logoutconfirmation.setTitle("LOG OUT")
-                .setMessage("Voulez-vous vraiment revenir au menu principale ")
-                .setPositiveButton("oui", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        finish();
-                    }
-                })
-                .setNegativeButton("non", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-        AlertDialog logout = logoutconfirmation.create();
-        logout.show();
+
+        final Dialog logoutconfirmation = new Dialog(MCQManager.this);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View view=inflater.inflate(R.layout.alertdialog,null);
+
+        Button positivebutton,negativebutton;
+        TextView dialog_title,dialog_message;
+
+        positivebutton =view.findViewById(R.id.positivebutton);
+        negativebutton =view.findViewById(R.id.negative_button);
+        dialog_title = view.findViewById(R.id.dialog_title);
+        dialog_message = view.findViewById(R.id.dialog_message);
+        Typeface gunnyRewritten = Typeface.createFromAsset(MCQManager.this.getApplicationContext().getAssets(), "fonts/gnyrwn971.ttf");
+        positivebutton.setTypeface(gunnyRewritten);
+        negativebutton.setTypeface(gunnyRewritten);
+        dialog_title.setTypeface(gunnyRewritten);
+        dialog_message.setTypeface(gunnyRewritten);
+        dialog_title.setText("LOG OUT");
+        dialog_message.setText("Voulez-vous vraiment revenir au menu principale ");
+
+        positivebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        negativebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                logoutconfirmation.cancel();
+
+            }
+        });
+        logoutconfirmation. setCanceledOnTouchOutside(false);
+        logoutconfirmation.setContentView(view);
+        logoutconfirmation.show();
+
+
     }
 
 }

@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/QCM_design.iml" filepath="$PROJECT_DIR$/QCM_design.iml" />
+      <module fileurl="file://F:\Git\QCM_master\QCM_design.iml" filepath="F:\Git\QCM_master\QCM_design.iml" />
+      <module fileurl="file://$PROJECT_DIR$/QCM_master.iml" filepath="$PROJECT_DIR$/QCM_master.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

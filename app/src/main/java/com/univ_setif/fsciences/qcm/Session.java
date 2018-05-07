@@ -1,6 +1,7 @@
 package com.univ_setif.fsciences.qcm;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -173,33 +175,61 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         if(!finalized) {
             timer.cancel();
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(Session.this);
-            builder.setMessage("Voulez-vous vraiment retourner au menu principal? \n" +
-                    "AVERTISSEMENT: Cette session sera perdue!")
-                    .setCancelable(false)
-                    .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialogInterface) {
-                            timer = timer.resume();
-                        }
-                    })
-                    .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            finish();
-                        }
-                    })
-                    .setNegativeButton("Non", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                        }
-                    });
+            final Dialog cancelsession = new Dialog(Session.this);
 
-            AlertDialog retour = builder.create();
-            retour.setTitle("Retour au Menu Principale");
-            retour.setCanceledOnTouchOutside(true);
-            retour.show();
+            LayoutInflater inflater = getLayoutInflater();
+            View view=inflater.inflate(R.layout.alertdialog,null);
+
+            Button positivebutton,negativebutton;
+            TextView dialog_title,dialog_message;
+
+            positivebutton =view.findViewById(R.id.positivebutton);
+            negativebutton =view.findViewById(R.id.negative_button);
+            dialog_title = view.findViewById(R.id.dialog_title);
+            dialog_message = view.findViewById(R.id.dialog_message);
+
+            Typeface gunnyRewritten = Typeface.createFromAsset(Session.this.getApplicationContext().getAssets(), "fonts/gnyrwn971.ttf");
+            positivebutton.setTypeface(gunnyRewritten);
+            negativebutton.setTypeface(gunnyRewritten);
+            dialog_title.setTypeface(gunnyRewritten);
+            dialog_message.setTypeface(gunnyRewritten);
+            cancelsession.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    timer = timer.resume();
+                }
+            });
+
+            dialog_title.setText("Retour au Menu Principale");
+            dialog_message.setText("Voulez-vous vraiment retourner au menu principal? \n" +
+                    "AVERTISSEMENT: Cette session sera perdue!");
+
+            positivebutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+            negativebutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    cancelsession.cancel();
+                    timer = timer.resume();
+                }
+            });
+
+            cancelsession.setCanceledOnTouchOutside(false);
+            cancelsession.setContentView(view);
+            cancelsession.show();
+
+
+
+
+
+
+
+
         }
         else
             super.onBackPressed();
@@ -219,6 +249,95 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
     public void onSubmitClickListener(View view) {
         timer.cancel();
 
+
+
+
+        final Dialog evaluate = new Dialog(Session.this);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View v=inflater.inflate(R.layout.alertdialog,null);
+
+        Button positivebutton,negativebutton;
+        TextView dialog_title,dialog_message;
+
+        positivebutton =v.findViewById(R.id.positivebutton);
+        negativebutton =v.findViewById(R.id.negative_button);
+        dialog_title = v.findViewById(R.id.dialog_title);
+        dialog_message = v.findViewById(R.id.dialog_message);
+        evaluate.setCancelable(false);
+        evaluate.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                timer = timer.resume();
+            }
+        });
+      Typeface gunnyRewritten = Typeface.createFromAsset(Session.this.getApplicationContext().getAssets(), "fonts/gnyrwn971.ttf");
+        positivebutton.setTypeface(gunnyRewritten);
+        negativebutton.setTypeface(gunnyRewritten);
+        dialog_title.setTypeface(gunnyRewritten);
+        dialog_message.setTypeface(gunnyRewritten);
+
+        dialog_title.setText("Submit");
+
+        if(hasEmpty(answers))
+            dialog_message.setText("Vous n'avez pas répondu à toutes les questions proposées! Voulez-vous vraimant soumettre " +
+                    "vos réponses comme-mème?");
+        else
+            dialog_message.setText("Voulez-vous vraiment envoyer vos réponses? Vous pouvez plus modifier vos réponses dès" +
+                    " ce point.");
+
+
+        positivebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                dispatchForCorrection();
+
+                TextView elpsedtime = findViewById(R.id.finaltime);
+                elpsedtime.setVisibility(View.VISIBLE);
+                elpsedtime.setText(toTime(timer.getElapsed()));
+                elpsedtime.setTypeface(null, Typeface.BOLD);
+                elpsedtime. setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+                timer.cancel();
+                timerView.setVisibility(View.GONE);
+           /*     timerView.setText(toTime(timer.getElapsed()));
+                timerView.setTypeface(null, Typeface.BOLD);
+                timerView.setTextColor(getResources().getColor(android.R.color.holo_green_dark));*/
+
+
+                try {
+                    new UserLogCTRL(getApplicationContext())
+                            .logSession(date, myNote, toTime(timer.getElapsed()), nbrQCM, qcmList, answers);
+                } catch (IOException e) {
+                    Log.w("Session", "An error occurred while logging the session");
+                    e.printStackTrace();
+                }
+
+                finalizeSession();
+
+                evaluate.cancel();
+
+            }
+        });
+        negativebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                evaluate.cancel();
+
+            }
+        });
+
+        evaluate.setCanceledOnTouchOutside(false);
+        evaluate.setContentView(v);
+        evaluate.show();
+
+
+
+
+
+/*
         AlertDialog.Builder confirm = new AlertDialog.Builder(Session.this);
         confirm.setCancelable(false)
                 .setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -266,7 +385,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         AlertDialog exit = confirm.create();
         exit.setCanceledOnTouchOutside(true);
         exit.setTitle("Submit");
-        exit.show();
+        exit.show();*/
 
     }
 

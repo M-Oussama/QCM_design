@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -96,46 +97,47 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
 
 
-
-
-
         holder.cardViewq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                recyclerView.scrollToPosition(position);
                 holder.background.setVisibility(View.INVISIBLE);
                 displayQuestion(holder,position,ALLitem);
-
-
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         holder.background.setVisibility(View.VISIBLE);
                     }
-                },2000);
-
-
+                },870);
                 holder.foldingCell.toggle(false);
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        holder.background.setVisibility(View.INVISIBLE);
-                        holder.foldingCell.toggle(false);
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                holder.background.setVisibility(View.VISIBLE);
 
-                            }
-                        },1000);
-
-                    }
-                },5000);
 
 
 
             }
         });
+        holder.card_open.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.background.setVisibility(View.INVISIBLE);
+                holder.foldingCell.toggle(false);
+                recyclerView.scrollToPosition(position);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        holder.background.setVisibility(View.VISIBLE);
+
+
+                    }
+                },800);
+            }
+        });
+
+
+
+
+
 
 
 
@@ -166,7 +168,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         public RelativeLayout background,card;
         public LinearLayout foreground;
 
-
+          FrameLayout card_open;
         public TextView isCorrect1,
                         isCorrect2,
                         isCorrect3,
@@ -185,6 +187,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             super(itemView);
             foldingCell = itemView.findViewById(R.id.folding_cell);
             cardViewq =itemView.findViewById(R.id.cardviewquestion);
+            card_open = itemView.findViewById(R.id.card_open);
             questioncontent = itemView.findViewById(R.id.questioncontent);
             questionnumber = itemView.findViewById(R.id.questionnumber);
             background = itemView.findViewById(R.id.view_background);

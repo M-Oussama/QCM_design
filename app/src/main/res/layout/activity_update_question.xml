@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipChildren="false"
-    android:clipToPadding="false"
-    android:orientation="vertical"
-    android:baselineAligned="false"
-    android:layout_rowWeight="2">
+
+    >
 
 
     <LinearLayout
@@ -22,6 +19,7 @@
         android:orientation="vertical"
 
         android:baselineAligned="false"
+        android:weightSum="5"
         >
 
 
@@ -34,27 +32,23 @@
 
 
             <FrameLayout
-                android:id="@+id/cell_content_view"
+                android:id="@+id/card_opened"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/white"
 
+                android:visibility="gone"
+
 
                 >
-                <RelativeLayout
-                    android:id="@+id/card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
-                </RelativeLayout>
 
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
-
 
 
                     >
@@ -69,38 +63,46 @@
                         <EditText
                             android:id="@+id/questiontitle"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="70sp"
                             android:background="@drawable/border"
-                            android:padding="20sp"
                             android:layout_margin="10sp"
                             android:hint="Question"
+                            android:inputType="textMultiLine"
+                            android:paddingLeft="10sp"
+                            android:paddingRight="10sp"
+                            android:paddingEnd="10sp"
+                            android:paddingStart="10sp"
                             android:fontFamily="@font/gnyrwn971"
-                            android:gravity="center_horizontal"/>
+                            android:textAlignment="center"
+                            />
 
 
 
 
 
                     </RelativeLayout>
-                    <ImageView
+                    <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
+                        android:background="@android:color/black"
                         android:layout_marginBottom="6dp"
                         android:layout_marginTop="9dp"
-                        android:src="@android:color/black" />
+                        />
 
                     <LinearLayout
 
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:paddingBottom="6dp"
+
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
-                        android:paddingTop="9dp">
+                        android:paddingTop="9dp"
+                        android:weightSum="5">
 
                         <!-- avatar and name part -->
                         <RelativeLayout
+                            android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
@@ -125,36 +127,54 @@
                                 android:gravity="center_vertical"
 
                                 />
+
                             <EditText
                                 android:id="@+id/answer1"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_width="320sp"
+                                android:layout_height="70sp"
+                                android:layout_marginStart="11dp"
+                                 android:fontFamily="@font/gnyrwn971"
+
+
+
+
+
                                 android:background="@drawable/border"
-                                android:padding="20sp"
-                                android:layout_margin="10sp"
+
+
+                                android:layout_toRightOf="@id/answer"
                                 android:hint="Answer1"
-                                android:fontFamily="@font/gnyrwn971"
-                                android:layout_toRightOf="@id/isCorrect1"
-                                android:gravity="center_horizontal"/>
+                                android:inputType="textMultiLine"
+
+                                android:paddingLeft="10sp"
+                                android:paddingRight="10sp"
+                                android:paddingEnd="10sp"
+                                android:paddingStart="10sp"
+                                android:textAlignment="center" />
+
+
 
 
 
                         </RelativeLayout>
 
-                        <ImageView
+                        <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
+                            android:background="@android:color/black"
                             android:layout_marginBottom="6dp"
                             android:layout_marginTop="9dp"
-                            android:src="@android:color/black" />
+                            />
 
                         <LinearLayout
+                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:baselineAligned="false"
                             android:orientation="horizontal">
 
                             <RelativeLayout
+
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
 
@@ -179,15 +199,25 @@
                                     />
                                 <EditText
                                     android:id="@+id/answer2"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="320sp"
+                                    android:layout_height="70sp"
                                     android:background="@drawable/border"
-                                    android:padding="20sp"
-                                    android:layout_margin="10sp"
+                                    android:layout_marginStart="11dp"
+                                     android:fontFamily="@font/gnyrwn971"
+
+                                    android:paddingLeft="10sp"
+                                    android:paddingRight="10sp"
+                                    android:paddingEnd="10sp"
+                                    android:paddingStart="10sp"
+
+
                                     android:hint="Answer2"
-                                    android:fontFamily="@font/gnyrwn971"
-                                    android:layout_toRightOf="@id/isCorrect2"
-                                    android:gravity="center_horizontal"/>
+
+                                    android:padding="10sp"
+                                    android:textAlignment="center"
+
+                                    android:layout_toRightOf="@id/answer2title"
+                                    />
 
 
 
@@ -195,20 +225,23 @@
 
                         </LinearLayout>
 
-                        <ImageView
+                        <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
+                            android:background="@android:color/black"
                             android:layout_marginBottom="6dp"
                             android:layout_marginTop="9dp"
-                            android:src="@android:color/black" />
+                            />
 
                         <LinearLayout
+                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:baselineAligned="false"
                             android:orientation="horizontal">
 
                             <RelativeLayout
+
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent">
 
@@ -233,15 +266,22 @@
 
                                 <EditText
                                     android:id="@+id/answer3"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="320sp"
+                                    android:layout_height="70sp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginStart="11dp"
+                                    android:layout_marginTop="9dp"
+                                    android:layout_marginBottom="4sp"
+                                    android:layout_toRightOf="@id/answer3title"
                                     android:background="@drawable/border"
-                                    android:padding="20sp"
-                                    android:layout_margin="10sp"
+                                     android:fontFamily="@font/gnyrwn971"
+                                    android:textAlignment="center"
                                     android:hint="Answer3"
-                                    android:fontFamily="@font/gnyrwn971"
-                                    android:layout_toRightOf="@id/isCorrect3"
-                                    android:gravity="center_horizontal"/>
+
+                                    android:paddingLeft="10sp"
+                                    android:paddingRight="10sp"
+                                    android:paddingEnd="10sp"
+                                    android:paddingStart="10sp"/>
 
 
                             </RelativeLayout>
@@ -249,21 +289,23 @@
                         </LinearLayout>
 
 
-                        <ImageView
+                        <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
+                            android:background="@android:color/black"
                             android:layout_marginBottom="6dp"
                             android:layout_marginTop="9dp"
-                            android:src="@android:color/black" />
+                            />
 
                         <LinearLayout
+                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:baselineAligned="false"
                             android:orientation="horizontal">
 
                             <RelativeLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent">
 
                                 <TextView
@@ -284,20 +326,27 @@
                                     android:layout_height="wrap_content"
                                     android:layout_below="@id/answer4title"
                                     android:layout_marginTop="5sp"
-                                />
+                                    />
 
 
                                 <EditText
                                     android:id="@+id/answer4"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="320sp"
+                                    android:layout_height="70dp"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginStart="11dp"
+                                    android:layout_toRightOf="@id/answer4title"
                                     android:background="@drawable/border"
-                                    android:padding="20sp"
-                                    android:layout_margin="10sp"
+
+
+                                     android:fontFamily="@font/gnyrwn971"
+
                                     android:hint="Answer4"
-                                    android:fontFamily="@font/gnyrwn971"
-                                    android:layout_toRightOf="@id/isCorrect4"
-                                    android:gravity="center_horizontal"/>
+                                    android:paddingLeft="10sp"
+                                    android:paddingRight="10sp"
+                                    android:paddingEnd="10sp"
+                                    android:paddingStart="10sp"
+                                    android:textAlignment="center" />
 
 
                             </RelativeLayout>
@@ -308,13 +357,15 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_marginBottom="6dp"
-                            android:layout_marginTop="9dp"
+                            android:layout_marginTop="2dp"
                             android:src="@android:color/black"
                             />
                         <LinearLayout
+                            android:paddingBottom="2sp"
+                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                             android:layout_marginBottom="10sp"
+
                             >
                             <FrameLayout
                                 android:layout_width="match_parent"
@@ -328,7 +379,7 @@
                                     android:fontFamily="@font/gnyrwn971"
                                     android:textColor="@android:color/white"
                                     android:background="@drawable/buttonstyle"
-                                    android:visibility="gone"
+
                                     />
                                 <Button
                                     android:id="@+id/add"
@@ -339,7 +390,7 @@
                                     android:fontFamily="@font/gnyrwn971"
                                     android:textColor="@android:color/white"
                                     android:background="@drawable/buttonstyle"
-                                     android:visibility="gone"
+                                    android:visibility="gone"
                                     />
                             </FrameLayout>
 
@@ -352,8 +403,10 @@
 
             <FrameLayout
                 android:id="@+id/cell_title_view"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                
+
 
                 >
 
@@ -430,4 +483,4 @@
 
 
     </LinearLayout>
-</ScrollView>
+</RelativeLayout>

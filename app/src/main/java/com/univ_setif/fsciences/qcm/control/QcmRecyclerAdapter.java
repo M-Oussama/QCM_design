@@ -1,6 +1,7 @@
 package com.univ_setif.fsciences.qcm.control;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,11 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.univ_setif.fsciences.qcm.MCQManager;
 import com.univ_setif.fsciences.qcm.R;
 import com.univ_setif.fsciences.qcm.fragments.RecyclerViewFragment;
 
@@ -91,30 +94,51 @@ public class QcmRecyclerAdapter extends RecyclerView.Adapter<QcmRecyclerAdapter.
         }
     }
 
-    public void delete(final Context context, final String dbName,final int position){
-         AlertDialog.Builder deleteQCM = new AlertDialog.Builder(context);
-        deleteQCM.setMessage("you want to delete this QCM .?")
-                .setPositiveButton("oui", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        mcqCTRL controlleur = new mcqCTRL(context,dbName);
-                        controlleur.deleteDatabase();
+    public void delete(final Context context, final String dbName, final int position, final TextView Qcmnbr,LayoutInflater inflater){
 
-                        notifyItemRemoved(position);
-                        notifyItemRangeChanged(position,getItemCount());
-                        Toast t = Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_SHORT);
-                        t.show();
 
-                    }
-                })
-                .setNegativeButton("no", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        notifyDataSetChanged();
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog doit= deleteQCM.create();
-        doit.show();
+        final Dialog deleteQCM = new Dialog(context);
+
+
+        View view=inflater.inflate(R.layout.alertdialog,null);
+
+        Button positivebutton,negativebutton;
+        TextView dialog_title,dialog_message;
+
+        positivebutton =view.findViewById(R.id.positivebutton);
+        negativebutton =view.findViewById(R.id.negative_button);
+        dialog_title = view.findViewById(R.id.dialog_title);
+        dialog_message = view.findViewById(R.id.dialog_message);
+
+        dialog_title.setText("ATTENTION");
+        dialog_message.setText("Voulez-vous vraiment supprimer ce QCM? Cette opération est irréversible");
+
+        positivebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mcqCTRL controlleur = new mcqCTRL(context,dbName);
+                controlleur.deleteDatabase();
+
+                Qcmnbr.setText("Module : "+new mcqCTRL(context,null).getDatabasesCount());
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position,getItemCount());
+                Toast t = Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_SHORT);
+                t.show();
+                deleteQCM.cancel();
+            }
+        });
+        negativebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                notifyDataSetChanged();
+                deleteQCM.cancel();
+
+            }
+        });
+
+        deleteQCM.setContentView(view);
+        deleteQCM.show();
+
     }
 }

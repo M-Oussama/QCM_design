@@ -21,5 +21,4 @@ public class UserHelp extends AppCompatActivity {
     public void onReturnClick(View v){
         finish();
     }
-
 }
