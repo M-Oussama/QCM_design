@@ -75,15 +75,17 @@ public class Home extends Fragment {
             SharedPreferences sharedPreferences = v.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
             HashMap<String, String> result = (HashMap<String, String>) sharedPreferences.getAll();
             if (result.size() == 4) {
-                TextView userName   = v.findViewById(R.id.user_info_fullname);
-                TextView specialty  = v.findViewById(R.id.specialty);
-                TextView average    = v.findViewById(R.id.average);
+                TextView userName = v.findViewById(R.id.user_info_fullname);
+                TextView specialty = v.findViewById(R.id.specialty);
                 ImageView userImage = v.findViewById(R.id.user_image_pic);
 
                 userName.setText(result.get("surname") + " " + result.get("firstname"));
                 TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(userName, 18, 30, 1, TypedValue.COMPLEX_UNIT_DIP);
                 specialty.setText(result.get("specialty"));
+                userImage.setImageBitmap(loadImage());
+            }
 
+                TextView average = v.findViewById(R.id.average);
                 ArrayList<UserLog> userLogs = null;
                 try {
                     userLogs = new UserLogCTRL(getContext(), false).getLog();
@@ -106,8 +108,7 @@ public class Home extends Fragment {
                     average.setText("0.0/20");
                 }
 
-                userImage.setImageBitmap(loadImage());
-            }
+
         }
 
         private Bitmap loadImage(){
