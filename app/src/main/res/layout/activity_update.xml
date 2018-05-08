@@ -29,7 +29,7 @@
             android:layout_centerVertical="true"
             android:textColor="@android:color/white"
             android:textSize="20sp"
-            android:fontFamily="cursive"
+            android:fontFamily="@font/gnyrwn971"
             android:drawableRight="@drawable/delete"/>
 
         <TextView
@@ -42,7 +42,7 @@
             android:textColor="@android:color/white"
             android:layout_centerVertical="true"
             android:textSize="20sp"
-            android:fontFamily="cursive"
+            android:fontFamily="@font/gnyrwn971"
             android:drawableLeft="@drawable/edit"/>
     </RelativeLayout>
     <RelativeLayout
@@ -113,14 +113,14 @@
                             android:id="@+id/questiontitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:text="Question 1"
-                            android:layout_margin="10dp"
                             android:layout_centerHorizontal="true"
+                            android:layout_centerInParent="true"
+                            android:layout_margin="10dp"
+                            android:fontFamily="@font/gnyrwn971"
+                            android:text="Question 1"
                             android:textColor="@android:color/black"
-                            android:fontFamily="cursive"
                             android:textSize="20sp"
-                            />
+                            android:textStyle="bold" />
 
 
 
@@ -158,7 +158,7 @@
                                 android:text="1 )"
                                 android:textSize="20sp"
                                 android:textColor="@android:color/black"
-                                android:fontFamily="cursive"/>
+                                android:fontFamily="@font/gnyrwn971"/>
 
 
                             <TextView
@@ -171,11 +171,10 @@
                                 android:layout_marginStart="10dp"
                                 android:layout_toEndOf="@id/isCorrect1"
                                 android:layout_toRightOf="@id/isCorrect1"
-                                android:fontFamily="cursive"
+                                android:fontFamily="@font/gnyrwn971"
                                 android:text="answer1"
                                 android:textColor="@android:color/black"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
+                                android:textSize="18sp" />
 
                         </RelativeLayout>
 
@@ -208,7 +207,7 @@
                                     android:text="2 )"
                                     android:textSize="20sp"
                                     android:textColor="@android:color/black"
-                                    android:fontFamily="cursive"/>
+                                    android:fontFamily="@font/gnyrwn971"/>
 
 
                                 <TextView
@@ -221,11 +220,10 @@
                                     android:layout_marginStart="10dp"
                                     android:layout_toEndOf="@id/isCorrect2"
                                     android:layout_toRightOf="@id/isCorrect2"
-                                    android:fontFamily="cursive"
+                                    android:fontFamily="@font/gnyrwn971"
                                     android:text="answer2"
                                     android:textColor="@android:color/black"
-                                    android:textSize="18sp"
-                                    android:textStyle="bold" />
+                                    android:textSize="18sp" />
 
                             </RelativeLayout>
 
@@ -260,7 +258,7 @@
                                     android:textSize="20sp"
                                     android:layout_marginBottom="9sp"
                                     android:textColor="@android:color/black"
-                                    android:fontFamily="cursive"/>
+                                    android:fontFamily="@font/gnyrwn971"/>
 
 
                                 <TextView
@@ -273,11 +271,10 @@
                                     android:layout_marginStart="10dp"
                                     android:layout_toEndOf="@id/isCorrect3"
                                     android:layout_toRightOf="@id/isCorrect3"
-                                    android:fontFamily="cursive"
+                                    android:fontFamily="@font/gnyrwn971"
                                     android:text="answer3"
                                     android:textColor="@android:color/black"
-                                    android:textSize="18sp"
-                                    android:textStyle="bold" />
+                                    android:textSize="18sp" />
 
                             </RelativeLayout>
 
@@ -312,7 +309,7 @@
                                     android:text="4 )"
                                     android:textSize="20sp"
                                     android:textColor="@android:color/black"
-                                    android:fontFamily="cursive"/>
+                                    android:fontFamily="@font/gnyrwn971"/>
 
 
                                 <TextView
@@ -325,11 +322,10 @@
                                     android:layout_marginStart="10dp"
                                     android:layout_toEndOf="@id/isCorrect4"
                                     android:layout_toRightOf="@id/isCorrect4"
-                                    android:fontFamily="cursive"
+                                    android:fontFamily="@font/gnyrwn971"
                                     android:text="answer4"
                                     android:textColor="@android:color/black"
-                                    android:textSize="18sp"
-                                    android:textStyle="bold" />
+                                    android:textSize="18sp" />
 
                             </RelativeLayout>
 
@@ -385,7 +381,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:text="1"
-                                android:fontFamily="cursive"
+                                android:fontFamily="@font/gnyrwn971"
                                 android:textColor="@android:color/white"
                                 android:textSize="30dp" />
 
@@ -402,7 +398,7 @@
                                 android:layout_centerVertical="true"
                                 android:gravity="center_vertical"
                                 android:text="Question"
-                                android:fontFamily="cursive"
+                                android:fontFamily="@font/gnyrwn971"
                                 android:textSize="20sp"
                                 android:textAlignment="center"
                                 android:textColor="@android:color/black" />

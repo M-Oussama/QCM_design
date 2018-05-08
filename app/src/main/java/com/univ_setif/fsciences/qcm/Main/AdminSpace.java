@@ -42,8 +42,9 @@ public class AdminSpace extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                 password = v.findViewById(R.id.password);
+                password = v.findViewById(R.id.password);
                 final String pass = password.getEditText().getText().toString();
+                password.getEditText().setText("");
                 pd = new ProgressDialog(getActivity());
                 pd.setMessage("loading");
                 pd.show();

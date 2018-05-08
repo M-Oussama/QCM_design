@@ -46,8 +46,6 @@ public class QcmRecyclerAdapter extends RecyclerView.Adapter<QcmRecyclerAdapter.
         Typeface gunnyRewritten = Typeface.createFromAsset(context.getApplicationContext().getAssets(), "fonts/gnyrwn971.ttf");
         mcqCTRL controleur = new mcqCTRL(context,null);
         if(position<=controleur.getDatabasesCount()){
-
-
             final String key = controleur.getDatabaseData().keySet().toArray()[position].toString();
             final String value = controleur.getDatabaseData().get(key);
             holder.Qcm_name.setTypeface(gunnyRewritten);
@@ -88,13 +86,18 @@ public class QcmRecyclerAdapter extends RecyclerView.Adapter<QcmRecyclerAdapter.
 
         public MyViewHolder(View itemView) {
             super(itemView);
+            Typeface gunnyRewritten = Typeface.createFromAsset(context.getApplicationContext().getAssets(), "fonts/gnyrwn971.ttf");
             cardviewqcm= itemView.findViewById(R.id.cardviewqcm);
             Qcm_number =itemView.findViewById(R.id.Qcm_position);
+            Qcm_number.setTypeface(gunnyRewritten);
             Qcm_name = itemView.findViewById(R.id.Qcm_title);
+            Qcm_name.setTypeface(gunnyRewritten);
             view_background = itemView.findViewById(R.id.background);
             view_foreground = itemView.findViewById(R.id.cardviewqcm);
             update = itemView.findViewById(R.id.update);
+            update.setTypeface(gunnyRewritten);
             delete = itemView.findViewById(R.id.delete);
+            delete.setTypeface(gunnyRewritten);
 
         }
     }
