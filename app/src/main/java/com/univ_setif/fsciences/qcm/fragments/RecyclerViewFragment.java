@@ -97,6 +97,7 @@ public class RecyclerViewFragment extends AppCompatActivity {
         if(getIntent().getBooleanExtra("fromupdate",false) | getIntent().getBooleanExtra("fromback",false)){
             recyclerView.scrollToPosition(getIntent().getIntExtra("Questionposition",0));
 
+
         }
 
 
@@ -170,7 +171,7 @@ public class RecyclerViewFragment extends AppCompatActivity {
                    Questioninfo.putString("dbname", dbname);
                    Questioninfo.putString("Qcmfullname",dbfullname);
                    Questioninfo.putInt("Qcmposition",qcmposition);
-                   Questioninfo.putInt("Questionposition",viewHolder.getAdapterPosition()+1);
+                   Questioninfo.putInt("Questionposition",viewHolder.getAdapterPosition());
 
                    update.putExtra("CorrectAnswer", qcmArrayList.get(Integer.parseInt(answers.get(4).getText())).getQuestion().getAnswers());
                    update.putExtras(Questioninfo);
@@ -420,46 +421,6 @@ public class RecyclerViewFragment extends AppCompatActivity {
 
 
 
-
-
-
-
-       /* android.support.v7.app.AlertDialog.Builder confirm = new android.support.v7.app.AlertDialog.Builder(mcontext);
-        confirm.setMessage("Voulez-vous vraiment supprimer ce QCM? Cette opération est irréversible")
-                .setCancelable(false)
-                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        mcqCTRL controleur = new mcqCTRL(getApplicationContext(), getIntent().getStringExtra("dbname"));
-                        controleur.openWritable();
-                        controleur.deleteQCM(new Question(viewHolder.questioncontent.getText().toString()));
-                        //qcmArrayList = (ArrayList<QCM>) controleur.getAllQCM();
-                        controleur.close();
-                        qcmArrayList.remove(viewHolder.getAdapterPosition());
-                        recyclerAdapter.notifyItemRemoved(position);
-                        recyclerAdapter.notifyItemRangeChanged(position,qcmArrayList.size());
-                        Questionnumber.setText("Question:" + qcmArrayList.size());
-                        Toast t = Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_SHORT);
-                        t.show();
-
-
-                    }
-                })
-                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                        recyclerAdapter.notifyDataSetChanged();
-                        dialogInterface.cancel();
-                    }
-                });
-
-
-        android.support.v7.app.AlertDialog deleteDialog = confirm.create();
-        deleteDialog.setCanceledOnTouchOutside(true);
-
-        deleteDialog.setTitle("Supprimer");
-        deleteDialog.show();*/
     }
 
     @Override

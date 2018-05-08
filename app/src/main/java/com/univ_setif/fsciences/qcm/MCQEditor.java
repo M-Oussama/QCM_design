@@ -96,7 +96,7 @@ public class MCQEditor extends AppCompatActivity {
            dbname = getIntent().getStringExtra("dbname");
            questioncontent.setText(getIntent().getExtras().get("OldQuestion").toString());
 
-          questionnumber.setText(String.valueOf(getIntent().getIntExtra("Questionposition",0)));
+          questionnumber.setText(String.valueOf(getIntent().getIntExtra("Questionposition",0)+1));
            new Handler().postDelayed(new Runnable() {
                @Override
                public void run() {
