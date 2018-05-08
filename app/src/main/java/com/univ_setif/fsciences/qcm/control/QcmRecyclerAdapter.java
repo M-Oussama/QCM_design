@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.univ_setif.fsciences.qcm.MCQManager;
 import com.univ_setif.fsciences.qcm.R;
+import com.univ_setif.fsciences.qcm.Session;
 import com.univ_setif.fsciences.qcm.fragments.RecyclerViewFragment;
 
 import org.w3c.dom.Text;
@@ -43,8 +45,6 @@ public class QcmRecyclerAdapter extends RecyclerView.Adapter<QcmRecyclerAdapter.
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         mcqCTRL controleur = new mcqCTRL(context,null);
         if(position<=controleur.getDatabasesCount()){
-
-
             final String key = controleur.getDatabaseData().keySet().toArray()[position].toString();
             final String value = controleur.getDatabaseData().get(key);
             holder.Qcm_number.setText(String.valueOf(position+1));
@@ -83,13 +83,18 @@ public class QcmRecyclerAdapter extends RecyclerView.Adapter<QcmRecyclerAdapter.
 
         public MyViewHolder(View itemView) {
             super(itemView);
+            Typeface gunnyRewritten = Typeface.createFromAsset(context.getApplicationContext().getAssets(), "fonts/gnyrwn971.ttf");
             cardviewqcm= itemView.findViewById(R.id.cardviewqcm);
             Qcm_number =itemView.findViewById(R.id.Qcm_position);
+            Qcm_number.setTypeface(gunnyRewritten);
             Qcm_name = itemView.findViewById(R.id.Qcm_title);
+            Qcm_name.setTypeface(gunnyRewritten);
             view_background = itemView.findViewById(R.id.background);
             view_foreground = itemView.findViewById(R.id.cardviewqcm);
             update = itemView.findViewById(R.id.update);
+            update.setTypeface(gunnyRewritten);
             delete = itemView.findViewById(R.id.delete);
+            delete.setTypeface(gunnyRewritten);
 
         }
     }

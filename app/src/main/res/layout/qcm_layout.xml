@@ -7,7 +7,9 @@
         android:id="@+id/cell_title_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         >
         <RelativeLayout
             android:id="@+id/background"
@@ -97,13 +99,14 @@
                         android:id="@+id/Qcm_title"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:fontFamily="@font/gnyrwn971"
                         android:gravity="center_vertical"
                         android:text="GénieLogiciel"
-                        android:fontFamily="@font/gnyrwn971"
-                        android:textSize="20sp"
                         android:textAlignment="center"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@android:color/black"
+                        android:textSize="28sp" />
 
 
                 </RelativeLayout>
