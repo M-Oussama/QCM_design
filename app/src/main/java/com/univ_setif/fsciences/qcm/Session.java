@@ -72,9 +72,9 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         timerView.setTypeface(gunnyRewritten, Typeface.BOLD);
         viewPager      = findViewById(R.id.viewPager);
         questionNumber = findViewById(R.id.showQuestionNumber);
-        questionNumber.setTypeface(gunnyRewritten, Typeface.BOLD);
+        questionNumber.setTypeface(gunnyRewritten);
         module = findViewById(R.id.Module);
-        module.setTypeface(gunnyRewritten, Typeface.BOLD);
+        module.setTypeface(gunnyRewritten);
 
         Button evaluate = findViewById(R.id.submit);
         evaluate.setTypeface(gunnyRewritten);
