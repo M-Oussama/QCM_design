@@ -35,7 +35,7 @@ public class Home extends Fragment {
 
     private static final String TAG = "Home";
     View v;
-    public static  ImageView Settingsicon;
+    public static  ImageView Settingsicon,helpicon;
 
     public Home() {
         // Required empty public constructor
@@ -51,6 +51,7 @@ public class Home extends Fragment {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.activity_home, container, false);
         Settingsicon = v.findViewById(R.id.settings_icon);
+        helpicon = v.findViewById(R.id.help_icon);
 
 
         new loadUser().run();

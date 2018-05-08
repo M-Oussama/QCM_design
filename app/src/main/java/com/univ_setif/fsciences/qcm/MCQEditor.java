@@ -209,8 +209,9 @@ public class MCQEditor extends AppCompatActivity {
 
         if(!checkInputValidity()) return;
 
-            dbname = getIntent().getStringExtra("dbname");
+          //  dbname = getIntent().getStringExtra("dbname");
 
+        Toast.makeText(this, ""+dbname, Toast.LENGTH_SHORT).show();
             Answer ans1 = new Answer(Answer1.getText().toString());
             Answer ans2 = new Answer(Answer2.getText().toString());
             Answer ans3 = new Answer(Answer3.getText().toString());

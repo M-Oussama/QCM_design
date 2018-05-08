@@ -37,19 +37,19 @@
                 android:id="@+id/adminspace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/ic_action_name" />
+                android:icon="@drawable/admin_main" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/main"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/book" />
+                android:icon="@drawable/home" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/userspace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/user" />
+                android:icon="@drawable/user_main" />
         </android.support.design.widget.TabLayout>
 
 

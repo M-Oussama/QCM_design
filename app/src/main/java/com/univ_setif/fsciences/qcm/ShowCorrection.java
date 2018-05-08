@@ -117,8 +117,8 @@ public class ShowCorrection extends AppCompatActivity {
             positivebutton.setVisibility(View.GONE);
             negativebutton.setVisibility(View.GONE);
 
-            dialog_title.setText("Félicitation");
-            dialog_message.setText("OH NO ! Vous avez eu une mauvaise note  !" );
+            dialog_title.setText("Oh Non");
+            dialog_message.setText("Vous avez eu une mauvaise note ! " );
 
 
             bad.setCanceledOnTouchOutside(true);
@@ -159,16 +159,14 @@ public class ShowCorrection extends AppCompatActivity {
             felicitation.setCanceledOnTouchOutside(false);
             felicitation.setContentView(view);
             felicitation.show();
+            felicitation.setCanceledOnTouchOutside(true);
              new Handler().postDelayed(new Runnable() {
                 public void run() {
                     felicitation.dismiss();
                 }
             }, 3000);
 
-            AlertDialog.Builder Felicitation = new android.app.AlertDialog.Builder(this);
-            Felicitation.setTitle("Félicitation")
-                    .setMessage("Bravo! Vous avez eu la note complete! \n" +
-                            "Maintenant, vous avez l'option d'ajouter une nouvelle question!");
+
 
 
 
@@ -178,8 +176,10 @@ public class ShowCorrection extends AppCompatActivity {
             addQuestion.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent t = new Intent(ShowCorrection.this, DBManager.class);
-                    t.putExtra("invoker", "ShowCorrection");
+                    Intent t = new Intent(ShowCorrection.this, MainMenu.class);
+                    t.putExtra("dbname",getIntent().getStringExtra("dbname"));
+                    t.putExtra("fromuser", true);
+
                     startActivity(t);
                 }
             });

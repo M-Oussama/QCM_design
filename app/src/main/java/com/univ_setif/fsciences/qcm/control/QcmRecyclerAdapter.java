@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.univ_setif.fsciences.qcm.MCQManager;
 import com.univ_setif.fsciences.qcm.R;
+import com.univ_setif.fsciences.qcm.Session;
 import com.univ_setif.fsciences.qcm.fragments.RecyclerViewFragment;
 
 import org.w3c.dom.Text;
@@ -41,12 +43,15 @@ public class QcmRecyclerAdapter extends RecyclerView.Adapter<QcmRecyclerAdapter.
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
+        Typeface gunnyRewritten = Typeface.createFromAsset(context.getApplicationContext().getAssets(), "fonts/gnyrwn971.ttf");
         mcqCTRL controleur = new mcqCTRL(context,null);
         if(position<=controleur.getDatabasesCount()){
 
 
             final String key = controleur.getDatabaseData().keySet().toArray()[position].toString();
             final String value = controleur.getDatabaseData().get(key);
+            holder.Qcm_name.setTypeface(gunnyRewritten);
+            holder.Qcm_number.setTypeface(gunnyRewritten);
             holder.Qcm_number.setText(String.valueOf(position+1));
             holder.Qcm_name.setText(String.valueOf(value));
             holder.dbName = key;

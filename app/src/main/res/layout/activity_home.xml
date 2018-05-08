@@ -145,14 +145,14 @@
 
                 <ImageView
                     android:id="@+id/settings_icon"
-                    android:layout_width="38dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginStart="13dp"
-                    android:transitionName="Settingsicon"
+                    android:layout_toStartOf="@+id/textView2"
+                    android:layout_centerHorizontal="true"
                     android:contentDescription="@string/settingsdesc"
-                    android:src="@drawable/blue_settings" />
+                    android:src="@drawable/blue_settings"
+                    android:transitionName="Settingsicon" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -163,7 +163,8 @@
                     android:fontFamily="@font/gnyrwn971"
                     android:text="@string/settings_maj"
                     android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:id="@+id/textView2" />
 
             </RelativeLayout>
 
@@ -191,12 +192,13 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:layout_width="38dp"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/help_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:transitionName="help"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="14dp"
                     android:contentDescription="@string/helpdesc"
                     android:src="@drawable/blue_info" />
 
@@ -252,11 +254,11 @@
 
                 <ImageView
                     android:id="@+id/imageView"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="37dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="15dp"
                     app:srcCompat="@drawable/blue_start" />
 
             </RelativeLayout>

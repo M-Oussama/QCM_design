@@ -66,7 +66,7 @@ public class Settings extends Activity {
 
     public void ChoosedQCM(View view) {
         SharedPreferences userInfo = getSharedPreferences("userInfo", MODE_PRIVATE);
-        userInfo.edit().putString("module", dbname).apply();
+        userInfo.edit().putString("module", dbname).commit();
         finish();
     }
 

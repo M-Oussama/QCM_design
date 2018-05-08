@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.util.Pair;
@@ -32,9 +33,9 @@ public class MainMenu extends AppCompatActivity {
     TabLayout tabLayout;
     ActivityOptions options;
     private int[] tabIcons = {
-            R.drawable.adminico,
-            R.drawable.homeico,
-            R.drawable.userico};
+            R.drawable.admin_main,
+            R.drawable.home,
+            R.drawable.user_main};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +106,15 @@ public class MainMenu extends AppCompatActivity {
 
     public void onHelpClick(View V) {
         Intent t = new Intent(MainMenu.this, UserHelp.class);
-        startActivity(t);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            options = ActivityOptions.makeSceneTransitionAnimation(MainMenu.this,Home.helpicon,"help");
+            startActivity(t,options.toBundle());
+        }else{
+            startActivity(t);
+        }
+
+
+
     }
     @Override
     public void onBackPressed() {
@@ -151,8 +160,8 @@ public class MainMenu extends AppCompatActivity {
 
     public void onSettingsclick(View view) {
         Intent setting = new Intent(MainMenu.this,Settings.class);
-        final Pair  pairs ;
-        pairs=new Pair<View ,String>(Home.Settingsicon,"Settingsicon");
+
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             options = ActivityOptions.makeSceneTransitionAnimation(MainMenu.this,Home.Settingsicon,"Settingsicon");
             startActivity(setting,options.toBundle());

@@ -12,16 +12,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
-        android:text="@string/question_1"
         android:fontFamily="@font/gnyrwn971"
-        android:textSize="27sp"
+        android:text="@string/question_1"
         android:textColor="@color/black_de"
+        android:textSize="27sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/viewPager"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
@@ -50,67 +51,89 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="@dimen/card_padding"
         android:layout_marginStart="@dimen/card_padding"
+        android:background="@android:color/holo_blue_dark"
+        android:fontFamily="@font/gnyrwn971"
         android:onClick="onSubmitClickListener"
         android:text="Evaluer"
-        android:fontFamily="@font/gnyrwn971"
-        android:textSize="20sp"
         android:textColor="@color/black_de"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-<FrameLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginTop="16dp"
-    android:text="XX:XX"
-    android:fontFamily="@font/gnyrwn971"
-    android:textSize="27sp"
-    android:textColor="@color/black_de"
-    android:textStyle="bold"
-    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-    android:visibility="visible"
-    app:layout_constraintBottom_toTopOf="@+id/viewPager"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="parent" >
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/gnyrwn971"
+        android:text="XX:XX"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@color/black_de"
+        android:textSize="27sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/viewPager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/finaltime"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/gnyrwn971"
+            android:text="XX:XX"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/black_de"
+            android:textSize="27sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/viewPager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/Module"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gnyrwn971"
+            android:text="GénieLogiciel"
+            android:textColor="@color/black_de"
+            android:textSize="27sp"
+            android:textStyle="bold" />
+
+    </FrameLayout>
+
     <TextView
         android:id="@+id/session_timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
+
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="XX:XX"
         android:fontFamily="@font/gnyrwn971"
-        android:textSize="27sp"
-        android:textColor="@color/black_de"
-        android:textStyle="bold"
+        android:gravity="center"
+        android:text="XX:XX"
+
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="@color/black_de"
+        android:textSize="27sp"
+        android:textStyle="bold"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/viewPager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:id="@+id/finaltime"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:text="XX:XX"
-        android:fontFamily="@font/gnyrwn971"
-        android:textSize="27sp"
-        android:textColor="@color/black_de"
-        android:textStyle="bold"
-        android:visibility="gone"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:layout_constraintBottom_toTopOf="@+id/viewPager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</FrameLayout>
+        app:layout_constraintEnd_toStartOf="@+id/frameLayout"
+        app:layout_constraintHorizontal_bias="0.87"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </android.support.constraint.ConstraintLayout>

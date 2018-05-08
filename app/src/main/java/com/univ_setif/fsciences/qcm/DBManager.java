@@ -16,7 +16,7 @@ public class DBManager extends Activity {
     Button Addmcq,updatemcq;
     EditText dbNameEditText;
     EditText fullNameEditText;
-    String  pagetitle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -51,10 +51,12 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
     private int nbrQCM;
     private String date;
     private int evalSystem;
-    private String dbname,dbfullname;
+    private String dbfullname;
     private  String qcmtime;
     public long minutes,seconds;
+    private TextView module;
     public String elpsedtime;
+    String dbName;
 
 
     private boolean finalized = false;
@@ -71,6 +73,9 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         viewPager      = findViewById(R.id.viewPager);
         questionNumber = findViewById(R.id.showQuestionNumber);
         questionNumber.setTypeface(gunnyRewritten);
+        module = findViewById(R.id.Module);
+        module.setTypeface(gunnyRewritten);
+
         Button evaluate = findViewById(R.id.submit);
         evaluate.setTypeface(gunnyRewritten);
 
@@ -115,7 +120,9 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             timerView = findViewById(R.id.session_timer);
             viewPager = findViewById(R.id.viewPager);
             SharedPreferences user = Session.this.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-            String dbName = user.getString("module", "GL");
+            dbName = user.getString("module", "GL");
+            dbfullname= new mcqCTRL(getApplicationContext(),null).getDatabaseData().get(dbName);
+            module.setText(dbfullname);
             qcmList = (ArrayList) new mcqCTRL(Session.this, dbName).getAllQCM();
             swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), Session.this, qcmList, nbrQCM);
             qcmList = swipeAdapter.getQcmList();
@@ -388,6 +395,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         myNote = answerCTRL.checkAnswers(answers, evalSystem);
 
         Intent t = new Intent(Session.this, ShowCorrection.class);
+        t.putExtra("dbname",dbName);
         t.putExtra("note", myNote);
         t.putExtra("Questioncount",qcmList.size());
 
@@ -454,6 +462,7 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             t.putExtra("qcmtime", qcmtime);
             t.putExtra("usertime",toTime(timer.getElapsed()));
             t.putExtra("correctAnswer",DisplayQcm.correctanswer);
+            t.putExtra("dbname",dbName);
             t.putExtra("skipped",DisplayQcm.questionignored);
             startActivity(t);
             finalizeSession();
