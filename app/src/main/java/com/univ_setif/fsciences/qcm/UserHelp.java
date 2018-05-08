@@ -19,11 +19,6 @@ public class UserHelp extends AppCompatActivity {
 
     public void onAdminHelpClick(View v){
         Intent i = new Intent(UserHelp.this, AdminHelp.class);
-        ActivityOptions   options = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-           options = ActivityOptions.makeSceneTransitionAnimation(UserHelp.this, Home.helpicon,"help");
-        }
-        startActivity(i,options.toBundle());
         startActivity(i);
     }
 

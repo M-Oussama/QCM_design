@@ -19,7 +19,6 @@ public class AdminHelp extends AppCompatActivity {
 
     public void onReturnHomeClick(View v){
         Intent i = new Intent(AdminHelp.this, MainMenu.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(i);
         finish();
     }

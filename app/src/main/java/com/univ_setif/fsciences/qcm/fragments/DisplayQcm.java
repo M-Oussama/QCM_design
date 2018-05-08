@@ -82,12 +82,16 @@ public class DisplayQcm extends Fragment {
 
         ans[0]      = view.findViewById(R.id.answerContent1);
         ans[0].setTypeface(gunnyRewritten);
+        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(ans[0], 15, 20, 1, TypedValue.COMPLEX_UNIT_DIP);
         ans[1]      = view.findViewById(R.id.answerContent2);
         ans[1].setTypeface(gunnyRewritten);
+        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(ans[1], 15, 20, 1, TypedValue.COMPLEX_UNIT_DIP);
         ans[2]      = view.findViewById(R.id.answerContent3);
         ans[2].setTypeface(gunnyRewritten);
+        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(ans[2], 15, 20, 1, TypedValue.COMPLEX_UNIT_DIP);
         ans[3]      = view.findViewById(R.id.answerContent4);
         ans[3].setTypeface(gunnyRewritten);
+        TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(ans[3], 15, 20, 1, TypedValue.COMPLEX_UNIT_DIP);
 
 
         ans[0].setOnClickListener(new View.OnClickListener() {

@@ -69,12 +69,12 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
         Typeface gunnyRewritten = Typeface.createFromAsset(Session.this.getApplicationContext().getAssets(), "fonts/gnyrwn971.ttf");
 
         timerView      = findViewById(R.id.session_timer);
-        timerView.setTypeface(gunnyRewritten);
+        timerView.setTypeface(gunnyRewritten, Typeface.BOLD);
         viewPager      = findViewById(R.id.viewPager);
         questionNumber = findViewById(R.id.showQuestionNumber);
-        questionNumber.setTypeface(gunnyRewritten);
+        questionNumber.setTypeface(gunnyRewritten, Typeface.BOLD);
         module = findViewById(R.id.Module);
-        module.setTypeface(gunnyRewritten);
+        module.setTypeface(gunnyRewritten, Typeface.BOLD);
 
         Button evaluate = findViewById(R.id.submit);
         evaluate.setTypeface(gunnyRewritten);
@@ -208,12 +208,6 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             negativebutton.setTypeface(gunnyRewritten);
             dialog_title.setTypeface(gunnyRewritten);
             dialog_message.setTypeface(gunnyRewritten);
-            cancelsession.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    timer = timer.resume();
-                }
-            });
 
             dialog_title.setText("Retour au Menu Principale");
             dialog_message.setText("Voulez-vous vraiment retourner au menu principal? \n" +
@@ -237,14 +231,6 @@ public class Session extends FragmentActivity implements DisplayQcm.SwipeListene
             cancelsession.setCanceledOnTouchOutside(false);
             cancelsession.setContentView(view);
             cancelsession.show();
-
-
-
-
-
-
-
-
         }
         else
             super.onBackPressed();

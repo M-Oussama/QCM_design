@@ -106,7 +106,7 @@ public class UserSpace extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
         HashMap<String, String> result = (HashMap<String, String>) sharedPreferences.getAll();
 
-        if(result.size() == 4){
+        if(result.size() >= 4){
             mFirstname.setText(result.get("firstname"));
             mLastname.setText(result.get("surname"));
             mSpecialty.setText(result.get("specialty"));

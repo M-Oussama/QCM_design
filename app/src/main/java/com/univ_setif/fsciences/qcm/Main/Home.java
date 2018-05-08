@@ -75,13 +75,13 @@ public class Home extends Fragment {
         private void loadUserCard() {
             SharedPreferences sharedPreferences = v.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
             HashMap<String, String> result = (HashMap<String, String>) sharedPreferences.getAll();
-            if (result.size() == 4) {
+            if (result.size() >= 4) {
                 TextView userName = v.findViewById(R.id.user_info_fullname);
                 TextView specialty = v.findViewById(R.id.specialty);
                 ImageView userImage = v.findViewById(R.id.user_image_pic);
 
                 userName.setText(result.get("surname") + " " + result.get("firstname"));
-                TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(userName, 18, 30, 1, TypedValue.COMPLEX_UNIT_DIP);
+                TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(userName, 19, 30, 1, TypedValue.COMPLEX_UNIT_DIP);
                 specialty.setText(result.get("specialty"));
                 userImage.setImageBitmap(loadImage());
             }
